@@ -24,5 +24,7 @@ jobs:
       - name: Lint changed logic/UI files
         run: npx eslint src/core/new-game.js src/core/celestials/pelle/game-end.js src/components/tabs/celestial-pelle/NewGame.vue
       - name: Verify Beyond save state exists
-        run: grep -q "beyond:" src/core/player.js && grep -q "unlocked: false" src/core/player.js
+        run: |
+          grep -q "beyond:" src/core/player.js
+          grep -q "unlocked: false" src/core/player.js
       - run: npm run build:master
