@@ -36,9 +36,14 @@ export default {
   computed: {
     sacrificeTooltip() {
       if (this.isFullyAutomated) {
-        return "Sacrifice autobuyer is enabled and Achievement 118 is unlocked, so Sacrifice is now fully automated";
+        return Localization.text(
+          "Sacrifice autobuyer is enabled and Achievement 118 is unlocked, so Sacrifice is now fully automated",
+          "生贄の自動購入が有効で実績118を達成済みのため、生贄は完全自動化されています"
+        );
       }
-      return `Boosts 8th Antimatter Dimension by ${formatX(this.sacrificeBoost, 2, 2)}`;
+      return Localization.isJapanese
+        ? `第8反物質次元を ${formatX(this.sacrificeBoost, 2, 2)} 強化`
+        : `Boosts 8th Antimatter Dimension by ${formatX(this.sacrificeBoost, 2, 2)}`;
     },
   },
   methods: {
@@ -69,8 +74,10 @@ export default {
       }
     },
     getUntil10Display() {
-      if (this.isContinuumActive) return "Continuum";
-      return this.buyUntil10 ? "Until 10" : "Buy 1";
+      if (this.isContinuumActive) return Localization.text("Continuum", "連続購入");
+      return this.buyUntil10
+        ? Localization.text("Until 10", "10個まで")
+        : Localization.text("Buy 1", "1個購入");
     },
     update() {
       this.hasDimensionBoosts = player.dimensionBoosts > 0;
@@ -84,7 +91,9 @@ export default {
 
       this.buy10Mult.copyFrom(AntimatterDimensions.buyTenMultiplier);
 
-      this.multiplierText = `Buy 10 Dimension purchase multiplier: ${formatX(this.buy10Mult, 2, 2)}`;
+      this.multiplierText = Localization.isJapanese
+        ? `次元を10個購入した時の倍率: ${formatX(this.buy10Mult, 2, 2)}`
+        : `Buy 10 Dimension purchase multiplier: ${formatX(this.buy10Mult, 2, 2)}`;
       if (!isSacrificeUnlocked) return;
       this.isFullyAutomated = Autobuyer.sacrifice.isActive && Achievement(118).isUnlocked;
       this.isSacrificeAffordable = Sacrifice.canSacrifice && !this.isFullyAutomated;
@@ -92,7 +101,9 @@ export default {
       this.sacrificeBoost.copyFrom(Sacrifice.nextBoost);
       this.disabledCondition = Sacrifice.disabledCondition;
       const sacText = this.isSacrificeUnlocked
-        ? ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`
+        ? (Localization.isJapanese
+          ? ` | 次元の生贄倍率: ${formatX(this.currentSacrifice, 2, 2)}`
+          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`)
         : "";
       this.multiplierText += sacText;
     }
@@ -116,17 +127,19 @@ export default {
         class="o-primary-btn--sacrifice"
         @click="sacrifice"
       >
-        <span v-if="isSacrificeAffordable">Dimensional Sacrifice ({{ formatX(sacrificeBoost, 2, 2) }})</span>
-        <span v-else-if="isFullyAutomated && disabledCondition !== ''">
-          Dimensional Sacrifice is Automated (Achievement 118)
+        <span v-if="isSacrificeAffordable">
+          {{ Localization.text("Dimensional Sacrifice", "次元の生贄") }} ({{ formatX(sacrificeBoost, 2, 2) }})
         </span>
-        <span v-else>Dimensional Sacrifice Disabled ({{ disabledCondition }})</span>
+        <span v-else-if="isFullyAutomated && disabledCondition !== ''">
+          {{ Localization.text("Dimensional Sacrifice is Automated (Achievement 118)", "次元の生贄は自動化済み（実績118）") }}
+        </span>
+        <span v-else>{{ Localization.text("Dimensional Sacrifice Disabled", "次元の生贄は無効") }} ({{ disabledCondition }})</span>
       </PrimaryButton>
       <button
         class="o-primary-btn l-button-container"
         @click="maxAll"
       >
-        Max All (M)
+        {{ Localization.text("Max All (M)", "全て最大購入 (M)") }}
       </button>
     </div>
     <span>{{ multiplierText }}</span>
@@ -145,9 +158,11 @@ export default {
         class="o-primary-btn--quick-reset"
         onclick="softReset(-1, true, true)"
       >
-        Perform a Dimension Boost reset
-        <span v-if="hasDimensionBoosts"> but lose a Dimension Boost</span>
-        <span v-else> for no gain</span>
+        {{ Localization.text("Perform a Dimension Boost reset", "次元ブーストのリセットを実行") }}
+        <span v-if="hasDimensionBoosts">
+          {{ Localization.text(" but lose a Dimension Boost", "（次元ブーストを1つ失う）") }}
+        </span>
+        <span v-else>{{ Localization.text(" for no gain", "（獲得なし）") }}</span>
       </PrimaryButton>
       <AntimatterGalaxyRow />
     </div>
