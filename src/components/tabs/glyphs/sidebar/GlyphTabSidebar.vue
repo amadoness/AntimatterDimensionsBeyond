@@ -65,28 +65,28 @@ export default {
         :class="sidebarClass(sidebarEnum.INVENTORY_MANAGEMENT)"
         @click="setSidebarState(sidebarEnum.INVENTORY_MANAGEMENT)"
       >
-        Manage Inventory
+        {{ Localization.text("Manage Inventory", "インベントリ管理") }}
       </button>
       <button
         v-if="unlockedFilter"
         :class="sidebarClass(sidebarEnum.FILTER_SETTINGS)"
         @click="setSidebarState(sidebarEnum.FILTER_SETTINGS)"
       >
-        Glyph Filter
+        {{ Localization.text("Glyph Filter", "Glyphフィルター") }}
       </button>
       <button
         v-if="unlockedSets"
         :class="sidebarClass(sidebarEnum.SAVED_SETS)"
         @click="setSidebarState(sidebarEnum.SAVED_SETS)"
       >
-        Glyph Presets
+        {{ Localization.text("Glyph Presets", "Glyphプリセット") }}
       </button>
       <button
         v-if="unlockedAlchemy"
         :class="sidebarClass(sidebarEnum.SACRIFICE_TYPE)"
         @click="setSidebarState(sidebarEnum.SACRIFICE_TYPE)"
       >
-        Sacrifice Type
+        {{ Localization.text("Sacrifice Type", "Sacrifice方式") }}
       </button>
     </div>
     <GlyphInventoryManagementPanel
