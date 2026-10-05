@@ -45,6 +45,48 @@ export const NG = {
     setTimeout(() => GameStorage.save(), 10000);
   },
 
+  continueBeyond() {
+    // This replaces the post-credits full reset. The completed Pelle state and all current resources are preserved.
+    if (player.beyond?.unlocked) return;
+
+    const speedrun = player.speedrun;
+    if (speedrun.isActive) {
+      player.speedrun.previousRuns[player.records.fullGameCompletions + 1] = {
+        isSegmented: speedrun.isSegmented,
+        usedSTD: speedrun.usedSTD,
+        startDate: speedrun.startDate,
+        name: speedrun.name,
+        offlineTimeUsed: speedrun.offlineTimeUsed,
+        records: [...speedrun.records],
+        achievementTimes: JSON.parse(JSON.stringify(speedrun.achievementTimes)),
+        seedSelection: speedrun.seedSelection,
+        initialSeed: speedrun.initialSeed,
+      };
+
+      const prevRunIndices = Object.keys(speedrun.previousRuns).map(k => Number(k));
+      if (prevRunIndices.length > 100) player.speedrun.previousRuns[prevRunIndices.min()] = undefined;
+      speedrun.isActive = false;
+      speedrun.hasStarted = false;
+    }
+
+    player.records.fullGameCompletions++;
+    GlyphAppearanceHandler.unlockSet();
+
+    player.beyond.unlocked = true;
+    player.beyond.unlockedAt = Date.now();
+
+    // Clear only the ending presentation state. Pelle itself intentionally remains Doomed/completed.
+    GameEnd.additionalEnd = 0;
+    GameEnd.removeAdditionalEnd = false;
+    GameEnd.creditsClosed = false;
+    GameEnd.creditsEverClosed = false;
+    player.isGameEnd = false;
+
+    Modal.hideAll();
+    GameStorage.save(false, true);
+    GameUI.notify.success("Beyond unlocked. Your completed game state has been preserved.");
+  },
+
   // Reset the game, but carry over some post-completion stats. We also call this when starting a speedrun, so make sure
   // any stats which are updated due to completion happen in startNewGame() instead of in here
   restartWithCarryover() {
