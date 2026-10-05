@@ -3,6 +3,10 @@ import {
   jaAchievementNames,
   jaAchievementRewards,
   jaBreakInfinityUpgradeDescriptions,
+  jaEternityChallengeDescriptions,
+  jaEternityChallengeRewards,
+  jaEternityMilestoneRewards,
+  jaEternityUpgradeDescriptions,
   jaInfinityChallengeDescriptions,
   jaInfinityChallengeRewards,
   jaInfinityUpgradeDescriptions,
@@ -125,6 +129,26 @@ export const Localization = {
     const entry = jaInfinityUpgradeDescriptions[id];
     if (entry === undefined) return jaBreakInfinityUpgradeDescriptions[id] ?? fallback;
     return charged ? (entry.charged ?? entry.normal ?? fallback) : (entry.normal ?? fallback);
+  },
+
+  eternityUpgradeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaEternityUpgradeDescriptions[id] ?? fallback;
+  },
+
+  eternityMilestoneReward(eternities, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaEternityMilestoneRewards[eternities] ?? fallback;
+  },
+
+  eternityChallengeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaEternityChallengeDescriptions[id] ?? fallback;
+  },
+
+  eternityChallengeReward(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaEternityChallengeRewards[id] ?? fallback;
   },
 
   setLanguage(language) {
