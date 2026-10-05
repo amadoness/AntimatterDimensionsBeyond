@@ -27,19 +27,31 @@ export default {
       };
     },
     multiplierDisplay() {
-      if (InfinityChallenge(3).isRunning) return `Multiply all Antimatter Dimensions by
-        ${formatX(1.05 + this.galaxyCount * 0.005, 3, 3)}`;
+      if (InfinityChallenge(3).isRunning) {
+        return Localization.isJapanese
+          ? `全反物質次元を ${formatX(1.05 + this.galaxyCount * 0.005, 3, 3)} 倍`
+          : `Multiply all Antimatter Dimensions by ${formatX(1.05 + this.galaxyCount * 0.005, 3, 3)}`;
+      }
       const tickmult = this.mult;
-      return `${formatX(tickmult.reciprocal(), 2, 3)} faster / upgrade.`;
+      return Localization.isJapanese
+        ? `アップグレードごとに ${formatX(tickmult.reciprocal(), 2, 3)} 高速化`
+        : `${formatX(tickmult.reciprocal(), 2, 3)} faster / upgrade.`;
     },
     tickspeedDisplay() {
-      return `Tickspeed: ${format(this.tickspeed, 2, 3)} / sec`;
+      return Localization.isJapanese
+        ? `ティックスピード: ${format(this.tickspeed, 2, 3)} /秒`
+        : `Tickspeed: ${format(this.tickspeed, 2, 3)} / sec`;
     },
     continuumString() {
       return formatFloat(this.continuumValue, 2);
     },
     upgradeCount() {
       const purchased = this.purchasedTickspeed;
+      if (Localization.isJapanese) {
+        if (!this.freeTickspeed) return `購入済みアップグレード: ${formatInt(purchased)}`;
+        if (purchased === 0 || this.isContinuumActive) return `無料アップグレード: ${formatInt(this.freeTickspeed)}`;
+        return `購入済み ${formatInt(purchased)} + 無料 ${formatInt(this.freeTickspeed)}`;
+      }
       if (!this.freeTickspeed) return quantifyInt("Purchased Upgrade", purchased);
       if (purchased === 0 || this.isContinuumActive) return `${formatInt(this.freeTickspeed)} Free Upgrades`;
       return `${formatInt(purchased)} Purchased + ${formatInt(this.freeTickspeed)} Free`;
@@ -85,13 +97,13 @@ export default {
         onclick="buyTickSpeed()"
       >
         <span v-if="isContinuumActive">
-          Tickspeed Continuum: {{ continuumString }}
+          {{ Localization.text("Tickspeed Continuum:", "ティックスピード連続購入:") }} {{ continuumString }}
         </span>
         <span v-else-if="isEC9">
-          Tickspeed Unpurchasable (EC 9)
+          {{ Localization.text("Tickspeed Unpurchasable (EC 9)", "ティックスピード購入不可（EC9）") }}
         </span>
         <span v-else>
-          Tickspeed Cost: {{ format(cost) }}
+          {{ Localization.text("Tickspeed Cost:", "ティックスピードのコスト:") }} {{ format(cost) }}
         </span>
         <div
           v-if="hasTutorial"
@@ -104,7 +116,7 @@ export default {
         :class="{ 'o-primary-btn--disabled': !isAffordable && !isContinuumActive }"
         onclick="buyMaxTickSpeed()"
       >
-        Buy Max
+        {{ Localization.text("Buy Max", "最大購入") }}
       </button>
     </div>
     <div
