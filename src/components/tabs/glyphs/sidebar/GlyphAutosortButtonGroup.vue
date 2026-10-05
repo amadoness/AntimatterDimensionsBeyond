@@ -21,8 +21,10 @@ export default {
   computed: {
     sortModes() {
       // These are the keys for AUTO_SORT_MODE, with SCORE only added conditionally if unlocked
-      const availableSortModes = ["NONE", "LEVEL", "POWER", "EFFECT"];
-      if (this.showScoreFilter) availableSortModes.push("SCORE");
+      const availableSortModes = Localization.isJapanese
+        ? ["なし", "LEVEL", "POWER", "効果"]
+        : ["NONE", "LEVEL", "POWER", "EFFECT"];
+      if (this.showScoreFilter) availableSortModes.push(Localization.isJapanese ? "SCORE" : "SCORE");
       return availableSortModes;
     },
     questionMarkTooltip() {
