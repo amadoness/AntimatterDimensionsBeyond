@@ -110,29 +110,29 @@ export default {
           class="o-primary-btn--option"
           onclick="Modal.confirmationOptions.show()"
         >
-          Open Confirmation Options
+          {{ Localization.text("Open Confirmation Options", "確認設定を開く") }}
         </OptionsButton>
         <PrimaryToggleButton
           v-model="hotkeys"
           class="o-primary-btn--option l-options-grid__button"
-          label="Hotkeys:"
-          on="Enabled"
-          off="Disabled"
+          :label="Localization.text('Hotkeys:', 'ホットキー:')"
+          :on="Localization.text('Enabled', '有効')"
+          :off="Localization.text('Disabled', '無効')"
         />
         <PrimaryToggleButton
           v-model="automaticTabSwitching"
           class="o-primary-btn--option l-options-grid__button l-toggle-button"
-          label="Switch tabs on some events (e.g. entering challenges):"
+          :label="Localization.text('Switch tabs on some events (e.g. entering challenges):', 'イベント時に自動でタブを切り替える:')"
         />
       </div>
       <div class="l-options-grid__row">
         <PrimaryToggleButton
           v-model="offlineProgress"
           class="o-primary-btn--option l-options-grid__button"
-          label="Offline progress:"
+          :label="Localization.text('Offline progress:', 'オフライン進行:')"
         />
         <div class="o-primary-btn o-primary-btn--option o-primary-btn--slider l-options-grid__button">
-          <b>Offline ticks: {{ formatInt(offlineTicks) }}</b>
+          <b>{{ Localization.text("Offline ticks:", "オフライン計算回数:") }} {{ formatInt(offlineTicks) }}</b>
           <SliderComponent
             class="o-primary-btn--slider__slider"
             v-bind="sliderPropsOfflineTicks"
@@ -143,7 +143,7 @@ export default {
         <PrimaryToggleButton
           v-model="hibernationCatchup"
           class="o-primary-btn--option l-options-grid__button"
-          label="Run suspended time as offline:"
+          :label="Localization.text('Run suspended time as offline:', '休止時間をオフライン進行として処理:')"
         />
       </div>
       <div class="l-options-grid__row">
@@ -151,7 +151,7 @@ export default {
           v-if="automatorUnlocked"
           class="o-primary-btn o-primary-btn--option o-primary-btn--slider l-options-grid__button"
         >
-          <b>Automator Log Max: {{ formatInt(parseInt(automatorLogSize)) }}</b>
+          <b>{{ Localization.text("Automator Log Max:", "オートメーターのログ上限:") }} {{ formatInt(parseInt(automatorLogSize)) }}</b>
           <SliderComponent
             class="o-primary-btn--slider__slider"
             v-bind="sliderPropsAutomatorLogSize"
