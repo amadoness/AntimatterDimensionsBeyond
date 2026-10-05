@@ -47,5 +47,7 @@ jobs:
             runtime-eternity-upgrades.png
             runtime-eternity-milestones.png
             runtime-eternity-challenges.png
+            runtime-time-studies.png
+            runtime-time-dilation.png
             runtime-s12.png
           if-no-files-found: ignore
