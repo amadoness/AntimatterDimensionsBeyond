@@ -110,6 +110,33 @@ const { chromium } = require("playwright");
   await page.screenshot({ path: "runtime-eternity-challenges.png", fullPage: true });
 
   await page.evaluate(() => {
+    player.eternities = new Decimal(1);
+    Tab.eternity.studies.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-time-studies-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("ティックスピードが弱い効果で第1 Time Dimensionにも作用する"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-time-studies.png", fullPage: true });
+
+  await page.evaluate(() => {
+    player.realities = 1;
+    Tab.eternity.dilation.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-dilation-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Tachyon Particle:") &&
+      document.body.innerText.includes("Dilated Time:"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-time-dilation.png", fullPage: true });
+
+  await page.evaluate(() => {
     Tab.dimensions.antimatter.show(true);
     GameUI.update();
   });
