@@ -38,6 +38,14 @@ export default {
     },
     buttonText() {
       if (this.lockText !== null) return this.lockText;
+      if (Localization.isJapanese) {
+        const reset = [];
+        if (!Achievement(111).isUnlocked) reset.push("次元");
+        if (!Achievement(143).isUnlocked) reset.push("次元ブースト");
+        return reset.length === 0
+          ? "ティックスピードアップグレードの効果を強化"
+          : `${reset.join("と")}をリセットしてティックスピードアップグレードの効果を強化`;
+      }
       const reset = [];
       if (!Achievement(111).isUnlocked) reset.push("Dimensions");
       if (!Achievement(143).isUnlocked) reset.push("Dimension Boosts");
@@ -57,9 +65,9 @@ export default {
     },
     typeName() {
       switch (this.type) {
-        case GALAXY_TYPE.NORMAL: return "Antimatter Galaxies";
-        case GALAXY_TYPE.DISTANT: return "Distant Antimatter Galaxies";
-        case GALAXY_TYPE.REMOTE: return "Remote Antimatter Galaxies";
+        case GALAXY_TYPE.NORMAL: return Localization.text("Antimatter Galaxies", "反物質銀河");
+        case GALAXY_TYPE.DISTANT: return Localization.text("Distant Antimatter Galaxies", "遠方反物質銀河");
+        case GALAXY_TYPE.REMOTE: return Localization.text("Remote Antimatter Galaxies", "超遠方反物質銀河");
       }
       return undefined;
     },
@@ -69,7 +77,9 @@ export default {
     costScalingText() {
       switch (this.type) {
         case GALAXY_TYPE.DISTANT:
-          return `Each Galaxy is more expensive past ${quantifyInt("Galaxy", this.distantStart)}`;
+          return Localization.isJapanese
+            ? `${formatInt(this.distantStart)}銀河以降、銀河ごとのコスト増加が大きくなります`
+            : `Each Galaxy is more expensive past ${quantifyInt("Galaxy", this.distantStart)}`;
         case GALAXY_TYPE.REMOTE: {
           const scalings = [
             { type: "distant", function: "quadratic", amount: this.distantStart },
@@ -124,7 +134,8 @@ export default {
       class="l-dim-row__prestige-text c-dim-row__label c-dim-row__label--amount l-text-wrapper"
     >
       {{ typeName }} ({{ sumText }}):
-      requires {{ formatInt(requirement.amount) }} {{ dimName }} Dimensions
+      {{ Localization.text("requires", "必要") }} {{ formatInt(requirement.amount) }} {{ dimName }}
+      {{ Localization.text("Dimensions", "次元") }}
       <div class="l-scaling-text-wrapper">
         {{ hasIncreasedScaling ? costScalingText : "" }}
       </div>
