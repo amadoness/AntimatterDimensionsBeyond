@@ -33,6 +33,16 @@ export default {
     },
     hasEU2() {
       return Perk.autounlockEU2.canBeApplied;
+    },
+    localizedConfig() {
+      const config = this.upgrade.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        description: Localization.eternityUpgradeDescription(config.id, sourceDescription)
+      };
     }
   },
   methods: {
@@ -50,18 +60,18 @@ export default {
     :class="classObject"
     @click="upgrade.purchase()"
   >
-    <DescriptionDisplay :config="upgrade.config" />
+    <DescriptionDisplay :config="localizedConfig" />
     <EffectDisplay
       br
-      :config="upgrade.config"
+      :config="localizedConfig"
     />
     <div v-if="!isBought && hasEU2">
-      Auto: {{ format(upgrade.config.cost / 1e10) }} Eternity Points
+      {{ Localization.text("Auto:", "自動:") }} {{ format(upgrade.config.cost / 1e10) }} Eternity Point
     </div>
     <CostDisplay
       v-else-if="!isBought"
       br
-      :config="upgrade.config"
+      :config="localizedConfig"
       name="Eternity Point"
     />
   </button>
