@@ -43,7 +43,11 @@ export default {
       if (this.config.noLabel) {
         return "";
       }
-      return `${this.reachedCap && !this.ignoreCapped ? "Capped" : this.label}: `;
+      const source = this.reachedCap && !this.ignoreCapped ? "Capped" : this.label;
+      const translated = Localization.isJapanese
+        ? ({ Capped: "上限", Currently: "現在" }[source] ?? source)
+        : source;
+      return `${translated}: `;
     },
     effectDisplay() {
       return this.formatEffect(this.reachedCap ? this.cap : this.effectValue);
