@@ -8,6 +8,7 @@ on:
       - japanese-v0.3
       - japanese-v0.4
       - japanese-v0.5
+      - japanese-v0.6
   pull_request:
     branches:
       - master
@@ -102,5 +103,20 @@ jobs:
           src/components/tabs/black-hole/BlackHoleUpgradeRow.vue
           src/components/tabs/black-hole/BlackHoleChargingSliders.vue
           src/components/tabs/black-hole/BlackHoleTab.vue
+          src/components/tabs/glyphs/GlyphsTab.vue
+          src/components/tabs/glyphs/EquippedGlyphs.vue
+          src/components/tabs/glyphs/GlyphInventory.vue
+          src/components/tabs/glyphs/CurrentGlyphEffects.vue
+          src/components/tabs/glyphs/GlyphLevelsAndWeights.vue
+          src/components/tabs/glyphs/GlyphPeek.vue
+          src/components/tabs/glyphs/RealityReminder.vue
+          src/components/tabs/glyphs/ResetRealityButton.vue
+          src/components/tabs/glyphs/RealityAmplifyButton.vue
+          src/components/tabs/glyphs/SacrificedGlyphs.vue
+          src/components/tabs/glyphs/sidebar/GlyphTabSidebar.vue
+          src/components/tabs/glyphs/sidebar/GlyphSortButtonGroup.vue
+          src/components/tabs/glyphs/sidebar/GlyphProtectedRowButtonGroup.vue
+          src/components/tabs/glyphs/sidebar/GlyphAutosortButtonGroup.vue
+          src/components/tabs/glyphs/sidebar/GlyphCleanButtonGroup.vue
       - name: Build full game
         run: npm run build:master
