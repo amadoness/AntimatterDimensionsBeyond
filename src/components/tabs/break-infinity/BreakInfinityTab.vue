@@ -59,8 +59,12 @@ export default {
 <template>
   <div class="l-break-infinity-tab">
     <div v-if="!isUnlocked">
-      Reduce the interval of Automatic Big Crunch Autobuyer to
-      {{ format(0.1, 1, 1) }} seconds to unlock Break Infinity.
+      {{ Localization.text(
+        "Reduce the interval of Automatic Big Crunch Autobuyer to",
+        "Break Infinityを解放するには、Big Crunch自動購入器の間隔を"
+      ) }}
+      {{ format(0.1, 1, 1) }}
+      {{ Localization.text("seconds to unlock Break Infinity.", "秒まで短縮してください。") }}
     </div>
     <BreakInfinityButton class="l-break-infinity-tab__break-btn" />
     <div
