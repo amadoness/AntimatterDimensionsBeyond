@@ -37,11 +37,12 @@ export default {
       this.buy10Mult.copyFrom(AntimatterDimensions.buyTenMultiplier);
       this.currentSacrifice.copyFrom(Sacrifice.totalBoost);
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
-      const sacText = this.isSacrificeUnlocked
-        ? (Localization.isJapanese
+      let sacText = "";
+      if (this.isSacrificeUnlocked) {
+        sacText = Localization.isJapanese
           ? ` | 次元の生贄倍率: ${formatX(this.currentSacrifice, 2, 2)}`
-          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`)
-        : "";
+          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`;
+      }
       this.multiplierText = Localization.isJapanese
         ? `次元を10個購入した時の倍率: ${formatX(this.buy10Mult, 2, 2)}${sacText}`
         : `Buy 10 Dimension purchase multiplier: ${formatX(this.buy10Mult, 2, 2)}${sacText}`;
