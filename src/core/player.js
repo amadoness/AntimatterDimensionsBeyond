@@ -770,6 +770,7 @@ window.player = {
   tutorialState: 0,
   tutorialActive: true,
   options: {
+    language: "ja",
     news: {
       enabled: true,
       repeatBuffer: 40,
