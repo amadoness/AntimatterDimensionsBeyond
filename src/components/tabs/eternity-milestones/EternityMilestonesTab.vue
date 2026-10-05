@@ -34,9 +34,19 @@ export default {
 
 <template>
   <div class="l-eternity-milestone-grid">
-    <div>You have {{ quantify("Eternity", eternityCount, 3) }}.</div>
     <div>
-      Offline generation milestones are only active under certain conditions, mouse-over to see these conditions.
+      <template v-if="Localization.isJapanese">
+        Eternity回数: {{ format(eternityCount, 3) }}回
+      </template>
+      <template v-else>
+        You have {{ quantify("Eternity", eternityCount, 3) }}.
+      </template>
+    </div>
+    <div>
+      {{ Localization.text(
+        "Offline generation milestones are only active under certain conditions, mouse-over to see these conditions.",
+        "オフライン生成マイルストーンには発動条件があります。マウスオーバーで条件を確認できます。"
+      ) }}
     </div>
     <div
       v-for="row in rows"
