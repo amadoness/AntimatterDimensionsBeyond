@@ -759,6 +759,11 @@ window.player = {
       showBought: false,
     }
   },
+  beyond: {
+    unlocked: false,
+    version: 1,
+    unlockedAt: 0,
+  },
   isGameEnd: false,
   tabNotifications: new Set(),
   triggeredTabNotificationBits: 0,

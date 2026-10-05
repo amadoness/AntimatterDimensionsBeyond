@@ -1,0 +1,30 @@
+name: Beyond CI
+
+on:
+  push:
+    branches:
+      - beyond-v0.1
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  verify:
+    name: Verify Beyond changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "14"
+          cache: "npm"
+      - run: npm ci
+      - name: Lint changed logic/UI files
+        run: npx eslint src/core/new-game.js src/core/celestials/pelle/game-end.js src/components/tabs/celestial-pelle/NewGame.vue
+      - name: Verify Beyond save state exists
+        run: |
+          grep -q "beyond:" src/core/player.js
+          grep -q "unlocked: false" src/core/player.js
+      - run: npm run build:master
