@@ -137,6 +137,44 @@ const { chromium } = require("playwright");
   await page.screenshot({ path: "runtime-time-dilation.png", fullPage: true });
 
   await page.evaluate(() => {
+    player.realities = 1;
+    Tab.reality.upgrades.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-reality-upgrade-grid", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Dilated Timeの獲得速度を強化する"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-reality-upgrades.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.reality.perks.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".c-perk-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("購入したPerkは恒久的") &&
+      PerkNetwork.nodes?.get(0)?.title?.includes("Reality Studyの実績条件を削除"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-perks.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.reality.hole.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-black-hole-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Black Holeは短時間、ゲーム全体の進行速度を大幅に加速します"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-black-hole.png", fullPage: true });
+
+  await page.evaluate(() => {
     Tab.dimensions.antimatter.show(true);
     GameUI.update();
   });
