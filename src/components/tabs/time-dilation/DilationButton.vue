@@ -18,7 +18,9 @@ export default {
   computed: {
     disableText() {
       // Doesn't need to be reactive or check strike status; it's always permanent once entered in Doomed
-      return Pelle.isDoomed ? "Dilation is permanent." : "Disable Dilation.";
+      return Pelle.isDoomed
+        ? Localization.text("Dilation is permanent.", "Time Dilationは永久です。")
+        : Localization.text("Disable Dilation.", "Time Dilationを解除する。");
     }
   },
   methods: {
@@ -54,27 +56,44 @@ export default {
     :class="isUnlocked ? 'o-dilation-btn--unlocked' : 'o-dilation-btn--locked'"
     @click="dilate()"
   >
-    <span v-if="!isUnlocked">Purchase the Dilation Study to unlock.</span>
+    <span v-if="!isUnlocked">
+      {{ Localization.text("Purchase the Dilation Study to unlock.", "Dilation Studyを購入すると解放されます。") }}
+    </span>
     <span v-else-if="!isRunning">
-      Dilate time.
+      {{ Localization.text("Dilate time.", "時間をDilateする。") }}
       <div v-if="showRequirement">
-        Requires {{ format(remnantRequirement, 2) }} Remnants
+        {{ Localization.text("Requires", "必要:") }} {{ format(remnantRequirement, 2) }} Remnant
       </div>
     </span>
     <span v-else-if="canEternity && hasGain">
       {{ disableText }}
       <br>
-      Gain {{ quantify("Tachyon Particle", tachyonGain, 2, 1) }}.
+      <template v-if="Localization.isJapanese">
+        Tachyon Particleを {{ format(tachyonGain, 2, 1) }} 獲得。
+      </template>
+      <template v-else>
+        Gain {{ quantify("Tachyon Particle", tachyonGain, 2, 1) }}.
+      </template>
     </span>
     <span v-else-if="hasGain">
       {{ disableText }}
       <br>
-      Reach {{ quantify("Infinity Point", eternityGoal, 1, 0) }} to Eternity and gain Tachyon Particles.
+      <template v-if="Localization.isJapanese">
+        {{ format(eternityGoal, 1, 0) }} Infinity Pointに到達してEternityするとTachyon Particleを獲得。
+      </template>
+      <template v-else>
+        Reach {{ quantify("Infinity Point", eternityGoal, 1, 0) }} to Eternity and gain Tachyon Particles.
+      </template>
     </span>
     <span v-else>
       {{ disableText }}
       <br>
-      Reach {{ format(requiredForGain, 2, 1) }} antimatter to gain more Tachyon Particles.
+      <template v-if="Localization.isJapanese">
+        {{ format(requiredForGain, 2, 1) }} 反物質に到達すると、より多くのTachyon Particleを獲得。
+      </template>
+      <template v-else>
+        Reach {{ format(requiredForGain, 2, 1) }} antimatter to gain more Tachyon Particles.
+      </template>
     </span>
   </button>
 </template>
