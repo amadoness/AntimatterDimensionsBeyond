@@ -57,11 +57,13 @@ export default {
         "未解放では条件と効果、解放済みでは効果・現在の倍率・コストを表示します。Shiftを押すと表示を切り替えます。"
       ) }}
       <br>
-      {{ Localization.text("You can shift-click upgrades with", "",) }}<i class="fas fa-lock-open" />
-      {{ Localization.text(
-        "to make the game prevent you from doing anything this Reality which would cause you to fail their unlock condition.",
-        "付きアップグレードをShift+クリックすると、このReality中に解放条件を失敗する行動を防止できます。"
-      ) }}
+      <template v-if="Localization.isJapanese">
+        <i class="fas fa-lock-open" />付きアップグレードをShift+クリックすると、このReality中に解放条件を失敗する行動を防止できます。
+      </template>
+      <template v-else>
+        You can shift-click upgrades with <i class="fas fa-lock-open" /> to make the game prevent you
+        from doing anything this Reality which would cause you to fail their unlock condition.
+      </template>
       <span :ach-tooltip="lockTooltip">
         <i class="fas fa-question-circle" />
       </span>
