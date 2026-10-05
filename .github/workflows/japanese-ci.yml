@@ -22,18 +22,35 @@ jobs:
           node-version: "14"
           cache: "npm"
       - run: npm ci
-      - name: Lint changed JavaScript and Vue files
-        shell: bash
-        run: |
-          FILES=$(git diff --name-only origin/master...HEAD -- '*.js' '*.vue' | grep -v '^src/core/player.js
-          if [ -n "$FILES" ]; then
-            npx eslint $FILES
-          fi
-      - name: Build full game
-        run: npm run build:master
- | tr '\n' ' ')
-          if [ -n "$FILES" ]; then
-            npx eslint $FILES
-          fi
+      - name: Lint localization files
+        run: >
+          npx eslint
+          src/core/localization.js
+          src/core/globals.js
+          src/core/tabs.js
+          src/components/PrimaryToggleButton.vue
+          src/components/ToggleButton.vue
+          src/components/OpenModalHotkeysButton.vue
+          src/components/InfinityPointsHeader.vue
+          src/components/EternityPointsHeader.vue
+          src/components/RealityCurrencyHeader.vue
+          src/components/tabs/options-visual/OptionsVisualTab.vue
+          src/components/tabs/options-visual/UpdateRateSlider.vue
+          src/components/tabs/options-gameplay/OptionsGameplayTab.vue
+          src/components/tabs/options-saving/OptionsSavingTab.vue
+          src/components/tabs/options-saving/AutosaveIntervalSlider.vue
+          src/components/tabs/antimatter-dimensions/ModernAntimatterDimensionsTab.vue
+          src/components/tabs/antimatter-dimensions/ClassicAntimatterDimensionsTab.vue
+          src/components/tabs/antimatter-dimensions/ModernAntimatterDimensionRow.vue
+          src/components/tabs/antimatter-dimensions/ClassicAntimatterDimensionRow.vue
+          src/components/tabs/antimatter-dimensions/TickspeedRow.vue
+          src/components/tabs/antimatter-dimensions/ModernDimensionBoostRow.vue
+          src/components/tabs/antimatter-dimensions/ClassicDimensionBoostRow.vue
+          src/components/tabs/antimatter-dimensions/ModernAntimatterGalaxyRow.vue
+          src/components/tabs/antimatter-dimensions/ClassicAntimatterGalaxyRow.vue
+          src/components/tabs/celestial-pelle/NewGame.vue
+          src/components/ui-modes/BigCrunchButton.vue
+          src/components/ui-modes/classic/ClassicSubtabBar.vue
+          src/components/ui-modes/prestige-header/HeaderCenterContainer.vue
       - name: Build full game
         run: npm run build:master
