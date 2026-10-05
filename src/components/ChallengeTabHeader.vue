@@ -61,33 +61,33 @@ export default {
       <PrimaryToggleButton
         v-model="retryChallenge"
         class="o-primary-btn--subtab-option"
-        label="Automatically retry challenges:"
+        :label="Localization.text('Automatically retry challenges:', 'チャレンジを自動再挑戦:')"
       />
       <PrimaryToggleButton
         v-if="isShowAllVisible"
         v-model="showAllChallenges"
         class="o-primary-btn--subtab-option"
-        label="Show all known challenges:"
+        :label="Localization.text('Show all known challenges:', '既知のチャレンジをすべて表示:')"
       />
       <PrimaryToggleButton
         v-if="isAutoECVisible"
         v-model="autoEC"
         class="o-primary-btn--subtab-option"
-        label="Auto Eternity Challenges:"
+        :label="Localization.text('Auto Eternity Challenges:', 'Eternity Challenge自動化:')"
       />
       <PrimaryButton
         v-if="isInChallenge"
         class="o-primary-btn--subtab-option"
         @click="restartChallenge"
       >
-        Restart Challenge
+        {{ Localization.text("Restart Challenge", "チャレンジをやり直す") }}
       </PrimaryButton>
       <PrimaryButton
         v-if="isInChallenge"
         class="o-primary-btn--subtab-option"
         @click="exitChallenge"
       >
-        Exit Challenge
+        {{ Localization.text("Exit Challenge", "チャレンジを終了") }}
       </PrimaryButton>
     </div>
   </div>
