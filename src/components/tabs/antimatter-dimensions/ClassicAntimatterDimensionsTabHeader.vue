@@ -17,7 +17,9 @@ export default {
   },
   computed: {
     sacrificeTooltip() {
-      return `Boosts 8th Antimatter Dimension by ${formatX(this.sacrificeBoost, 2, 2)}`;
+      return Localization.isJapanese
+        ? `第8反物質次元を ${formatX(this.sacrificeBoost, 2, 2)} 強化`
+        : `Boosts 8th Antimatter Dimension by ${formatX(this.sacrificeBoost, 2, 2)}`;
     },
   },
   methods: {
@@ -50,17 +52,17 @@ export default {
       @click="sacrifice"
     >
       <span v-if="isSacrificeAffordable">
-        Dimensional Sacrifice ({{ formatX(sacrificeBoost, 2, 2) }})
+        {{ Localization.text("Dimensional Sacrifice", "次元の生贄") }} ({{ formatX(sacrificeBoost, 2, 2) }})
       </span>
       <span v-else>
-        Dimensional Sacrifice Disabled ({{ disabledCondition }})
+        {{ Localization.text("Dimensional Sacrifice Disabled", "次元の生贄は無効") }} ({{ disabledCondition }})
       </span>
     </PrimaryButton>
     <PrimaryButton
       class="o-primary-btn--buy-max"
       @click="maxAll"
     >
-      Max all (M)
+      {{ Localization.text("Max all (M)", "全て最大購入 (M)") }}
     </PrimaryButton>
   </div>
 </template>
