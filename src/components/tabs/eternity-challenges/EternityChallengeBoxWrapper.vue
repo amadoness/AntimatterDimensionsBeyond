@@ -77,14 +77,14 @@ export default {
     },
     buttonText() {
       if (this.overrideLabel.length) return this.overrideLabel;
-      if (this.isRunning) return "Running";
+      if (this.isRunning) return Localization.text("Running", "挑戦中");
       if (this.isCompleted) {
-        if (this.isUnlocked) return "Redo";
-        return "Completed";
+        if (this.isUnlocked) return Localization.text("Redo", "再挑戦");
+        return Localization.text("Completed", "クリア済み");
       }
-      if (this.isUnlocked) return "Start";
-      if (this.canBeUnlocked) return "Unlock";
-      return "Locked";
+      if (this.isUnlocked) return Localization.text("Start", "開始");
+      if (this.canBeUnlocked) return Localization.text("Unlock", "解放");
+      return Localization.text("Locked", "未解放");
     }
   }
 };

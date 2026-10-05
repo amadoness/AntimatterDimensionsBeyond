@@ -25,7 +25,8 @@ export default {
     },
     reward() {
       const reward = this.config.reward;
-      return typeof reward === "function" ? reward() : reward;
+      const source = typeof reward === "function" ? reward() : reward;
+      return Localization.eternityMilestoneReward(this.eternities, source);
     },
     rewardClassObject() {
       return {
@@ -36,7 +37,8 @@ export default {
       };
     },
     activeCondition() {
-      return this.config.activeCondition ? this.config.activeCondition() : null;
+      const source = this.config.activeCondition ? this.config.activeCondition() : null;
+      return Localization.eternityMilestoneActiveCondition(this.eternities, source);
     },
     isDoomed: () => Pelle.isDoomed,
     isUseless() {
@@ -58,14 +60,22 @@ export default {
     class="l-eternity-milestone"
   >
     <span class="o-eternity-milestone__goal">
-      {{ quantifyInt("Eternity", eternities) }}:
+      <template v-if="Localization.isJapanese">
+        Eternity {{ formatInt(eternities) }}回:
+      </template>
+      <template v-else>
+        {{ quantifyInt("Eternity", eternities) }}:
+      </template>
     </span>
     <button
       v-tooltip="activeCondition"
       :class="rewardClassObject"
     >
       <span :class="{ 'o-pelle-disabled': isUseless }">
-        {{ reward }} {{ (isLocked && !isReached) ? "(Locked behind a Pelle Upgrade)" : "" }}
+        {{ reward }}
+        {{ (isLocked && !isReached)
+          ? Localization.text("(Locked behind a Pelle Upgrade)", "（Pelle Upgradeで解放）")
+          : "" }}
       </span>
     </button>
   </div>

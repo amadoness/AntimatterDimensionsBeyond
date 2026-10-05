@@ -47,10 +47,19 @@ export default {
     </div>
     <EPMultiplierButton />
     <div>
-      The cost for the {{ formatX(5) }} multiplier jumps at {{ format(costIncreases[0]) }},
-      {{ formatPostBreak(costIncreases[1], 2) }}, and {{ formatPostBreak(costIncreases[2]) }} Eternity Points.
-      <br>
-      The cost increases super-exponentially after {{ formatPostBreak(costIncreases[3]) }} Eternity Points.
+      <template v-if="Localization.isJapanese">
+        {{ formatX(5) }} Eternity Point倍率アップグレードのコストは
+        {{ format(costIncreases[0]) }}、{{ formatPostBreak(costIncreases[1], 2) }}、
+        {{ formatPostBreak(costIncreases[2]) }} EPで大きく上昇します。
+        <br>
+        {{ formatPostBreak(costIncreases[3]) }} EP以降はコストが超指数的に増加します。
+      </template>
+      <template v-else>
+        The cost for the {{ formatX(5) }} multiplier jumps at {{ format(costIncreases[0]) }},
+        {{ formatPostBreak(costIncreases[1], 2) }}, and {{ formatPostBreak(costIncreases[2]) }} Eternity Points.
+        <br>
+        The cost increases super-exponentially after {{ formatPostBreak(costIncreases[3]) }} Eternity Points.
+      </template>
     </div>
   </div>
 </template>

@@ -41,7 +41,11 @@ jobs:
           path: |
             runtime-normal.png
             runtime-achievements.png
+            runtime-achievements-mobile.png
             runtime-challenges.png
             runtime-infinity.png
+            runtime-eternity-upgrades.png
+            runtime-eternity-milestones.png
+            runtime-eternity-challenges.png
             runtime-s12.png
           if-no-files-found: ignore

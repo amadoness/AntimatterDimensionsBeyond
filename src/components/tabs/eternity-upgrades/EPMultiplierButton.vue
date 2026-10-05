@@ -70,23 +70,26 @@ export default {
       @click="purchaseUpgrade"
     >
       <div :class="{ 'o-pelle-disabled': isDoomed }">
-        Multiply Eternity Points from all sources by {{ formatX(5) }}
+        {{ Localization.text(
+          "Multiply Eternity Points from all sources by",
+          "すべての入手元から得るEternity Pointを"
+        ) }} {{ formatX(5) }}
         <br>
-        Currently: {{ formatX(multiplier, 2, 0) }}
+        {{ Localization.text("Currently:", "現在:") }} {{ formatX(multiplier, 2, 0) }}
       </div>
       <br>
-      Cost: {{ quantify("Eternity Point", cost, 2, 0) }}
+      {{ Localization.text("Cost:", "コスト:") }} {{ quantify("Eternity Point", cost, 2, 0) }}
     </button>
     <PrimaryButton
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
       @click="upgrade.buyMax(false)"
     >
-      Max Eternity Point mult
+      {{ Localization.text("Max Eternity Point mult", "Eternity Point倍率を最大購入") }}
     </PrimaryButton>
     <PrimaryToggleButton
       v-if="isAutoUnlocked"
       v-model="isAutobuyerActive"
-      label="Autobuy EP mult"
+      :label="Localization.text('Autobuy EP mult', 'EP倍率を自動購入')"
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
     />
   </div>

@@ -30,6 +30,22 @@ const { chromium } = require("playwright");
   await page.waitForFunction(() => document.body.innerText.includes("まずはここから"), null, { timeout: 30000 });
   await page.screenshot({ path: "runtime-achievements.png", fullPage: true });
 
+  await page.setViewportSize({ width: 980, height: 1200 });
+  const firstAchievementRow = page.locator(".l-achievement-grid__row:visible").first();
+  const lastAchievement = firstAchievementRow.locator(".o-achievement").last();
+  const lastAchievementBox = await lastAchievement.boundingBox();
+  if (!lastAchievementBox || lastAchievementBox.x + lastAchievementBox.width > 980.5) {
+    throw new Error(`Achievement row is clipped on a 980px mobile viewport: ${JSON.stringify(lastAchievementBox)}`);
+  }
+  await lastAchievement.hover();
+  const lastTooltip = lastAchievement.locator(".o-achievement__tooltip");
+  const lastTooltipBox = await lastTooltip.boundingBox();
+  if (!lastTooltipBox || lastTooltipBox.x + lastTooltipBox.width > 980.5) {
+    throw new Error(`Achievement tooltip is clipped on the right: ${JSON.stringify(lastTooltipBox)}`);
+  }
+  await page.screenshot({ path: "runtime-achievements-mobile.png", fullPage: true });
+  await page.setViewportSize({ width: 1280, height: 900 });
+
   await page.evaluate(() => {
     player.infinities = new Decimal(1);
     Tab.challenges.normal.show(true);
@@ -54,6 +70,44 @@ const { chromium } = require("playwright");
     { timeout: 30000 }
   );
   await page.screenshot({ path: "runtime-infinity.png", fullPage: true });
+
+  await page.evaluate(() => {
+    player.eternities = new Decimal(1);
+    player.challenge.eternity.unlocked = 1;
+    Tab.eternity.upgrades.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-eternity-upgrades-grid", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("未使用のEternity Pointに応じてInfinity Dimensionに倍率がかかる"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-eternity-upgrades.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.eternity.milestones.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-eternity-milestone-grid", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Infinity Point倍率アップグレードの自動購入器を解放する"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-eternity-milestones.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.challenges.eternity.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".c-challenge-box--eternity", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Time Dimensionが無効になる"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-eternity-challenges.png", fullPage: true });
 
   await page.evaluate(() => {
     Tab.dimensions.antimatter.show(true);
