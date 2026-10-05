@@ -8,13 +8,18 @@ import {
   jaEternityMilestoneActiveConditions,
   jaEternityMilestoneRewards,
   jaEternityUpgradeDescriptions,
+  jaECStudyPaths,
+  jaECStudyResources,
+  jaDilationTimeStudyDescriptions,
+  jaDilationUpgradeDescriptions,
   jaInfinityChallengeDescriptions,
   jaInfinityChallengeRewards,
   jaInfinityUpgradeDescriptions,
   jaNormalChallengeDescriptions,
   jaNormalChallengeRewards,
   jaSecretAchievementDescriptions,
-  jaSecretAchievementNames
+  jaSecretAchievementNames,
+  jaTimeStudyDescriptions
 } from "./localization-ja-content";
 
 const japaneseNames = {
@@ -155,6 +160,31 @@ export const Localization = {
   eternityChallengeReward(id, fallback) {
     if (!this.isJapanese) return fallback;
     return jaEternityChallengeRewards[id] ?? fallback;
+  },
+
+  timeStudyDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaTimeStudyDescriptions[id] ?? fallback;
+  },
+
+  dilationTimeStudyDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaDilationTimeStudyDescriptions[id] ?? fallback;
+  },
+
+  dilationUpgradeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaDilationUpgradeDescriptions[id] ?? fallback;
+  },
+
+  ecStudyResource(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaECStudyResources[id] ?? fallback;
+  },
+
+  ecStudyPath(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaECStudyPaths[id] ?? fallback;
   },
 
   setLanguage(language) {
