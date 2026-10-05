@@ -34,11 +34,14 @@ export default {
   },
   computed: {
     displayText() {
-      const onText = this.on === "ON" ? Localization.text("ON", "オン")
-        : this.on === "Enabled" ? Localization.text("Enabled", "有効") : this.on;
-      const offText = this.off === "OFF" ? Localization.text("OFF", "オフ")
-        : this.off === "Disabled" ? Localization.text("Disabled", "無効") : this.off;
-      return `${this.label} ${this.value ? onText : offText}`.trim();
+      let onText = this.on;
+      let offText = this.off;
+      if (this.on === "ON") onText = Localization.text("ON", "オン");
+      if (this.on === "Enabled") onText = Localization.text("Enabled", "有効");
+      if (this.off === "OFF") offText = Localization.text("OFF", "オフ");
+      if (this.off === "Disabled") offText = Localization.text("Disabled", "無効");
+      const stateText = this.value ? onText : offText;
+      return `${this.label} ${stateText}`.trim();
     }
   },
 };
