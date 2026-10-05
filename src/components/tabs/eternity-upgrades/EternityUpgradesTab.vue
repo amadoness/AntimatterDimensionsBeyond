@@ -47,10 +47,15 @@ export default {
     </div>
     <EPMultiplierButton />
     <div>
-      The cost for the {{ formatX(5) }} multiplier jumps at {{ format(costIncreases[0]) }},
-      {{ formatPostBreak(costIncreases[1], 2) }}, and {{ formatPostBreak(costIncreases[2]) }} Eternity Points.
+      {{ Localization.text("The cost for the", "Eternity Point") }} {{ formatX(5) }}
+      {{ Localization.text("multiplier jumps at", "倍率アップグレードのコストは") }}
+      {{ format(costIncreases[0]) }}、{{ formatPostBreak(costIncreases[1], 2) }}、
+      {{ formatPostBreak(costIncreases[2]) }} Eternity Point
+      {{ Localization.text(".", "で大きく上昇します。") }}
       <br>
-      The cost increases super-exponentially after {{ formatPostBreak(costIncreases[3]) }} Eternity Points.
+      {{ Localization.text("The cost increases super-exponentially after", "さらに") }}
+      {{ formatPostBreak(costIncreases[3]) }} Eternity Point
+      {{ Localization.text("Eternity Points.", "以降はコストが超指数的に増加します。") }}
     </div>
   </div>
 </template>
