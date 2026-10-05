@@ -16,11 +16,26 @@ export default {
   },
   computed: {
     layoutText() {
-      return PerkLayouts[this.treeLayout].buttonText;
+      const english = PerkLayouts[this.treeLayout].buttonText;
+      if (!Localization.isJapanese) return english;
+      const japanese = [
+        "標準配置",
+        "ランダム配置",
+        "Android配置",
+        "四角配置",
+        "横グリッド",
+        "STARTからの距離",
+        "かたまり"
+      ];
+      return japanese[this.treeLayout] ?? english;
     },
     physicsText() {
-      const enableStr = (this.physicsOverride ?? this.physicsEnabled) ? "Enabled" : "Disabled";
-      return `${enableStr}${this.physicsOverride === undefined ? "" : " (fixed)"}`;
+      const enabled = this.physicsOverride ?? this.physicsEnabled;
+      const enableStr = enabled
+        ? Localization.text("Enabled", "有効")
+        : Localization.text("Disabled", "無効");
+      const fixed = this.physicsOverride === undefined ? "" : Localization.text(" (fixed)", "（固定）");
+      return `${enableStr}${fixed}`;
     }
   },
   created() {
@@ -70,37 +85,48 @@ export default {
 
 <template>
   <div class="c-perk-tab__header">
-    You have <span class="c-perk-tab__perk-points">{{ format(pp, 2) }}</span> {{ pluralize("Perk Point", pp) }}.
+    <template v-if="Localization.isJapanese">
+      Perk Point: <span class="c-perk-tab__perk-points">{{ format(pp, 2) }}</span>
+    </template>
+    <template v-else>
+      You have <span class="c-perk-tab__perk-points">{{ format(pp, 2) }}</span> {{ pluralize("Perk Point", pp) }}.
+    </template>
     <br>
-    Perk choices are permanent and cannot be respecced.
+    {{ Localization.text(
+      "Perk choices are permanent and cannot be respecced.",
+      "購入したPerkは恒久的で、振り直すことはできません。"
+    ) }}
     <br>
-    Diamond-shaped perks also give Automator Points.
+    {{ Localization.text(
+      "Diamond-shaped perks also give Automator Points.",
+      "ひし形のPerkはAutomator Pointも獲得できます。"
+    ) }}
     <br>
     <div class="perk-settings">
       <PrimaryButton
         class="o-primary-btn c-button-perk-layout"
         @click="cycleLayout"
       >
-        Perk Layout: {{ layoutText }}
+        {{ Localization.text("Perk Layout:", "Perk配置:") }} {{ layoutText }}
       </PrimaryButton>
       <PrimaryButton
         :class="physicsClassObject()"
         @click="togglePhysics"
       >
-        Physics: {{ physicsText }}
+        {{ Localization.text("Physics:", "物理演算:") }} {{ physicsText }}
       </PrimaryButton>
       <br>
       <PrimaryButton
         class="o-primary-btn"
         @click="centerTree"
       >
-        Center Tree on START
+        {{ Localization.text("Center Tree on START", "STARTを中央にする") }}
       </PrimaryButton>
       <PrimaryButton
         class="o-primary-btn"
         @click="straightenEdges"
       >
-        Straighten Edges
+        {{ Localization.text("Straighten Edges", "接続線を整える") }}
       </PrimaryButton>
     </div>
   </div>
