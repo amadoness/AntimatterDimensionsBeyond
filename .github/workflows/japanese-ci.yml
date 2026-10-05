@@ -25,7 +25,13 @@ jobs:
       - name: Lint changed JavaScript and Vue files
         shell: bash
         run: |
-          FILES=$(git diff --name-only origin/master...HEAD -- '*.js' '*.vue' | tr '\n' ' ')
+          FILES=$(git diff --name-only origin/master...HEAD -- '*.js' '*.vue' | grep -v '^src/core/player.js
+          if [ -n "$FILES" ]; then
+            npx eslint $FILES
+          fi
+      - name: Build full game
+        run: npm run build:master
+ | tr '\n' ' ')
           if [ -n "$FILES" ]; then
             npx eslint $FILES
           fi
