@@ -641,3 +641,10 @@ export const jaEternityChallengeRewards = {
   11: "ティックスピードのコスト倍率増加をさらに弱める。",
   12: "Infinity Dimensionのコスト倍率を低下させる。"
 };
+
+
+export const jaEternityMilestoneActiveConditions = {
+  6: "Eternity 200回または1000回のオフライン生成マイルストーンが有効でない間のみ有効。",
+  200: "すべてのチャレンジとTime Dilationの外にいて、Eternity自動購入器を0 EPでEternityする設定にしている必要があります。効果は33ms相当が上限です。",
+  1000: "通常/Infinity ChallengeとEC4・EC12の外にいて、Big Crunch自動購入器をONかつ時間モード5秒以下、Eternity自動購入器をOFFにする必要があります。"
+};
