@@ -67,8 +67,8 @@ export default {
 
 <template>
   <div class="reset-container dimboost">
-    <h4>Dimension Boost ({{ boostCountText }})</h4>
-    <span>Requires: {{ formatInt(requirement.amount) }} {{ dimName }} Antimatter D</span>
+    <h4>{{ Localization.text("Dimension Boost", "次元ブースト") }} ({{ boostCountText }})</h4>
+    <span>{{ Localization.text("Requires:", "必要:") }} {{ formatInt(requirement.amount) }} {{ dimName }} {{ Localization.text("Antimatter D", "反物質次元") }}</span>
     <button
       :class="classObject"
       @click.exact="dimensionBoost(true)"
