@@ -352,7 +352,7 @@ function roundPreservingSum(data) {
         :style="rowStyle('perk shop')"
         class="l-glyph-levels-and-weights__factor"
       >
-        Teresa's Perk shop
+        {{ Localization.text("Teresa's Perk shop", "TeresaのPerk Shop") }}
       </div>
       <div
         :style="rowStyle('perk shop')"
@@ -392,7 +392,7 @@ function roundPreservingSum(data) {
         :style="rowStyle('singularities')"
         class="l-glyph-levels-and-weights__factor"
       >
-        Singularities
+        {{ Localization.text("Singularities", "Singularity") }}
       </div>
       <div
         :style="rowStyle('singularities')"
@@ -412,7 +412,7 @@ function roundPreservingSum(data) {
         :style="rowStyle('instability')"
         class="l-glyph-levels-and-weights__factor"
       >
-        Instability
+        {{ Localization.text("Instability", "不安定化") }}
       </div>
       <div
         :style="rowStyle('instability')"
@@ -432,7 +432,7 @@ function roundPreservingSum(data) {
         :style="rowStyle('upgrade rows')"
         class="l-glyph-levels-and-weights__factor"
       >
-        Upgrade Rows
+        {{ Localization.text("Upgrade Rows", "Upgrade完成行") }}
       </div>
       <div
         :style="rowStyle('upgrade rows')"
@@ -452,7 +452,7 @@ function roundPreservingSum(data) {
         :style="rowStyle('achievements')"
         class="l-glyph-levels-and-weights__factor"
       >
-        Achievements
+        {{ Localization.text("Achievements", "実績") }}
       </div>
       <div
         :style="rowStyle('achievements')"
@@ -471,7 +471,7 @@ function roundPreservingSum(data) {
       :style="rowStyle('level')"
       class="l-glyph-levels-and-weights__factor"
     >
-      Final Level
+      {{ Localization.text("Final Level", "最終Level") }}
     </div>
     <div
       :style="rowStyle('level')"
@@ -483,13 +483,19 @@ function roundPreservingSum(data) {
       :style="rowStyle('info')"
       class="l-glyph-levels-and-weights__factor l-glyph-level-and-weights-note"
     >
-      Note: All resources here are log10 of their actual values.
+      {{ Localization.text(
+        "Note: All resources here are log10 of their actual values.",
+        "注: ここに表示される資源値はすべて実値のlog10です。"
+      ) }}
     </div>
     <div
       :style="rowStyle('info2')"
       class="l-glyph-levels-and-weights__factor l-glyph-level-and-weights-note"
     >
-      EP, Replicanti, and DT use their highest values this Reality.
+      {{ Localization.text(
+        "EP, Replicanti, and DT use their highest values this Reality.",
+        "EP・Replicanti・DTは、このReality中の最高値を使用します。"
+      ) }}
     </div>
     <template v-if="adjustVisible">
       <div
@@ -497,13 +503,13 @@ function roundPreservingSum(data) {
         class="l-glyph-levels-and-weights__adjust-outline"
       />
       <div class="l-glyph-levels-and-weights__adjust-label">
-        Adjust weights
+        {{ Localization.text("Adjust weights", "重みを調整") }}
         <div class="l-glyph-levels-and-weights__reset-btn-outer">
           <div
             :class="resetWeightsButtonClass()"
             @click="resetWeights"
           >
-            Reset
+            {{ Localization.text("Reset", "リセット") }}
           </div>
         </div>
       </div>
@@ -512,7 +518,7 @@ function roundPreservingSum(data) {
           v-if="showAutoAdjustWeights"
           v-model="isAutoAdjustWeightsOn"
           class="c-glyph-levels-and-weights__auto-btn"
-          label="Auto adjustment:"
+          :label="Localization.text('Auto adjustment:', '自動調整:')"
         />
       </div>
       <div
