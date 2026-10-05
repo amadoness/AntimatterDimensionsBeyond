@@ -100,11 +100,12 @@ export default {
       this.currentSacrifice.copyFrom(Sacrifice.totalBoost);
       this.sacrificeBoost.copyFrom(Sacrifice.nextBoost);
       this.disabledCondition = Sacrifice.disabledCondition;
-      const sacText = this.isSacrificeUnlocked
-        ? (Localization.isJapanese
+      let sacText = "";
+      if (this.isSacrificeUnlocked) {
+        sacText = Localization.isJapanese
           ? ` | 次元の生贄倍率: ${formatX(this.currentSacrifice, 2, 2)}`
-          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`)
-        : "";
+          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`;
+      }
       this.multiplierText += sacText;
     }
   }
