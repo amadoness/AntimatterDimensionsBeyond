@@ -30,7 +30,7 @@ export default {
         v-if="!smallCrunch"
         class="l-spacing"
       >
-        The world has collapsed due to excess antimatter.
+        {{ Localization.text("The world has collapsed due to excess antimatter.", "反物質が増えすぎて世界が崩壊しました。") }}
       </h3>
       <button
         :class="{
@@ -39,7 +39,7 @@ export default {
         }"
         @click="handleClick"
       >
-        Big Crunch
+        {{ Localization.text("Big Crunch", "ビッグクランチ") }}
       </button>
     </div>
     <div v-else>
@@ -52,13 +52,13 @@ export default {
         }"
         @click="handleClick"
       >
-        Big Crunch
+        {{ Localization.text("Big Crunch", "ビッグクランチ") }}
       </button>
       <div
         v-if="!smallCrunch"
         class="o-emptiness"
       >
-        The world has collapsed due to excess of antimatter.
+        {{ Localization.text("The world has collapsed due to excess of antimatter.", "反物質が増えすぎて世界が崩壊しました。") }}
       </div>
     </div>
   </span>
