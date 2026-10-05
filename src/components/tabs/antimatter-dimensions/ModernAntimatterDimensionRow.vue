@@ -37,7 +37,9 @@ export default {
   computed: {
     isDoomed: () => Pelle.isDoomed,
     name() {
-      return `${AntimatterDimension(this.tier).shortDisplayName} Antimatter Dimension`;
+      return Localization.isJapanese
+        ? `第${formatInt(this.tier)}反物質次元`
+        : `${AntimatterDimension(this.tier).shortDisplayName} Antimatter Dimension`;
     },
     costDisplay() {
       return this.buyUntil10 ? format(this.until10Cost) : format(this.singleCost);
@@ -50,22 +52,24 @@ export default {
     },
     boughtTooltip() {
       if (this.isCapped) return `Nameless prevents the purchase of more than ${format(1)} 8th Antimatter Dimension`;
-      if (this.isContinuumActive) return "Continuum produces all your Antimatter Dimensions";
-      return `Purchased ${quantifyInt("time", this.bought)}`;
+      if (this.isContinuumActive) return Localization.text("Continuum produces all your Antimatter Dimensions", "連続購入がすべての反物質次元を生成します");
+      return Localization.isJapanese ? `購入数: ${formatInt(this.bought)}` : `Purchased ${quantifyInt("time", this.bought)}`;
     },
     costUnit() {
       return `${AntimatterDimension(this.tier - 2).shortDisplayName} AD`;
     },
     buttonPrefix() {
-      if (!this.isUnlocked) return "Locked";
-      if (this.isCapped) return "Shattered by Nameless";
-      if (this.isContinuumActive) return "Continuum: ";
-      return `Buy ${formatInt(this.howManyCanBuy)}`;
+      if (!this.isUnlocked) return Localization.text("Locked", "未解放");
+      if (this.isCapped) return Localization.text("Shattered by Nameless", "名もなき者たちにより破壊");
+      if (this.isContinuumActive) return Localization.text("Continuum: ", "連続購入: ");
+      return Localization.isJapanese ? `${formatInt(this.howManyCanBuy)}個購入` : `Buy ${formatInt(this.howManyCanBuy)}`;
     },
     buttonValue() {
       if (this.isCapped) return "";
       if (this.isContinuumActive) return this.continuumString;
-      const prefix = this.showCostTitle(this.buyUntil10 ? this.until10Cost : this.singleCost) ? "Cost: " : "";
+      const prefix = this.showCostTitle(this.buyUntil10 ? this.until10Cost : this.singleCost)
+        ? Localization.text("Cost: ", "コスト: ")
+        : "";
       const suffix = this.isCostsAD ? this.costUnit : "AM";
       return `${prefix}${this.costDisplay} ${suffix}`;
     },
