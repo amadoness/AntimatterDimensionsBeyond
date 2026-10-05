@@ -49,6 +49,12 @@ export default {
     },
     needsSecondLinebreak() {
       return [3, 4, 7].includes(this.study.id);
+    },
+    localizedResource() {
+      return Localization.ecStudyResource(this.id, this.config.secondary.resource);
+    },
+    localizedPath() {
+      return Localization.ecStudyPath(this.id, this.config.secondary.path);
     }
   },
   methods: {
@@ -83,21 +89,25 @@ export default {
     >
       EC{{ id }}
     </HintText>
-    Eternity Challenge {{ id }}
+    {{ Localization.text("Eternity Challenge", "Eternity Challenge") }} {{ id }}
     ({{ formatInt(completions) }}<span v-if="showTotalCompletions">/{{ formatInt(5) }}</span>)
     <template v-if="hasRequirement">
       <br>
-      Requirement:
+      {{ Localization.text("Requirement:", "条件:") }}
       <br v-if="needsFirstLinebreak">
-      <span v-if="config.secondary.path">Use only the {{ config.secondary.path }} path</span>
+      <span v-if="config.secondary.path">
+        {{ Localization.text("Use only the", "使用経路:") }}
+        {{ localizedPath }}
+        <span v-if="!Localization.isJapanese">path</span>
+      </span>
       <span v-else>
         {{ formatValue(requirement.current) }}/{{ formatValue(requirement.total) }}
         <br v-if="needsSecondLinebreak">
-        {{ config.secondary.resource }}
+        {{ localizedResource }}
       </span>
     </template>
-    <span v-if="isUnlocked && !isRunning"><br>Double click to start</span>
-    <span v-else-if="isRunning"><br>Currently Running</span>
+    <span v-if="isUnlocked && !isRunning"><br>{{ Localization.text("Double click to start", "ダブルクリックで開始") }}</span>
+    <span v-else-if="isRunning"><br>{{ Localization.text("Currently Running", "挑戦中") }}</span>
   </TimeStudyButton>
 </template>
 
