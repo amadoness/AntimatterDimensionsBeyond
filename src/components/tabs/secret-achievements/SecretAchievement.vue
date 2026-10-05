@@ -16,7 +16,9 @@ export default {
     return {
       isUnlocked: false,
       isMouseOver: false,
-      showUnlockState: false
+      showUnlockState: false,
+      nameText: "",
+      descriptionText: ""
     };
   },
   computed: {
@@ -57,6 +59,8 @@ export default {
     update() {
       this.isUnlocked = this.achievement.isUnlocked;
       this.showUnlockState = player.options.showHintText.achievementUnlockStates;
+      this.nameText = Localization.secretAchievementName(this.id, this.config.name);
+      this.descriptionText = Localization.secretAchievementDescription(this.id, this.config.description);
     },
     onMouseEnter() {
       clearTimeout(this.mouseOverInterval);
@@ -91,13 +95,13 @@ export default {
     <div class="o-achievement__tooltip">
       <template v-if="isMouseOver">
         <div class="o-achievement__tooltip__name">
-          {{ config.name }} (S{{ id }})
+          {{ nameText }} (S{{ id }})
         </div>
         <div
           v-if="isUnlocked"
           class="o-achievement__tooltip__description"
         >
-          {{ config.description }}
+          {{ descriptionText }}
         </div>
       </template>
     </div>
