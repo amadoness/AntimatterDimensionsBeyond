@@ -5,6 +5,7 @@ import {
   jaBreakInfinityUpgradeDescriptions,
   jaEternityChallengeDescriptions,
   jaEternityChallengeRewards,
+  jaEternityMilestoneActiveConditions,
   jaEternityMilestoneRewards,
   jaEternityUpgradeDescriptions,
   jaInfinityChallengeDescriptions,
@@ -139,6 +140,11 @@ export const Localization = {
   eternityMilestoneReward(eternities, fallback) {
     if (!this.isJapanese) return fallback;
     return jaEternityMilestoneRewards[eternities] ?? fallback;
+  },
+
+  eternityMilestoneActiveCondition(eternities, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaEternityMilestoneActiveConditions[eternities] ?? fallback;
   },
 
   eternityChallengeDescription(id, fallback) {
