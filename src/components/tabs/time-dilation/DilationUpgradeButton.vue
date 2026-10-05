@@ -67,6 +67,16 @@ export default {
     isUseless() {
       const tpip = this.upgrade.id === 3 || this.upgrade.id === 7;
       return Pelle.isDoomed && tpip;
+    },
+    localizedConfig() {
+      const config = this.upgrade.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        description: Localization.dilationUpgradeDescription(this.upgrade.id, sourceDescription)
+      };
     }
   },
   watch: {
@@ -121,27 +131,27 @@ export default {
       </CustomizeableTooltip>
       <span>
         <DescriptionDisplay
-          :config="upgrade.config"
+          :config="localizedConfig"
           :length="70"
           name="o-dilation-upgrade__description"
         />
         <EffectDisplay
           :key="boughtAmount"
           br
-          :config="upgrade.config"
+          :config="localizedConfig"
         />
       </span>
       <CostDisplay
         v-if="!isBought && !isCapped"
         br
-        :config="upgrade.config"
+        :config="localizedConfig"
         name="Dilated Time"
       />
     </button>
     <PrimaryToggleButton
       v-if="isRebuyable && isAutoUnlocked"
       v-model="isAutobuyerOn"
-      label="Auto:"
+      :label="Localization.text('Auto:', '自動:')"
       class="l--spoon-btn-group__little-spoon o-primary-btn--dilation-upgrade-toggle"
     />
   </div>
