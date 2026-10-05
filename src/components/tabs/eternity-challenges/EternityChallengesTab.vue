@@ -33,13 +33,17 @@ export default {
         : ImaginaryUpgrade(15).name;
     },
     nextECText() {
-      return this.untilNextEC.totalMilliseconds === 0 && !this.autoEC
-        ? "Immediately upon unpausing"
-        : `${this.untilNextEC} (real time)`;
+      if (this.untilNextEC.totalMilliseconds === 0 && !this.autoEC) {
+        return Localization.text("Immediately upon unpausing", "一時停止解除後すぐ");
+      }
+      return Localization.isJapanese ? `${this.untilNextEC}（実時間）` : `${this.untilNextEC} (real time)`;
     },
     allECText() {
-      return this.untilAllEC.totalMilliseconds === 0 && !this.autoEC
-        ? "Immediately upon unpausing"
+      if (this.untilAllEC.totalMilliseconds === 0 && !this.autoEC) {
+        return Localization.text("Immediately upon unpausing", "一時停止解除後すぐ");
+      }
+      return Localization.isJapanese
+        ? `${this.untilAllEC}後（実時間）`
         : `After ${this.untilAllEC} (real time)`;
     }
   },
@@ -77,8 +81,10 @@ export default {
   <div class="l-challenges-tab">
     <ChallengeTabHeader />
     <div v-if="isAutoECVisible">
-      Eternity Challenges are automatically completed sequentially, requiring all previous
-      Eternity Challenges to be fully completed before any progress is made.
+      {{ Localization.text(
+        "Eternity Challenges are automatically completed sequentially, requiring all previous Eternity Challenges to be fully completed before any progress is made.",
+        "Eternity Challengeは順番に自動クリアされます。前のEternity Challengeを5回すべてクリアするまで、次には進みません。"
+      ) }}
     </div>
     <div
       v-if="isAutoECVisible && remainingECTiers > 0"
@@ -89,30 +95,60 @@ export default {
           v-if="hasUpgradeLock"
           class="l-emphasis"
         >
-          Auto EC is currently disabled because of the "{{ upgradeLockNameText }}" upgrade requirement lock.
+          {{ Localization.text(
+            "Auto EC is currently disabled because of the",
+            "Auto ECはアップグレード条件ロック"
+          ) }} "{{ upgradeLockNameText }}"
+          {{ Localization.text("upgrade requirement lock.", "のため現在無効です。") }}
         </span>
         <span v-if="remainingECTiers > 0">
-          Next Auto Eternity Challenge completion: {{ nextECText }}
+          {{ Localization.text(
+            "Next Auto Eternity Challenge completion:",
+            "次のEternity Challenge自動クリア:"
+          ) }} {{ nextECText }}
         </span>
         <span>
-          All Auto Eternity Challenge completions: {{ allECText }}
+          {{ Localization.text(
+            "All Auto Eternity Challenge completions:",
+            "残りすべてのEternity Challenge自動クリア:"
+          ) }} {{ allECText }}
         </span>
         <br>
       </div>
     </div>
     <div>
-      Complete Eternity Challenges again for a bigger reward, maximum of {{ formatInt(5) }} times.<br>
-      The rewards are applied permanently with no need to have the respective Eternity Challenge Time Study purchased.
+      {{ Localization.text(
+        "Complete Eternity Challenges again for a bigger reward, maximum of",
+        "Eternity Challengeは再クリアするたび報酬が強化され、最大"
+      ) }} {{ formatInt(5) }}
+      {{ Localization.text(
+        "times.",
+        "回までクリアできます。"
+      ) }}<br>
+      {{ Localization.text(
+        "The rewards are applied permanently with no need to have the respective Eternity Challenge Time Study purchased.",
+        "報酬は恒久的に適用され、対応するEternity ChallengeのTime Studyを所持し続ける必要はありません。"
+      ) }}
     </div>
     <div v-if="!hasECR">
-      When you respec out of an unlocked Eternity Challenge, you don't need to redo the secondary requirement<br>
-      in order to unlock it again until you complete it; only the Time Theorems are required.
+      {{ Localization.text(
+        "When you respec out of an unlocked Eternity Challenge, you don't need to redo the secondary requirement in order to unlock it again until you complete it; only the Time Theorems are required.",
+        "解放済みEternity ChallengeをRespecで外しても、クリアするまでは再解放時に副条件をやり直す必要はなく、Time Theoremだけで再解放できます。"
+      ) }}
     </div>
     <div v-if="unlockedCount !== 12">
-      You have seen {{ formatInt(unlockedCount) }} out of {{ formatInt(12) }} Eternity Challenges.
+      <template v-if="Localization.isJapanese">
+        Eternity Challengeは {{ formatInt(12) }}個中 {{ formatInt(unlockedCount) }}個確認済みです。
+      </template>
+      <template v-else>
+        You have seen {{ formatInt(unlockedCount) }} out of {{ formatInt(12) }} Eternity Challenges.
+      </template>
     </div>
     <div v-else>
-      You have seen all {{ formatInt(12) }} Eternity Challenges.
+      {{ Localization.text(
+        `You have seen all ${formatInt(12)} Eternity Challenges.`,
+        `Eternity Challengeを全${formatInt(12)}個確認済みです。`
+      ) }}
     </div>
     <ChallengeGrid
       v-slot="{ challenge }"
