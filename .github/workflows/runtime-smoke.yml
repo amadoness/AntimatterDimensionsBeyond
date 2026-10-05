@@ -1,0 +1,40 @@
+name: Runtime UI Smoke Test
+
+on:
+  push:
+    branches:
+      - runtime-smoke-test
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "14"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run build:master
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+      - name: Start built game
+        run: |
+          python3 -m http.server 4173 --directory dist > /tmp/ad-server.log 2>&1 &
+          sleep 3
+      - name: Run runtime smoke test
+        run: node .github/scripts/runtime-smoke.cjs
+      - name: Upload runtime screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-smoke-screenshots
+          path: |
+            runtime-normal.png
+            runtime-s12.png
+          if-no-files-found: ignore
