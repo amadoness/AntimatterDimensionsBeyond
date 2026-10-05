@@ -21,15 +21,23 @@ export default {
   computed: {
     sortModes() {
       // These are the keys for AUTO_SORT_MODE, with SCORE only added conditionally if unlocked
-      const availableSortModes = ["NONE", "LEVEL", "POWER", "EFFECT"];
-      if (this.showScoreFilter) availableSortModes.push("SCORE");
+      const availableSortModes = Localization.isJapanese
+        ? ["なし", "レベル", "パワー", "効果"]
+        : ["NONE", "LEVEL", "POWER", "EFFECT"];
+      if (this.showScoreFilter) availableSortModes.push(Localization.isJapanese ? "スコア" : "SCORE");
       return availableSortModes;
     },
     questionMarkTooltip() {
-      return `The automatic settings below will apply after every Reality`;
+      return Localization.text(
+        "The automatic settings below will apply after every Reality",
+        "以下の自動設定は各Reality後に適用されます"
+      );
     },
     keepTooltip() {
-      return "If set to ON, Glyphs which your filter accepts will never be auto-purged even if they are worse";
+      return Localization.text(
+        "If set to ON, Glyphs which your filter accepts will never be auto-purged even if they are worse",
+        "ONにすると、フィルターで採用されたGlyphは弱くても自動削除されません"
+      );
     }
   },
   watch: {
@@ -68,30 +76,30 @@ export default {
       >
         ?
       </div>
-      Auto Glyph Arrangement:
+      {{ Localization.text("Auto Glyph Arrangement:", "Glyph自動整理:") }}
     </div>
     <ButtonCycle
       v-model="autoSort"
       class="c-glyph-inventory-option"
-      text="Auto-sort Mode:"
+      :text="Localization.text('Auto-sort Mode:', '自動並べ替え:')"
       :labels="sortModes"
     />
     <ToggleButton
       v-model="autoCollapse"
       class="c-glyph-inventory-option"
-      label="Auto-collapse space:"
+      :label="Localization.text('Auto-collapse space:', '空きを自動で詰める:')"
     />
     <ToggleButton
       v-if="showAutoAutoClean"
       v-model="autoAutoClean"
       class="c-glyph-inventory-option"
-      label="Auto-purge on Realities:"
+      :label="Localization.text('Auto-purge on Realities:', 'Reality時に自動削除:')"
     />
     <ToggleButton
       v-if="showAutoAutoClean"
       v-model="applyFilterToPurge"
       class="c-glyph-inventory-option"
-      label="Never Auto-purge Glyphs accepted by filter:"
+      :label="Localization.text('Never Auto-purge Glyphs accepted by filter:', 'フィルター採用Glyphを自動削除しない:')"
       tooltip-class="c-glyph-inventory-option__tooltip"
       :tooltip-content="keepTooltip"
     />

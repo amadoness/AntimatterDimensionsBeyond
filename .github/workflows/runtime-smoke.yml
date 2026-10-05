@@ -52,5 +52,6 @@ jobs:
             runtime-reality-upgrades.png
             runtime-perks.png
             runtime-black-hole.png
+            runtime-glyphs.png
             runtime-s12.png
           if-no-files-found: ignore

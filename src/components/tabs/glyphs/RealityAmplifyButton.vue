@@ -11,10 +11,19 @@ export default {
   }),
   computed: {
     tooltip() {
-      if (this.isDoomed) return "You cannot amplify a Doomed Reality";
-      if (this.isDisabled) return "You cannot amplify Celestial Realities";
+      if (this.isDoomed) return Localization.text(
+        "You cannot amplify a Doomed Reality",
+        "Doomed RealityはAmplifyできません"
+      );
+      if (this.isDisabled) return Localization.text(
+        "You cannot amplify Celestial Realities",
+        "Celestial RealityはAmplifyできません"
+      );
       if (!this.canAmplify) {
-        return "Store more real time or complete the Reality faster to amplify";
+        return Localization.text(
+          "Store more real time or complete the Reality faster to amplify",
+          "実時間をさらに貯めるか、より速くRealityするとAmplifyできます"
+        );
       }
       return null;
     },
@@ -51,16 +60,16 @@ export default {
     @click="toggleActive"
   >
     <div v-if="isDoomed">
-      You cannot amplify Doomed Realities.
+      {{ Localization.text("You cannot amplify Doomed Realities.", "Doomed RealityはAmplifyできません。") }}
     </div>
     <div v-else-if="canAmplify">
-      <span v-if="isActive">Will be amplified:</span>
-      <span v-else>Amplify this Reality:</span>
+      <span v-if="isActive">{{ Localization.text("Will be amplified:", "Amplify予定:") }}</span>
+      <span v-else>{{ Localization.text("Amplify this Reality:", "このRealityをAmplify:") }}</span>
       <br>
-      All rewards ×{{ formatInt(ratio) }}
+      {{ Localization.text("All rewards", "全報酬") }} ×{{ formatInt(ratio) }}
     </div>
     <div v-else>
-      Not enough stored real time to amplify.
+      {{ Localization.text("Not enough stored real time to amplify.", "Amplifyに必要な実時間が足りません。") }}
     </div>
   </button>
 </template>

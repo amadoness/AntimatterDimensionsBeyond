@@ -175,6 +175,20 @@ const { chromium } = require("playwright");
   await page.screenshot({ path: "runtime-black-hole.png", fullPage: true });
 
   await page.evaluate(() => {
+    player.realities = 1;
+    Tab.reality.glyphs.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-glyphs-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("Glyphはドラッグまたはダブルクリックで装備できます。") &&
+      document.body.innerText.includes("現在有効なGlyph効果:"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-glyphs.png", fullPage: true });
+
+  await page.evaluate(() => {
     Tab.dimensions.antimatter.show(true);
     GameUI.update();
   });

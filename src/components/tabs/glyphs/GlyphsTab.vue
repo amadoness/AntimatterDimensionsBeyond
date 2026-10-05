@@ -71,7 +71,10 @@ export default {
       if (!Enslaved.isRunning) return;
       const haveBoost = Glyphs.activeWithoutCompanion.find(e => e.level < Enslaved.glyphLevelMin) !== undefined;
       if (haveBoost) {
-        this.enslavedHint = "done... what little... I can... with Glyphs...";
+        this.enslavedHint = Localization.text(
+          "done... what little... I can... with Glyphs...",
+          "できた…Glyphで…できることは…これだけ…"
+        );
       }
     },
     toggleAutoRestartCelestial() {
@@ -141,7 +144,7 @@ export default {
             for="autoRestart"
             class="o-clickable"
           >
-            Repeat this Celestial's Reality
+            {{ Localization.text("Repeat this Celestial's Reality", "このCelestial Realityを繰り返す") }}
           </label>
         </div>
 
@@ -151,16 +154,26 @@ export default {
 
         <div v-if="showInstability">
           <br>
-          Glyphs are becoming unstable.
+          {{ Localization.text("Glyphs are becoming unstable.", "Glyphが不安定になっています。") }}
           <br>
-          Glyph levels higher than {{ formatInt(instabilityThreshold) }} are harder to reach.
+          <template v-if="Localization.isJapanese">
+            Glyph Level {{ formatInt(instabilityThreshold) }} を超えると上げにくくなります。
+          </template>
+          <template v-else>
+            Glyph levels higher than {{ formatInt(instabilityThreshold) }} are harder to reach.
+          </template>
           <br>
-          This effect is even stronger above level {{ formatInt(hyperInstabilityThreshold) }}.
+          <template v-if="Localization.isJapanese">
+            Level {{ formatInt(hyperInstabilityThreshold) }} を超えるとさらに強く低下します。
+          </template>
+          <template v-else>
+            This effect is even stronger above level {{ formatInt(hyperInstabilityThreshold) }}.
+          </template>
         </div>
         <SingleGlyphCustomzationPanel />
         <ExpandingControlBox
           width-source="content"
-          label="Glyph Level Factors"
+          :label="Localization.text('Glyph Level Factors', 'Glyph Level要因')"
           container-class="c-glyph-level-factors-dropdown-header"
           class="l-glyph-level-factors"
         >
@@ -199,13 +212,13 @@ export default {
                 :class="glyphInfoClass(!sacrificeDisplayed)"
                 @click="setInfoState(false)"
               >
-                Current Glyph effects
+                {{ Localization.text("Current Glyph effects", "現在のGlyph効果") }}
               </button>
               <button
                 :class="glyphInfoClass(sacrificeDisplayed)"
                 @click="setInfoState(true)"
               >
-                Glyph Sacrifice totals
+                {{ Localization.text("Glyph Sacrifice totals", "Glyph Sacrifice合計") }}
               </button>
             </div>
             <SacrificedGlyphs v-if="sacrificeUnlocked && sacrificeDisplayed" />

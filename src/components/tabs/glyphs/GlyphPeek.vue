@@ -38,7 +38,7 @@ export default {
     },
     showModal() {
       Modal.glyphShowcasePanel.show({
-        name: "Potential Glyphs for this Reality",
+        name: Localization.text("Potential Glyphs for this Reality", "このRealityで選べるGlyph候補"),
         glyphSet: this.glyphs,
         closeEvent: GAME_EVENT.REALITY_RESET_AFTER,
         isGlyphSelection: true,
@@ -61,19 +61,19 @@ export default {
     >
       <GlyphSetPreview
         :show-name="false"
-        :text="'Upcoming Glyph selection:'"
+        :text="Localization.text('Upcoming Glyph selection:', '次のGlyph候補:')"
         :glyphs="glyphs"
         :ignore-modified-level="true"
         :show-sacrifice="canSacrifice"
         :flip-tooltip="true"
         :sort="false"
       />
-      (Click to bring up details)
+      {{ Localization.text("(Click to bring up details)", "（クリックで詳細表示）") }}
     </div>
     <div v-else>
-      Purchase the Reality study to see
+      {{ Localization.text("Purchase the Reality study to see", "Reality Studyを購入すると") }}
       <br>
-      this Reality's Glyph choices
+      {{ Localization.text("this Reality's Glyph choices", "このRealityのGlyph候補を確認できます") }}
     </div>
   </div>
 </template>

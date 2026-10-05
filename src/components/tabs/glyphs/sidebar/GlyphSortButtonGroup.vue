@@ -32,33 +32,33 @@ export default {
 <template>
   <div class="o-glyph-inventory-management-group">
     <div class="l-glyph-sacrifice-options__header">
-      Sort Glyphs:
+      {{ Localization.text("Sort Glyphs:", "Glyphを並べ替え:") }}
     </div>
     <button
       class="c-glyph-inventory-option"
       @click="sortByLevel"
     >
-      Sort by level
+      {{ Localization.text("Sort by level", "Level順") }}
       <div class="c-glyph-inventory-option__tooltip">
-        Arranges by decreasing Glyph level
+        {{ Localization.text("Arranges by decreasing Glyph level", "Glyph Levelの高い順に並べます") }}
       </div>
     </button>
     <button
       class="c-glyph-inventory-option"
       @click="sortByPower"
     >
-      Sort by power
+      {{ Localization.text("Sort by power", "Power順") }}
       <div class="c-glyph-inventory-option__tooltip">
-        Arranges by decreasing level×rarity
+        {{ Localization.text("Arranges by decreasing level×rarity", "Level×Rarityの高い順に並べます") }}
       </div>
     </button>
     <button
       class="c-glyph-inventory-option"
       @click="sortByEffect"
     >
-      Sort by effect
+      {{ Localization.text("Sort by effect", "効果順") }}
       <div class="c-glyph-inventory-option__tooltip">
-        Groups Glyphs together based on effects
+        {{ Localization.text("Groups Glyphs together based on effects", "効果ごとにGlyphをまとめます") }}
       </div>
     </button>
     <button
@@ -66,18 +66,18 @@ export default {
       class="c-glyph-inventory-option"
       @click="sortByScore"
     >
-      Sort by score
+      {{ Localization.text("Sort by score", "Score順") }}
       <div class="c-glyph-inventory-option__tooltip">
-        Arranges by decreasing Glyph filter score
+        {{ Localization.text("Arranges by decreasing Glyph filter score", "Glyph Filter Scoreの高い順に並べます") }}
       </div>
     </button>
     <button
       class="c-glyph-inventory-option"
       @click="collapseEmpty"
     >
-      Collapse empty space
+      {{ Localization.text("Collapse empty space", "空きスロットを詰める") }}
       <div class="c-glyph-inventory-option__tooltip">
-        Moves all Glyphs to the earliest empty slots
+        {{ Localization.text("Moves all Glyphs to the earliest empty slots", "Glyphを前方の空きスロットへ詰めます") }}
       </div>
     </button>
   </div>

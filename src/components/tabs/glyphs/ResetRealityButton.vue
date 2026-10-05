@@ -11,10 +11,14 @@ export default {
   },
   computed: {
     resetText() {
-      if (this.isDoomed) return "Start this Armageddon over";
-      if (this.isInCelestialReality && !this.resetCelestial) return "Exit this Celestial early";
-      if (this.isInCelestialReality && this.resetCelestial) return "Restart this Celestial";
-      return "Start this Reality over";
+      if (this.isDoomed) return Localization.text("Start this Armageddon over", "Armageddonを最初からやり直す");
+      if (this.isInCelestialReality && !this.resetCelestial) {
+        return Localization.text("Exit this Celestial early", "このCelestialを途中終了する");
+      }
+      if (this.isInCelestialReality && this.resetCelestial) {
+        return Localization.text("Restart this Celestial", "このCelestialをやり直す");
+      }
+      return Localization.text("Start this Reality over", "このRealityを最初からやり直す");
     },
   },
   methods: {

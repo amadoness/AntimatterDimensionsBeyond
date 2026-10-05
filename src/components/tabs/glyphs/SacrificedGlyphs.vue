@@ -121,11 +121,11 @@ export default {
         v-if="isDoomed"
         class="pelle-current-glyph-effects"
       >
-        You cannot sacrifice Glyphs while Doomed.
+        {{ Localization.text("You cannot sacrifice Glyphs while Doomed.", "Doomed中はGlyphをSacrificeできません。") }}
       </span>
       <span v-else>
-        <div>Drag Glyphs here or shift-click to Sacrifice.</div>
-        <div>The confirmation can be disabled in Options or by holding Ctrl.</div>
+        <div>{{ Localization.text("Drag Glyphs here or shift-click to Sacrifice.", "ここへGlyphをドラッグするかShift+クリックでSacrificeできます。") }}</div>
+        <div>{{ Localization.text("The confirmation can be disabled in Options or by holding Ctrl.", "確認はOptionsで無効化するか、Ctrlを押しながら操作すると省略できます。") }}</div>
       </span>
     </div>
     <div v-if="hasAlteration">
@@ -134,37 +134,56 @@ export default {
         @click="toggleAlteration"
       >
         <i :class="dropDownIconClass" />
-        <b> Altered Glyphs</b>
+        <b> {{ Localization.text("Altered Glyphs", "Altered Glyph") }}</b>
       </span>
       <br>
       <div v-if="hideAlteration">
-        (Details hidden, click to unhide)
+        {{ Localization.text("(Details hidden, click to unhide)", "（詳細非表示・クリックで表示）") }}
       </div>
       <div v-else>
-        Glyph types will have one of their effects improved<br>
-        when their Glyph type's total sacrifice value is above:
+        <template v-if="Localization.isJapanese">
+          Glyph TypeごとのSacrifice合計が以下を超えると、そのTypeの効果1つが強化されます:
+        </template>
+        <template v-else>
+          Glyph types will have one of their effects improved<br>
+          when their Glyph type's total sacrifice value is above:
+        </template>
         <br><br>
         <b>
-          <span :style="addStyle">{{ format(addThreshold) }} - an additional secondary effect</span>
+          <span :style="addStyle">{{ format(addThreshold) }} - {{ Localization.text("an additional secondary effect", "追加の副効果") }}</span>
           <br>
-          <span :style="empowerStyle">{{ format(empowerThreshold) }} - formula drastically improved</span>
+          <span :style="empowerStyle">{{ format(empowerThreshold) }} - {{ Localization.text("formula drastically improved", "計算式を大幅強化") }}</span>
           <br>
-          <span :style="boostStyle">{{ format(boostThreshold) }} - a boost depending on Glyph Sacrifice</span>
+          <span :style="boostStyle">{{ format(boostThreshold) }} - {{ Localization.text("a boost depending on Glyph Sacrifice", "Glyph Sacrifice量に応じた強化") }}</span>
         </b>
         <br><br>
-        All effects from Glyph Sacrifice can no longer be increased once they reach {{ format(maxSacrifice) }}.
+        <template v-if="Localization.isJapanese">
+          Glyph Sacrificeによる効果は {{ format(maxSacrifice) }} に達するとそれ以上増加しません。
+        </template>
+        <template v-else>
+          All effects from Glyph Sacrifice can no longer be increased once they reach {{ format(maxSacrifice) }}.
+        </template>
       </div>
     </div>
     <br>
     <div class="c-sacrificed-glyphs__header">
-      Glyph Sacrifice Boosts:
+      {{ Localization.text("Glyph Sacrifice Boosts:", "Glyph Sacrificeボーナス:") }}
     </div>
     <div v-if="anySacrifices && !isDoomed">
       <div v-if="teresaMult > 1">
-        Glyph sacrifice values are multiplied by {{ formatX(teresaMult, 2, 2) }};
-        Teresa was last done at {{ lastMachines }}.
+        <template v-if="Localization.isJapanese">
+          Glyph Sacrifice値は {{ formatX(teresaMult, 2, 2) }} 倍です。
+          Teresaの前回クリア時: {{ lastMachines }}。
+        </template>
+        <template v-else>
+          Glyph sacrifice values are multiplied by {{ formatX(teresaMult, 2, 2) }};
+          Teresa was last done at {{ lastMachines }}.
+        </template>
         <span v-if="hasSeenRealityGlyph">
-          Reality Glyphs are unaffected by this multiplier and have no altered effects.
+          {{ Localization.text(
+            "Reality Glyphs are unaffected by this multiplier and have no altered effects.",
+            "Reality Glyphはこの倍率の影響を受けず、Altered効果もありません。"
+          ) }}
         </span>
       </div>
       <template v-for="type in types">
@@ -179,10 +198,13 @@ export default {
       v-else-if="isDoomed"
       class="pelle-current-glyph-effects"
     >
-      All boosts from Glyph Sacrifice are disabled while Doomed, including changes to effects due to Altered Glyphs.
+      {{ Localization.text(
+        "All boosts from Glyph Sacrifice are disabled while Doomed, including changes to effects due to Altered Glyphs.",
+        "Doomed中はAltered Glyphによる変更を含め、Glyph Sacrificeの全ボーナスが無効です。"
+      ) }}
     </div>
     <div v-else>
-      You haven't Sacrificed any Glyphs yet!
+      {{ Localization.text("You haven't Sacrificed any Glyphs yet!", "まだGlyphをSacrificeしていません！") }}
     </div>
   </div>
 </template>
