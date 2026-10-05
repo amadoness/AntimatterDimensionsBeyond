@@ -21,6 +21,47 @@ const { chromium } = require("playwright");
   await page.screenshot({ path: "runtime-normal.png", fullPage: true });
 
   await page.evaluate(() => {
+    Tab.achievements.normal.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-achievements-tab", { state: "visible", timeout: 30000 });
+  await page.waitForSelector(".o-achievement", { state: "visible", timeout: 30000 });
+  await page.locator(".o-achievement").first().hover();
+  await page.waitForFunction(() => document.body.innerText.includes("まずはここから"), null, { timeout: 30000 });
+  await page.screenshot({ path: "runtime-achievements.png", fullPage: true });
+
+  await page.evaluate(() => {
+    player.infinities = new Decimal(1);
+    Tab.challenges.normal.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-challenges-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("一部の通常チャレンジ"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-challenges.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.infinity.upgrades.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-infinity-upgrades-tab", { state: "visible", timeout: 30000 });
+  await page.waitForFunction(
+    () => document.body.innerText.includes("総プレイ時間に応じて反物質次元に倍率がかかる"),
+    null,
+    { timeout: 30000 }
+  );
+  await page.screenshot({ path: "runtime-infinity.png", fullPage: true });
+
+  await page.evaluate(() => {
+    Tab.dimensions.antimatter.show(true);
+    GameUI.update();
+  });
+  await page.waitForSelector(".l-antimatter-dim-tab", { state: "visible", timeout: 30000 });
+
+  await page.evaluate(() => {
     player.options.newUI = false;
     ui.view.newUI = false;
     Theme.set("S12");
