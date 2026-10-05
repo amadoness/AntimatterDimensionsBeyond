@@ -33,11 +33,11 @@ export default {
 
 <template>
   <div class="c-reality-currency">
-    You have
+    {{ Localization.text("You have", "所持:") }}
     <b :class="resourceClass()">
       {{ currencyValue }}
     </b>
-    {{ currencyName }}.
+    {{ Localization.text(currencyName, isDoomed ? "現実の欠片" : "現実マシン") }}
   </div>
 </template>
 
