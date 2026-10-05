@@ -27,6 +27,24 @@ export default {
     config() {
       return this.challenge.config;
     },
+    localizedConfig() {
+      const config = this.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      const reward = config.reward;
+      const sourceReward = typeof reward.description === "function"
+        ? reward.description()
+        : reward.description;
+      return {
+        ...config,
+        description: Localization.infinityChallengeDescription(this.challenge.id, sourceDescription),
+        reward: {
+          ...reward,
+          description: Localization.infinityChallengeReward(this.challenge.id, sourceReward)
+        }
+      };
+    },
     name() {
       return `IC${this.challenge.id}`;
     }
@@ -52,21 +70,21 @@ export default {
     @start="challenge.requestStart()"
   >
     <template #top>
-      <DescriptionDisplay :config="config" />
+      <DescriptionDisplay :config="localizedConfig" />
       <EffectDisplay
         v-if="isRunning"
-        :config="config"
+        :config="localizedConfig"
       />
     </template>
     <template #bottom>
       <div class="l-challenge-box__bottom--infinity">
-        <span>Goal: {{ format(config.goal) }} antimatter</span>
+        <span>{{ Localization.text("Goal:", "目標:") }} {{ format(config.goal) }} {{ Localization.text("antimatter", "反物質") }}</span>
         <DescriptionDisplay
-          :config="config.reward"
-          title="Reward:"
+          :config="localizedConfig.reward"
+          :title="Localization.text('Reward:', '報酬:')"
         />
         <EffectDisplay
-          :config="config.reward"
+          :config="localizedConfig.reward"
         />
       </div>
     </template>
