@@ -648,3 +648,114 @@ export const jaEternityMilestoneActiveConditions = {
   200: "すべてのチャレンジとTime Dilationの外にいて、Eternity自動購入器を0 EPでEternityする設定にしている必要があります。効果は33ms相当が上限です。",
   1000: "通常/Infinity ChallengeとEC4・EC12の外にいて、Big Crunch自動購入器をONかつ時間モード5秒以下、Eternity自動購入器をOFFにする必要があります。"
 };
+
+
+export const jaTimeStudyDescriptions = {
+  11: "ティックスピードが弱い効果で第1 Time Dimensionにも作用する。",
+  21: "Replicanti倍率の計算式を強化する。",
+  22: "Replicantiの基本間隔下限を50msから1msにする。",
+  31: "Infinity回数に基づく各種倍率を4乗で強化する。",
+  32: "次元ブースト数に応じて獲得Infinity回数が増える。",
+  33: "Infinity時にReplicanti Galaxyの半分を保持する。",
+  41: "すべての銀河1個につき、獲得Infinity Pointに1.2倍の倍率がかかる。",
+  42: "反物質銀河の必要第8次元数の増加量を60から52に減らす。",
+  51: "Infinity Point獲得量が1e15倍になる。",
+  61: "Eternity Point獲得量が15倍になる。",
+  62: "Replicanti生成速度が3倍になる。",
+  71: "次元の生贄が弱い効果で他の反物質次元にも作用する。",
+  72: "次元の生贄が大幅に弱い効果で第4 Infinity Dimensionにも作用する。",
+  73: "次元の生贄が大幅に弱い効果で第3 Time Dimensionにも作用する。",
+  81: "次元ブーストの基本倍率を10倍にする。",
+  82: "次元ブーストがInfinity Dimensionにも作用する。",
+  83: "Time Dimensionから得たティックアップグレード数に応じて次元ブースト倍率が強化される。",
+  91: "現在のEternity経過時間に応じて反物質次元に倍率がかかる。",
+  92: "最速Eternity時間に応じてInfinity Dimensionに倍率がかかる。",
+  93: "獲得ティックアップグレード数に応じてTime Dimensionに倍率がかかる。",
+  101: "Replicanti量と同じ倍率を反物質次元に与える。",
+  102: "Replicanti Galaxy数に応じてReplicanti倍率を強化する。",
+  103: "Replicanti Galaxy数と同じ倍率をTime Dimensionに与える。",
+  111: "Infinity Pointの計算式を強化する。",
+  121: "直近10回のEternity速度に応じてEternity Point獲得量が増える。",
+  122: "Eternity Point獲得量が大きく増える。",
+  123: "現在のEternity経過時間に応じてEternity Point獲得量が増える。",
+  131: "Replicanti Galaxyの最大数を50%増やせる。条件によって自動Replicanti Galaxyが無効になる。",
+  132: "Replicanti Galaxyが40%強化され、Replicanti生成速度も上がる。",
+  133: "Replicanti Galaxyが50%強化される。条件によってReplicanti生成速度が低下する。",
+  141: "Infinity開始直後は非常に大きいInfinity Point倍率を得るが、時間とともに減衰する。",
+  142: "Infinity Point獲得量に非常に大きな固定倍率がかかる。",
+  143: "現在のInfinity経過時間に応じてInfinity Point倍率が増えていく。",
+  151: "すべてのTime Dimensionが1e4倍になる。",
+  161: "すべての反物質次元が1e616倍になる。",
+  162: "すべてのInfinity Dimensionが1e11倍になる。",
+  171: "次のティックスピードアップグレードに必要なTime Shardの増加率を1.33倍から1.25倍に下げる。",
+  181: "Big Crunchで得るInfinity Pointの1%を毎秒自動獲得する。",
+  191: "Eternity後、Infinity回数の5%をBanked Infinityとして恒久的に保持する。",
+  192: "Replicantiが通常上限を超えて増えられるようになるが、高い量では成長が遅くなる。",
+  193: "Eternity回数に応じて反物質次元に倍率がかかる。",
+  201: "Dimension Splitから2つ目の経路を選べるようになる。",
+  211: "次元ブースト必要数のスケーリングを5軽減する。",
+  212: "Time Shard量に応じてすべての銀河が強化される。",
+  213: "Replicanti生成速度が20倍になる。",
+  214: "次元の生贄による第8反物質次元への効果をさらに強化する。",
+  221: "次元ブースト数に応じてTime Dimensionに倍率がかかる。",
+  222: "次元ブーストのコストスケーリングをさらに2軽減する。",
+  223: "Distant Galaxyのコストスケーリング開始を銀河7個分遅らせる。",
+  224: "次元ブースト数に応じてDistant Galaxyのコストスケーリング開始をさらに遅らせる。",
+  225: "Replicanti量に応じて追加のReplicanti Galaxyを得る。",
+  226: "Replicanti Galaxy上限に応じて追加のReplicanti Galaxyを得る。",
+  227: "次元の生贄が弱い効果で第4 Time Dimensionにも作用する。",
+  228: "次元の生贄の計算式を強化する。",
+  231: "次元ブースト数に応じて次元ブースト自体がさらに強くなる。",
+  232: "反物質銀河数に応じてすべての銀河が強化される。",
+  233: "現在のReplicanti量に応じて最大Replicanti Galaxy Upgradeが安くなる。",
+  234: "次元の生贄の効果が第1反物質次元にも適用される。",
+  301: "Time Study 231がTime Study 221の効果も強化する。",
+  302: "Distant Galaxyのスケーリング開始をさらに反物質銀河3000個分遅らせる。",
+  303: "Time Study 225・226とEffarig's Infinityによる追加Replicanti Galaxyを50%増やす。",
+  304: "次元の生贄倍率を2乗する。"
+};
+
+export const jaDilationTimeStudyDescriptions = {
+  1: "Time Dilationを解放する。",
+  2: "第5 Time Dimensionを解放する。",
+  3: "第6 Time Dimensionを解放する。",
+  4: "第7 Time Dimensionを解放する。",
+  5: "第8 Time Dimensionを解放する。",
+  6: "Doomed Realityから逃れることはできない。"
+};
+
+export const jaDilationUpgradeDescriptions = {
+  1: "Dilated Time獲得量を2倍にする。",
+  2: "Tachyon Galaxyをリセットする代わりに、次のTachyon Galaxyに必要なDilated Timeを減らす。",
+  3: "獲得Tachyon Particle量を増やす。",
+  4: "基本Tachyon Galaxyが500個になるまで、獲得Tachyon Galaxy数を2倍にする。",
+  5: "Replicantiに応じてTime Dimensionに倍率がかかる。",
+  6: "Dilated Timeに応じて反物質次元に倍率がかかる。この倍率はTime Dilationの弱体化を受けない。",
+  7: "Dilated Timeに応じてInfinity Pointに倍率がかかる。",
+  8: "Dimension Splitの3経路をすべて購入できるようになる。",
+  9: "Time Dilationによる弱体化を軽減する。",
+  10: "Tachyon Particle量に応じてTime Theoremを自動生成する。",
+  11: "Dilated Time獲得量を5倍にする。",
+  12: "獲得Tachyon Galaxy数に倍率をかける。Tachyon Galaxy 2倍アップグレードの後に適用される。",
+  13: "ティックスピードに累乗効果を与える。",
+  14: "Tachyon Galaxy必要量を3乗根にする。",
+  15: "現在のEternity Point量に応じてDilated Time獲得量を増やす。"
+};
+
+export const jaECStudyResources = {
+  1: "Eternity回数",
+  2: "Time Dimension由来のティックスピードアップグレード",
+  3: "第8反物質次元",
+  4: "Infinity回数",
+  5: "反物質銀河",
+  6: "Replicanti Galaxy",
+  7: "反物質",
+  8: "Infinity Point",
+  9: "Infinity Power",
+  10: "Eternity Point"
+};
+
+export const jaECStudyPaths = {
+  11: "反物質次元",
+  12: "Time Dimension"
+};
