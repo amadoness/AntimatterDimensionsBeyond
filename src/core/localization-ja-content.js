@@ -786,7 +786,7 @@ export const jaRealityUpgradeNames = {
   22: "時間超越",
   23: "複製の迅速化",
   24: "人工的象徴",
-  25: " effortless existence "
+  25: "努力なき存在"
 };
 
 export const jaRealityUpgradeDescriptions = {
@@ -822,22 +822,22 @@ export const jaRealityUpgradeRequirements = {
   7: "最初のInfinityを反物質銀河1個以下で完了する。",
   8: "自動取得された実績なしで手動Eternityする。",
   9: () => `${format("1e4000")} Eternity Point以上で、Level ${formatInt(3)}以上のGlyphを1個だけ装備してEternityする。`,
-  10: () => `最初の手動Eternityを${formatPostBreak(DC.E400)} Infinity Point以上で完了する。`,
-  11: () => `Banked Infinityを${format(Currency.infinitiesBanked.value, 2)}/${format(DC.E12)}まで増やす。`,
-  12: () => `${format(DC.E70)} Eternity Point以上で、Eternity Challenge 1を一度もクリアせずEternityする。`,
-  13: () => `${format(DC.E4000)} Eternity Point以上で、第5〜第8 Time Dimensionを使わずEternityする。`,
+  10: "最初の手動Eternityを1e400 Infinity Point以上で完了する。",
+  11: () => `Banked Infinityを${format(Currency.infinitiesBanked.value, 2)}/${format(1e12)}まで増やす。`,
+  12: () => `${format(1e70)} Eternity Point以上で、Eternity Challenge 1を一度もクリアせずEternityする。`,
+  13: () => `${format("1e4000")} Eternity Point以上で、第5〜第8 Time Dimensionを使わずEternityする。`,
   14: () => `Eternity回数を${format(Currency.eternities.value, 2)}/${format(1e7)}まで増やす。`,
-  15: () => `${format(DC.E10)} Eternity Point以上を、5倍Eternity Pointアップグレードを購入せず所持する。`,
+  15: () => `${format(1e10)} Eternity Point以上を、5倍Eternity Pointアップグレードを購入せず所持する。`,
   16: () => `Uncommon以上のGlyphを4個装備してRealityする（現在 ${formatInt(Glyphs.activeWithoutCompanion.countWhere(g => g && g.strength >= 1.5))}個）。`,
-  17: () => `効果を2個以上持つGlyphを4個装備してRealityする（現在 ${formatInt(Glyphs.activeWithoutCompanion.countWhere(g => g && countValuesFromBitmask(g.effects) >= 2))}個）。`,
+  17: "効果を2個以上持つGlyphを4個装備してRealityする。",
   18: () => `Level 10以上のGlyphを4個装備してRealityする（現在 ${formatInt(Glyphs.activeWithoutCompanion.countWhere(g => g && g.level >= 10))}個）。`,
   19: () => `Companion以外のGlyphを合計30個以上同時に所持する（現在 ${formatInt(Glyphs.allGlyphs.countWhere(g => g.type !== "companion"))}個）。`,
   20: () => `Black Hole解放後の総プレイ時間を100日にする（現在: ${Time.timeSinceBlackHole.toStringShort(false)}）。`,
   21: () => `全種類の銀河合計を${formatInt(Replicanti.galaxies.total + player.galaxies + player.dilation.totalTachyonGalaxies)}/${formatInt(2800)}まで増やす。`,
-  22: () => `Time Shardを${format(Currency.timeShards.value, 1)}/${format(DC.E28000)}まで増やす。`,
+  22: () => `Time Shardを${format(Currency.timeShards.value, 1)}/${format("1e28000")}まで増やす。`,
   23: () => `ゲーム内時間${formatInt(15)}分未満でRealityする（最速: ${Time.bestReality.toStringShort()}）。`,
   24: () => `Glyphを装備せず、${formatInt(5000)} Reality Machine以上を得てRealityする。`,
-  25: () => `${format(DC.E11111)} Eternity Pointに到達する（最高: ${format(player.records.bestReality.bestEP, 2)} EP）。`
+  25: () => `${format("1e11111")} Eternity Pointに到達する（最高: ${format(player.records.bestReality.bestEP, 2)} EP）。`
 };
 
 export const jaPerkDescriptions = {
@@ -850,14 +850,14 @@ export const jaPerkDescriptions = {
   16: () => `各Realityを${format(5e9)} Eternity Point所持で開始する。`,
   17: () => `Dilation解放後、Tachyon Particleを${formatInt(10)}個得る。`,
   30: "次元ブーストと反物質銀河で、反物質・反物質次元・ティックスピード・次元の生贄がリセットされなくなる。",
-  31: () => `Time Study 122を${formatX(50)} Eternity Point、Time Study 142を${formatX(DC.E50)} Infinity Pointまで強化する。`,
+  31: () => `Time Study 122を${formatX(50)} Eternity Point、Time Study 142を1e50倍のInfinity Pointまで強化する。`,
   40: "Eternity回数を得ると、Eternity Upgradeの1段目を無料で自動解放する。",
   41: () => `Eternity Upgradeの2段目を、本来の価格の${formatX(1e10)}分の1で自動購入する。`,
   42: "Dilation解放後、Dilation Upgradeの2段目を無料で自動解放する。",
   43: "Dilation解放後、Dilation Upgradeの3段目を無料で自動解放する。",
   44: "購入可能になったら、Time Theorem自動生成のDilation Upgradeを自動購入する。",
   45: "購入可能になったら第5〜第8 Time Dimensionを自動解放する。",
-  46: () => `${format(DC.E4000)} Eternity Pointと第8 Time Dimension解放後、Realityを自動解放する。`,
+  46: () => `${format("1e4000")} Eternity Pointと第8 Time Dimension解放後、Realityを自動解放する。`,
   51: "Infinity Dimensionの反物質条件を削除する。",
   52: "2番目の反復可能Dilation UpgradeでDilated Timeがリセットされなくなる。",
   53: "Time Dilation解放からEC11・EC12・累計Time Theorem条件を削除する。",
