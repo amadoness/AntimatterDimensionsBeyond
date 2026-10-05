@@ -59,13 +59,13 @@ export default {
     },
     buttonText() {
       if (this.overrideLabel.length > 0) return this.overrideLabel;
-      if (this.isRunning || this.inC1) return "Running";
-      if (this.isCompleted) return "Completed";
-      if (this.isUnlocked) return "Start";
+      if (this.isRunning || this.inC1) return Localization.text("Running", "挑戦中");
+      if (this.isCompleted) return Localization.text("Completed", "クリア済み");
+      if (this.isUnlocked) return Localization.text("Start", "開始");
       const lockedText = this.lockedAt === undefined
         ? ""
         : ` (${formatInt(this.infinities)}/${formatInt(this.lockedAt)})`;
-      return `Locked${lockedText}`;
+      return `${Localization.text("Locked", "未解放")}${lockedText}`;
     }
   },
   methods: {
