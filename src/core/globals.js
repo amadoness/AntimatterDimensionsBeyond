@@ -42,6 +42,7 @@ export * from "./player-progress";
 export * from "./modal";
 export * from "./themes";
 export * from "./options";
+export * from "./localization";
 export * from "./ui";
 
 export * from "./achievements/normal-achievement";

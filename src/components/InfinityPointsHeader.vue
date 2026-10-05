@@ -21,9 +21,9 @@ export default {
     v-show="isVisible"
     class="c-infinity-tab__header"
   >
-    You have
+    {{ Localization.text("You have", "所持:") }}
     <span class="c-infinity-tab__infinity-points">{{ format(infinityPoints, 2) }}</span>
-    {{ pluralize("Infinity Point", infinityPoints) }}.
+    {{ Localization.text(pluralize("Infinity Point", infinityPoints), "無限ポイント") }}
   </div>
 </template>
 

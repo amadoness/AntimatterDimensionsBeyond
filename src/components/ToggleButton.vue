@@ -34,7 +34,14 @@ export default {
   },
   computed: {
     displayText() {
-      return `${this.label} ${this.value ? this.on : this.off}`.trim();
+      let onText = this.on;
+      let offText = this.off;
+      if (this.on === "ON") onText = Localization.text("ON", "オン");
+      if (this.on === "Enabled") onText = Localization.text("Enabled", "有効");
+      if (this.off === "OFF") offText = Localization.text("OFF", "オフ");
+      if (this.off === "Disabled") offText = Localization.text("Disabled", "無効");
+      const stateText = this.value ? onText : offText;
+      return `${this.label} ${stateText}`.trim();
     }
   },
 };

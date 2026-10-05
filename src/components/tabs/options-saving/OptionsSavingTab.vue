@@ -124,21 +124,21 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="GameStorage.export()"
         >
-          Export save
+          {{ Localization.text("Export save", "セーブを書き出す") }}
         </OptionsButton>
         <OptionsButton
           class="o-primary-btn--option_font-x-large"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="Modal.import.show()"
         >
-          Import save
+          {{ Localization.text("Import save", "セーブを読み込む") }}
         </OptionsButton>
         <OptionsButton
           class="o-primary-btn--option_font-x-large"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="Modal.hardReset.show()"
         >
-          RESET THE GAME
+          {{ Localization.text("RESET THE GAME", "ゲームを完全リセット") }}
         </OptionsButton>
       </div>
       <div class="l-options-grid__row">
@@ -147,14 +147,14 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="GameStorage.save(false, true)"
         >
-          Save game
+          {{ Localization.text("Save game", "ゲームをセーブ") }}
         </OptionsButton>
         <OptionsButton
           class="o-primary-btn--option_font-x-large"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="Modal.loadGame.show()"
         >
-          Choose save
+          {{ Localization.text("Choose save", "セーブを選ぶ") }}
         </OptionsButton>
         <AutosaveIntervalSlider
           :min="10"
@@ -167,7 +167,7 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="GameStorage.exportAsFile()"
         >
-          Export save as file
+          {{ Localization.text("Export save as file", "ファイルとして書き出す") }}
         </OptionsButton>
         <OptionsButton
           class="c-file-import-button"
@@ -179,13 +179,13 @@ export default {
             accept=".txt"
             @change="importAsFile"
           >
-          <label for="file">Import save from file</label>
+          <label for="file">{{ Localization.text("Import save from file", "ファイルから読み込む") }}</label>
         </OptionsButton>
         <PrimaryToggleButton
           v-model="showTimeSinceSave"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Display time since save:"
+          :label="Localization.text('Display time since save:', '最終セーブからの時間を表示:')"
         />
       </div>
       <div class="l-options-grid__row">
@@ -193,7 +193,7 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="Modal.backupWindows.show()"
         >
-          Open Automatic Save Backup Menu
+          {{ Localization.text("Open Automatic Save Backup Menu", "自動バックアップ設定を開く") }}
         </OptionsButton>
         <SaveFileName />
       </div>
@@ -204,7 +204,7 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="Modal.enterSpeedrun.show()"
         >
-          Start Speedrun
+          {{ Localization.text("Start Speedrun", "スピードランを開始") }}
         </OptionsButton>
         <OptionsButton
           v-if="inSpeedrun"
@@ -214,7 +214,7 @@ export default {
           }"
           @click="openSeedModal()"
         >
-          Change Glyph RNG Seed
+          {{ Localization.text("Change Glyph RNG Seed", "グリフRNGシードを変更") }}
         </OptionsButton>
       </div>
       <OpenModalHotkeysButton />
@@ -223,13 +223,13 @@ export default {
       v-if="cloudAvailable"
       class="c-cloud-options-header"
     >
-      <span v-if="hideGoogleName">Logged in to Google <i>(name hidden)</i></span>
-      <span v-else-if="loggedIn">Logged in as {{ userName }}</span>
-      <span v-else>Not logged in</span>
+      <span v-if="hideGoogleName">{{ Localization.text("Logged in to Google", "Googleにログイン中") }} <i>{{ Localization.text("(name hidden)", "（名前は非表示）") }}</i></span>
+      <span v-else-if="loggedIn">{{ Localization.text("Logged in as", "ログイン中:") }} {{ userName }}</span>
+      <span v-else>{{ Localization.text("Not logged in", "未ログイン") }}</span>
     </h2>
     <div v-if="loggedIn">
-      <span v-if="cloudEnabled">Cloud Saving will occur automatically every 10 minutes.</span>
-      <span v-else>Cloud Saving has been disabled on this save.</span>
+      <span v-if="cloudEnabled">{{ Localization.text("Cloud Saving will occur automatically every 10 minutes.", "クラウドセーブは10分ごとに自動実行されます。") }}</span>
+      <span v-else>{{ Localization.text("Cloud Saving has been disabled on this save.", "このセーブではクラウドセーブが無効です。") }}</span>
     </div>
     <div
       v-if="cloudAvailable"
@@ -243,7 +243,7 @@ export default {
           v-if="loggedIn"
           onclick="GameOptions.logout()"
         >
-          Disconnect Google Account and disable Cloud Saving
+          {{ Localization.text("Disconnect Google Account and disable Cloud Saving", "Googleアカウントを切断してクラウドセーブを無効化") }}
         </OptionsButton>
         <OptionsButton
           v-else
@@ -251,7 +251,7 @@ export default {
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
           onclick="GameOptions.login()"
         >
-          Login with Google to enable Cloud Saving
+          {{ Localization.text("Login with Google to enable Cloud Saving", "Googleでログインしてクラウドセーブを有効化") }}
         </OptionsButton>
         <PrimaryToggleButton
           v-if="loggedIn"
@@ -259,7 +259,7 @@ export default {
           v-tooltip="'This will hide your Google Account name from the UI for privacy. Saving/loading is unaffected.'"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Hide Google Account name:"
+          :label="Localization.text('Hide Google Account name:', 'Googleアカウント名を非表示:')"
         />
       </div>
       <div
@@ -270,19 +270,19 @@ export default {
           onclick="GameOptions.cloudSave()"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
         >
-          Cloud save
+          {{ Localization.text("Cloud save", "クラウドへセーブ") }}
         </OptionsButton>
         <OptionsButton
           onclick="GameOptions.cloudLoad()"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
         >
-          Cloud load
+          {{ Localization.text("Cloud load", "クラウドからロード") }}
         </OptionsButton>
         <PrimaryToggleButton
           v-model="syncSaveIntervals"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Force local save before cloud saving:"
+          :label="Localization.text('Force local save before cloud saving:', 'クラウド保存前にローカル保存を実行:')"
         />
       </div>
       <div
@@ -293,21 +293,21 @@ export default {
           v-model="cloudEnabled"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Automatic cloud saving/loading:"
+          :label="Localization.text('Automatic cloud saving/loading:', 'クラウドの自動保存/読込:')"
         />
         <PrimaryToggleButton
           v-model="showCloudModal"
           v-tooltip="modalTooltip"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Show modal if possible saving conflict:"
+          :label="Localization.text('Show modal if possible saving conflict:', 'セーブ競合の可能性がある時に確認を表示:')"
         />
         <PrimaryToggleButton
           v-model="forceCloudOverwrite"
           v-tooltip="overwriteTooltip"
           class="o-primary-btn--option l-options-grid__button"
           :class="{ 'o-pelle-disabled-pointer': creditsClosed }"
-          label="Force cloud saving despite conflicts:"
+          :label="Localization.text('Force cloud saving despite conflicts:', '競合があってもクラウド保存を強制:')"
         />
       </div>
     </div>

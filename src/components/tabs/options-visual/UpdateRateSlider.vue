@@ -37,7 +37,7 @@ export default {
 
 <template>
   <div class="o-primary-btn o-primary-btn--option o-primary-btn--slider l-options-grid__button">
-    <b>Update rate: {{ formatInt(updateRate) }} ms</b>
+    <b>{{ Localization.text("Update rate:", "更新間隔:") }} {{ formatInt(updateRate) }} ms</b>
     <SliderComponent
       class="o-primary-btn--slider__slider"
       v-bind="sliderProps"

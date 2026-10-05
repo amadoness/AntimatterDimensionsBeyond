@@ -14,6 +14,7 @@ export default {
     class="c-options-tab__hotkeys-link"
     @click="handleClick"
   >
-    Press <kbd>?</kbd> to open the hotkey list.
+    {{ Localization.text("Press", "ホットキー一覧は") }} <kbd>?</kbd>
+    {{ Localization.text("to open the hotkey list.", "キーで開けます。") }}
   </p>
 </template>
