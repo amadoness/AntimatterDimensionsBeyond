@@ -48,6 +48,20 @@ export default {
         ? config.charged
         : config;
     },
+    localizedConfig() {
+      const config = this.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        description: Localization.infinityUpgradeDescription(
+          this.upgrade.id,
+          sourceDescription,
+          this.showChargedEffect
+        )
+      };
+    },
     classObject() {
       return {
         "o-infinity-upgrade-btn": true,
@@ -95,7 +109,9 @@ export default {
         player.challenge.normal.bestTimes.sum() < Number.MAX_VALUE;
       const worstChallengeTime = GameCache.worstChallengeTime.value;
       const worstChallengeIndex = 2 + player.challenge.normal.bestTimes.indexOf(worstChallengeTime);
-      this.worstChallengeString = `(Challenge ${worstChallengeIndex}: ${timeDisplayShort(worstChallengeTime)})`;
+      this.worstChallengeString = Localization.isJapanese
+        ? `(チャレンジ ${worstChallengeIndex}: ${timeDisplayShort(worstChallengeTime)})`
+        : `(Challenge ${worstChallengeIndex}: ${timeDisplayShort(worstChallengeTime)})`;
     }
   }
 };
@@ -110,7 +126,7 @@ export default {
   >
     <span :class="{ 'o-pelle-disabled': isUseless }">
       <DescriptionDisplay
-        :config="config"
+        :config="localizedConfig"
       />
       <span v-if="showWorstChallenge">
         <br>
@@ -119,17 +135,17 @@ export default {
       <EffectDisplay
         v-if="!isDisabled"
         br
-        :config="config"
+        :config="localizedConfig"
       />
       <template v-if="!isDisabled && isImprovedByTS31">
         <br>
-        After TS31: {{ formatX(ts31Effect, 2, 2) }}
+        {{ Localization.text("After TS31:", "TS31適用後:") }} {{ formatX(ts31Effect, 2, 2) }}
       </template>
     </span>
     <CostDisplay
       v-if="!isBought"
       br
-      :config="config"
+      :config="localizedConfig"
       name="Infinity Point"
     />
     <slot />
