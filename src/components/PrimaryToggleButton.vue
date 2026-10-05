@@ -29,7 +29,11 @@ export default {
   },
   computed: {
     displayText() {
-      return `${this.label} ${this.value ? this.on : this.off}`.trim();
+      const onText = this.on === "ON" ? Localization.text("ON", "オン")
+        : this.on === "Enabled" ? Localization.text("Enabled", "有効") : this.on;
+      const offText = this.off === "OFF" ? Localization.text("OFF", "オフ")
+        : this.off === "Disabled" ? Localization.text("Disabled", "無効") : this.off;
+      return `${this.label} ${this.value ? onText : offText}`.trim();
     }
   },
 };
