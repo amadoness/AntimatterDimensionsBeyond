@@ -31,20 +31,39 @@ export default {
     },
     requirement() {
       if (this.id === 1) {
-        return `Requirement: ${formatInt(5)} EC11 and EC12 completions
-          and ${formatInt(this.maxTT)}/${formatInt(TimeStudy.dilation.totalTimeTheoremRequirement)}
-          total Time Theorems`;
+        return Localization.isJapanese
+          ? `条件: EC11・EC12を各${formatInt(5)}回クリアし、累計Time Theoremを
+            ${formatInt(this.maxTT)}/${formatInt(TimeStudy.dilation.totalTimeTheoremRequirement)}まで獲得`
+          : `Requirement: ${formatInt(5)} EC11 and EC12 completions
+            and ${formatInt(this.maxTT)}/${formatInt(TimeStudy.dilation.totalTimeTheoremRequirement)}
+            total Time Theorems`;
       }
       if (this.id === 6) {
+        if (Localization.isJapanese) {
+          const achRows = Perk.firstPerk.isBought ? "" : `、実績を${formatInt(13)}行達成`;
+          return `条件: ${format("1e4000")} Eternity Point${achRows}`;
+        }
         const achRows = Perk.firstPerk.isBought ? "" : ` and ${formatInt(13)} rows of Achievements`;
         return `Requirement: ${format("1e4000")} Eternity Points${achRows}`;
       }
       return "";
     },
+    localizedConfig() {
+      const config = this.study.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        description: Localization.dilationTimeStudyDescription(this.id, sourceDescription)
+      };
+    },
     theoremTimeEstimate() {
       if (this.study.isBought || !this.study.cost || this.ttGen.eq(0)) return null;
       const time = Decimal.sub(this.study.cost, this.currTT).dividedBy(this.ttGen);
-      return time.gt(0) ? `Enough TT in ${TimeSpan.fromSeconds(time.toNumber()).toStringShort()}` : null;
+      if (!time.gt(0)) return null;
+      const duration = TimeSpan.fromSeconds(time.toNumber()).toStringShort();
+      return Localization.isJapanese ? `必要TTまで ${duration}` : `Enough TT in ${duration}`;
     }
   },
   methods: {
@@ -84,7 +103,7 @@ export default {
     :ach-tooltip="theoremTimeEstimate"
     :special-click="clickHandler()"
   >
-    <DescriptionDisplay :config="study.config" />
+    <DescriptionDisplay :config="localizedConfig" />
     <template v-if="showRequirement">
       <br>
       <span>{{ requirement }}</span>
