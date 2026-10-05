@@ -22,11 +22,16 @@ export default {
   <div class="l-challenges-tab">
     <ChallengeTabHeader />
     <div>
-      Some Normal Challenges have requirements to be able to run that challenge.
+      {{ Localization.text(
+        "Some Normal Challenges have requirements to be able to run that challenge.",
+        "一部の通常チャレンジは、開始するために条件を満たす必要があります。"
+      ) }}
     </div>
     <div>
-      If you have an active Big Crunch Autobuyer, it will attempt to Crunch
-      as soon as possible when reaching Infinite antimatter.
+      {{ Localization.text(
+        "If you have an active Big Crunch Autobuyer, it will attempt to Crunch as soon as possible when reaching Infinite antimatter.",
+        "Big Crunch自動購入器が有効なら、反物質がInfinityに到達すると可能な限りすぐCrunchします。"
+      ) }}
     </div>
     <ChallengeGrid
       v-slot="{ challenge }"
