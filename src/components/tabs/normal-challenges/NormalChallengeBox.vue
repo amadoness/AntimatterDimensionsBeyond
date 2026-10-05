@@ -28,17 +28,26 @@ export default {
   computed: {
     descriptionDisplayConfig() {
       if (this.isUnlocked) {
-        return this.challenge.config;
+        const config = this.challenge.config;
+        const sourceDescription = typeof config.description === "function"
+          ? config.description()
+          : config.description;
+        return {
+          ...config,
+          description: Localization.normalChallengeDescription(this.challenge.id, sourceDescription)
+        };
       }
       return {
-        description: `Infinity ${formatInt(this.challenge.config.lockedAt)} times to unlock.`
+        description: Localization.isJapanese
+          ? `Infinityを${formatInt(this.challenge.config.lockedAt)}回行うと解放。`
+          : `Infinity ${formatInt(this.challenge.config.lockedAt)} times to unlock.`
       };
     },
     name() {
       return `C${this.challenge.id}`;
     },
     overrideLabel() {
-      return this.isBroken ? "Broken" : "";
+      return this.isBroken ? Localization.text("Broken", "破損") : "";
     },
   },
   methods: {
@@ -70,7 +79,10 @@ export default {
       <DescriptionDisplay :config="descriptionDisplayConfig" />
     </template>
     <template #bottom>
-      <span :class="{ 'o-pelle-disabled': isDisabled }">Reward: {{ challenge.config.reward }}</span>
+      <span :class="{ 'o-pelle-disabled': isDisabled }">
+        {{ Localization.text("Reward:", "報酬:") }}
+        {{ Localization.normalChallengeReward(challenge.id, challenge.config.reward) }}
+      </span>
     </template>
   </ChallengeBox>
 </template>
