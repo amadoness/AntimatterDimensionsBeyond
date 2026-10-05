@@ -38,6 +38,17 @@ export default {
     config() {
       return this.upgrade.config;
     },
+    localizedConfig() {
+      const config = this.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        name: Localization.realityUpgradeName(this.upgrade.id, config.name),
+        description: Localization.realityUpgradeDescription(this.upgrade.id, sourceDescription)
+      };
+    },
     classObject() {
       return {
         "c-reality-upgrade-btn--useless": this.isUseless,
@@ -48,8 +59,11 @@ export default {
       };
     },
     requirementConfig() {
+      const sourceRequirement = typeof this.config.requirement === "function"
+        ? this.config.requirement()
+        : this.config.requirement;
       return {
-        description: this.config.requirement
+        description: Localization.realityUpgradeRequirement(this.upgrade.id, sourceRequirement)
       };
     },
     canLock() {
@@ -98,26 +112,26 @@ export default {
         type="realityUpgrades"
         class="l-hint-text--reality-upgrade c-hint-text--reality-upgrade"
       >
-        {{ config.name }}
+        {{ localizedConfig.name }}
       </HintText>
       <span :class="{ 'o-pelle-disabled': isUseless }">
-        <DescriptionDisplay :config="config" />
+        <DescriptionDisplay :config="localizedConfig" />
         <template v-if="($viewModel.shiftDown === isAvailableForPurchase) && !isRebuyable">
           <br>
           <DescriptionDisplay
             :config="requirementConfig"
-            label="Requirement:"
+            :label="Localization.text('Requirement:', '条件:')"
             class="c-reality-upgrade-btn__requirement"
           />
         </template>
         <template v-else>
           <EffectDisplay
-            :config="config"
+            :config="localizedConfig"
             br
           />
           <CostDisplay
             v-if="!isBought"
-            :config="config"
+            :config="localizedConfig"
             br
             name="Reality Machine"
           />
@@ -143,7 +157,7 @@ export default {
     <PrimaryToggleButton
       v-if="isRebuyable && isAutoUnlocked"
       v-model="isAutobuyerOn"
-      label="Auto:"
+      :label="Localization.text('Auto:', '自動:')"
       class="l--spoon-btn-group__little-spoon-reality-btn o-primary-btn--reality-upgrade-toggle"
     />
   </div>
