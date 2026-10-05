@@ -33,11 +33,13 @@ export default {
     pauseModeString() {
       switch (this.pauseMode) {
         case BLACK_HOLE_PAUSE_MODE.NO_PAUSE:
-          return "Do not pause";
+          return Localization.text("Do not pause", "停止しない");
         case BLACK_HOLE_PAUSE_MODE.PAUSE_BEFORE_BH1:
-          return this.hasBH2 ? "Before BH1" : "Before activation";
+          return this.hasBH2
+            ? Localization.text("Before BH1", "BH1の前")
+            : Localization.text("Before activation", "稼働前");
         case BLACK_HOLE_PAUSE_MODE.PAUSE_BEFORE_BH2:
-          return "Before BH2";
+          return Localization.text("Before BH2", "BH2の前");
         default:
           throw new Error("Unrecognized BH offline pausing mode");
       }
@@ -68,8 +70,15 @@ export default {
         BlackHole(2).duration / BlackHole(2).cycleLength];
       this.detailedBH2 = this.bh2Status();
 
-      if (player.blackHoleNegative < 1 && !this.isLaitela) this.stateChange = this.isPaused ? "Uninvert" : "Invert";
-      else this.stateChange = this.isPaused ? "Unpause" : "Pause";
+      if (player.blackHoleNegative < 1 && !this.isLaitela) {
+        this.stateChange = this.isPaused
+          ? Localization.text("Uninvert", "反転解除")
+          : Localization.text("Invert", "反転");
+      } else {
+        this.stateChange = this.isPaused
+          ? Localization.text("Unpause", "再開")
+          : Localization.text("Pause", "一時停止");
+      }
     },
     bh2Status() {
       const bh1Remaining = BlackHole(1).timeWithPreviousActiveToNextStateChange;
@@ -78,14 +87,20 @@ export default {
       // Both BH active
       if (BlackHole(1).isActive && BlackHole(2).isActive) {
         const bh2Duration = Math.min(bh1Remaining, bh2Remaining);
-        return `Black Hole 2 is active for the next ${TimeSpan.fromSeconds(bh2Duration).toStringShort()}!`;
+        const duration = TimeSpan.fromSeconds(bh2Duration).toStringShort();
+        return Localization.isJapanese
+          ? `Black Hole 2はあと${duration}稼働します！`
+          : `Black Hole 2 is active for the next ${duration}!`;
       }
 
       // BH1 active, BH2 will trigger before BH1 runs out
       if (BlackHole(1).isActive && (bh2Remaining < bh1Remaining)) {
         const bh2Duration = Math.min(bh1Remaining - bh2Remaining, BlackHole(2).duration);
-        return `Black Hole 2 will activate before Black Hole 1 deactivates,
-          for ${TimeSpan.fromSeconds(bh2Duration).toStringShort()}`;
+        const duration = TimeSpan.fromSeconds(bh2Duration).toStringShort();
+        return Localization.isJapanese
+          ? `Black Hole 1が停止する前にBlack Hole 2が稼働し、${duration}継続します。`
+          : `Black Hole 2 will activate before Black Hole 1 deactivates,
+            for ${duration}`;
       }
 
       // BH2 won't start yet next cycle
@@ -93,20 +108,28 @@ export default {
         const cycleCount = BlackHole(1).isActive
           ? Math.floor((bh2Remaining - bh1Remaining) / BlackHole(1).duration) + 1
           : Math.floor(bh2Remaining / BlackHole(1).duration);
-        return `Black Hole 2 will activate after ${quantifyInt("more active cycle", cycleCount)} of Black Hole 1.`;
+        return Localization.isJapanese
+          ? `Black Hole 1があと${formatInt(cycleCount)}回稼働した後、Black Hole 2が稼働します。`
+          : `Black Hole 2 will activate after ${quantifyInt("more active cycle", cycleCount)} of Black Hole 1.`;
       }
 
       // BH1 inactive, BH2 ready to go when BH1 activates
       if (BlackHole(2).isCharged) {
         const bh2Duration = Math.min(BlackHole(1).duration, bh2Remaining);
-        return `Black Hole 2 will activate with Black Hole 1,
-          for ${TimeSpan.fromSeconds(bh2Duration).toStringShort()}.`;
+        const duration = TimeSpan.fromSeconds(bh2Duration).toStringShort();
+        return Localization.isJapanese
+          ? `Black Hole 2はBlack Hole 1と同時に稼働し、${duration}継続します。`
+          : `Black Hole 2 will activate with Black Hole 1,
+            for ${duration}.`;
       }
 
       // BH1 inactive, BH2 starts at some point after BH1 activates
       const bh2Duration = Math.min(BlackHole(1).duration - bh2Remaining, BlackHole(2).duration);
-      return `Black Hole 2 will activate ${TimeSpan.fromSeconds(bh2Remaining).toStringShort()} after
-        Black Hole 1, for ${TimeSpan.fromSeconds(bh2Duration).toStringShort()}.`;
+      const delay = TimeSpan.fromSeconds(bh2Remaining).toStringShort();
+      const duration = TimeSpan.fromSeconds(bh2Duration).toStringShort();
+      return Localization.isJapanese
+        ? `Black Hole 1の稼働から${delay}後にBlack Hole 2が稼働し、${duration}継続します。`
+        : `Black Hole 2 will activate ${delay} after Black Hole 1, for ${duration}.`;
     },
     togglePause() {
       BlackHoles.togglePause();
@@ -154,22 +177,36 @@ export default {
       class="c-black-hole-disabled-description"
     >
       <i v-if="isEnslaved">
-        You must... seek... other methods...
+        {{ Localization.text("You must... seek... other methods...", "別の…方法を…探すのだ…") }}
         <br>
       </i>
-      The physics of this Reality do not allow the existence of Black Holes.
+      {{ Localization.text(
+        "The physics of this Reality do not allow the existence of Black Holes.",
+        "このRealityの物理法則ではBlack Holeは存在できません。"
+      ) }}
     </div>
     <div
       v-else-if="!isUnlocked"
       class="l-pre-unlock-text"
     >
       <BlackHoleUnlockButton @blackholeunlock="startAnimation" />
-      The Black Hole makes the entire game run significantly faster for a short period of time.
+      {{ Localization.text(
+        "The Black Hole makes the entire game run significantly faster for a short period of time.",
+        "Black Holeは短時間、ゲーム全体の進行速度を大幅に加速します。"
+      ) }}
       <br>
-      Starts at {{ formatX(180) }} faster for {{ formatInt(10) }} seconds, once per hour.
+      <template v-if="Localization.isJapanese">
+        初期状態では1時間に1回、{{ formatInt(10) }}秒間 {{ formatX(180) }} 加速します。
+      </template>
+      <template v-else>
+        Starts at {{ formatX(180) }} faster for {{ formatInt(10) }} seconds, once per hour.
+      </template>
       <br>
       <br>
-      Unlocking the Black Hole also gives {{ formatInt(10) }} Automator Points.
+      {{ Localization.text(
+        "Unlocking the Black Hole also gives",
+        "Black Holeを解放するとAutomator Pointも"
+      ) }} {{ formatInt(10) }}{{ Localization.text(" Automator Points.", "獲得します。") }}
     </div>
     <template v-else>
       <div class="c-subtab-option-container">
@@ -184,7 +221,7 @@ export default {
           class="o-primary-btn o-primary-btn--subtab-option l-auto-pause-button"
           @click="changePauseMode"
         >
-          Auto-pause: {{ pauseModeString }}
+          {{ Localization.text("Auto-pause:", "自動停止:") }} {{ pauseModeString }}
         </button>
       </div>
       <canvas
@@ -202,17 +239,30 @@ export default {
         <span v-if="hasBH2 && !isPermanent">
           <b>{{ detailedBH2 }}</b>
           <br>
-          The timer for Black Hole 2 only advances while Black Hole 1 is active.
+          {{ Localization.text(
+            "The timer for Black Hole 2 only advances while Black Hole 1 is active.",
+            "Black Hole 2のタイマーはBlack Hole 1の稼働中だけ進みます。"
+          ) }}
           <br>
-          Upgrades affect the internal timer; the header shows real time until next activation.
+          {{ Localization.text(
+            "Upgrades affect the internal timer; the header shows real time until next activation.",
+            "アップグレードは内部タイマーに作用し、上部表示は次の稼働までの実時間を示します。"
+          ) }}
         </span>
         <br>
         <div v-if="!isPermanent">
-          Black holes become permanently active when they are active for more than {{ formatPercents(0.9999, 2) }}
-          of the time.
+          <template v-if="Localization.isJapanese">
+            Black Holeは稼働率が {{ formatPercents(0.9999, 2) }} を超えると永久稼働になります。
+          </template>
+          <template v-else>
+            Black holes become permanently active when they are active for more than {{ formatPercents(0.9999, 2) }}
+            of the time.
+          </template>
           <br>
-          Active time percent: {{ formatPercents(blackHoleUptime[0], 3) }}
-          <span v-if="hasBH2">and {{ formatPercents(blackHoleUptime[1], 3) }}</span>
+          {{ Localization.text("Active time percent:", "稼働率:") }} {{ formatPercents(blackHoleUptime[0], 3) }}
+          <span v-if="hasBH2">
+            {{ Localization.text("and", "/") }} {{ formatPercents(blackHoleUptime[1], 3) }}
+          </span>
         </div>
         <BlackHoleChargingSliders
           v-if="!isLaitela"
