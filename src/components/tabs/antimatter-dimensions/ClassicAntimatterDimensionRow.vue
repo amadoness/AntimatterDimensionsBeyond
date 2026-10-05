@@ -39,7 +39,9 @@ export default {
   computed: {
     isDoomed: () => Pelle.isDoomed,
     name() {
-      return `${AntimatterDimension(this.tier).shortDisplayName} Antimatter Dimension`;
+      return Localization.isJapanese
+        ? `第${formatInt(this.tier)}反物質次元`
+        : `${AntimatterDimension(this.tier).shortDisplayName} Antimatter Dimension`;
     },
     amountText() {
       if (this.formattedAmount) return this.formattedAmount;
@@ -47,16 +49,18 @@ export default {
       return `${amount} (${formatInt(this.boughtBefore10)})`;
     },
     singleText() {
-      if (this.isCapped) return "Capped";
-      const prefix = this.showCostTitle(this.singleCost) ? "Cost: " : "";
+      if (this.isCapped) return Localization.text("Capped", "上限");
+      const prefix = this.showCostTitle(this.singleCost) ? Localization.text("Cost: ", "コスト: ") : "";
       const suffix = this.isCostsAD ? `${this.costUnit}` : "AM";
       return `${prefix} ${format(this.singleCost)} ${suffix}`;
     },
     until10Text() {
-      if (this.isCapped) return "Shattered by Nameless";
-      if (this.isContinuumActive) return `Continuum: ${this.continuumString}`;
+      if (this.isCapped) return Localization.text("Shattered by Nameless", "名もなき者たちにより破壊");
+      if (this.isContinuumActive) return `${Localization.text("Continuum:", "連続購入:")} ${this.continuumString}`;
 
-      const prefix = `Until ${formatInt(10)},${this.showCostTitle(this.until10Cost) ? " Cost" : ""}`;
+      const prefix = Localization.isJapanese
+        ? `10個まで${this.showCostTitle(this.until10Cost) ? " コスト" : ""}`
+        : `Until ${formatInt(10)},${this.showCostTitle(this.until10Cost) ? " Cost" : ""}`;
       const suffix = this.isCostsAD ? `${this.costUnit}` : "AM";
       return `${prefix} ${format(this.until10Cost)} ${suffix}`;
     },
@@ -68,8 +72,8 @@ export default {
     },
     boughtTooltip() {
       if (this.isCapped) return `Nameless prevents the purchase of more than ${format(1)} 8th Antimatter Dimension`;
-      if (this.isContinuumActive) return "Continuum produces all your Antimatter Dimensions";
-      return `Purchased ${quantifyInt("time", this.bought)}`;
+      if (this.isContinuumActive) return Localization.text("Continuum produces all your Antimatter Dimensions", "連続購入がすべての反物質次元を生成します");
+      return Localization.isJapanese ? `購入数: ${formatInt(this.bought)}` : `Purchased ${quantifyInt("time", this.bought)}`;
     },
     costUnit() {
       return `${AntimatterDimension(this.tier - 2).shortDisplayName} AD`;
