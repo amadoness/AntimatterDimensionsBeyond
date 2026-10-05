@@ -1,3 +1,5 @@
+import { Localization } from "./localization";
+
 class SubtabState {
   constructor(parent, config) {
     this._parent = parent;
@@ -5,7 +7,7 @@ class SubtabState {
   }
 
   get name() {
-    return this.config.name;
+    return Localization.name(this.config.name);
   }
 
   get symbol() {
@@ -96,7 +98,7 @@ class TabState {
   }
 
   get name() {
-    return this.config.name;
+    return Localization.name(this.config.name);
   }
 
   get key() {
