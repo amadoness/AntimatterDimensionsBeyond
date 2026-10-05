@@ -72,8 +72,9 @@ export default {
 <template>
   <div class="c-dimension-row c-antimatter-dim-row c-antimatter-prestige-row">
     <div class="l-dim-row__prestige-text c-dim-row__label c-dim-row__label--amount">
-      Dimension Boost ({{ boostCountText }}):
-      requires {{ formatInt(requirement.amount) }} {{ dimName }} Dimensions
+      {{ Localization.text("Dimension Boost", "次元ブースト") }} ({{ boostCountText }}):
+      {{ Localization.text("requires", "必要") }} {{ formatInt(requirement.amount) }} {{ dimName }}
+      {{ Localization.text("Dimensions", "次元") }}
     </div>
     <PrimaryButton
       :enabled="isBuyable"
