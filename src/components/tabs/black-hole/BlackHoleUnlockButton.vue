@@ -31,9 +31,9 @@ export default {
     class="l-reality-upgrade-btn c-reality-upgrade-btn c-reality-upgrade-btn--black-hole-unlock"
     @click="unlock"
   >
-    Unleash the Black Hole
+    {{ Localization.text("Unleash the Black Hole", "Black Holeを解放する") }}
     <br>
-    Cost: {{ formatInt(100) }} Reality Machines
+    {{ Localization.text("Cost:", "コスト:") }} {{ formatInt(100) }} Reality Machine
   </button>
 </template>
 

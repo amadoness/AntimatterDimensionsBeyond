@@ -16,6 +16,10 @@ import {
   jaInfinityChallengeRewards,
   jaInfinityUpgradeDescriptions,
   jaNormalChallengeDescriptions,
+  jaPerkDescriptions,
+  jaRealityUpgradeDescriptions,
+  jaRealityUpgradeNames,
+  jaRealityUpgradeRequirements,
   jaNormalChallengeRewards,
   jaSecretAchievementDescriptions,
   jaSecretAchievementNames,
@@ -185,6 +189,29 @@ export const Localization = {
   ecStudyPath(id, fallback) {
     if (!this.isJapanese) return fallback;
     return jaECStudyPaths[id] ?? fallback;
+  },
+
+  realityUpgradeName(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaRealityUpgradeNames[id] ?? fallback;
+  },
+
+  realityUpgradeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    const entry = jaRealityUpgradeDescriptions[id];
+    return typeof entry === "function" ? entry() : (entry ?? fallback);
+  },
+
+  realityUpgradeRequirement(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    const entry = jaRealityUpgradeRequirements[id];
+    return typeof entry === "function" ? entry() : (entry ?? fallback);
+  },
+
+  perkDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    const entry = jaPerkDescriptions[id];
+    return typeof entry === "function" ? entry() : (entry ?? fallback);
   },
 
   setLanguage(language) {

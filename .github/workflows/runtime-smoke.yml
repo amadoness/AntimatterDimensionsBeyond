@@ -49,5 +49,8 @@ jobs:
             runtime-eternity-challenges.png
             runtime-time-studies.png
             runtime-time-dilation.png
+            runtime-reality-upgrades.png
+            runtime-perks.png
+            runtime-black-hole.png
             runtime-s12.png
           if-no-files-found: ignore

@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     description() {
-      return this.blackHole.description(true);
+      return Localization.isJapanese ? `Black Hole ${this.blackHole.id}` : this.blackHole.description(true);
     },
     id() {
       return this.blackHole.id;
@@ -42,18 +42,18 @@ export default {
 
 <template>
   <h3 v-if="isUnlocked">
-    {{ description }} State:
+    {{ description }} {{ Localization.text("State:", "状態:") }}
     <template v-if="isPermanent">
-      Permanently Active
+      {{ Localization.text("Permanently Active", "永久に稼働") }}
     </template>
     <template v-else-if="isActive">
-      Active ({{ nextChange }} remaining)
+      {{ Localization.text("Active", "稼働中") }} ({{ nextChange }} {{ Localization.text("remaining", "残り") }})
     </template>
     <template v-else-if="id === 2 && isCharged">
-      Charged (Activates with Black Hole 1, {{ nextChange }} remaining)
+      {{ Localization.text("Charged", "充填済み") }} ({{ Localization.text("Activates with Black Hole 1", "Black Hole 1と同時に稼働") }}, {{ nextChange }} {{ Localization.text("remaining", "残り") }})
     </template>
     <template v-else>
-      Inactive (Activation in {{ nextChange }})
+      {{ Localization.text("Inactive", "停止中") }} ({{ Localization.text("Activation in", "稼働まで") }} {{ nextChange }})
     </template>
   </h3>
 </template>

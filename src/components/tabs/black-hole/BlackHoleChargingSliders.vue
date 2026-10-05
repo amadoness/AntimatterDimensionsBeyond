@@ -22,12 +22,20 @@ export default {
   computed: {
     infoTooltip() {
       return this.isLaitela
-        ? "The physics of this Reality do not allow Black Hole Inversion"
-        : "Black Hole must be paused to activate Inversion";
+        ? Localization.text(
+          "The physics of this Reality do not allow Black Hole Inversion",
+          "このRealityの物理法則ではBlack Holeを反転できません"
+        )
+        : Localization.text(
+          "Black Hole must be paused to activate Inversion",
+          "反転を有効にするにはBlack Holeを一時停止する必要があります"
+        );
     },
     reqLockText() {
-      return `Inversion strength cannot be modified due to Lock for
-        "${ImaginaryUpgrade(24).name}"`;
+      return Localization.isJapanese
+        ? `「${ImaginaryUpgrade(24).name}」の条件ロック中は反転強度を変更できません`
+        : `Inversion strength cannot be modified due to Lock for
+          "${ImaginaryUpgrade(24).name}"`;
     }
   },
   methods: {
@@ -68,8 +76,14 @@ export default {
       class="l-black-hole-sliders"
     >
       <b>
-        Inverted Black Hole divides game speed by {{ format(negativeBHDivisor, 2, 2) }}.
-        (Currently {{ isInverted ? "active" : "inactive" }}<span
+        <template v-if="Localization.isJapanese">
+          反転Black Holeはゲーム速度を {{ format(negativeBHDivisor, 2, 2) }} で割ります。
+          （現在 {{ isInverted ? "有効" : "無効" }}
+        </template>
+        <template v-else>
+          Inverted Black Hole divides game speed by {{ format(negativeBHDivisor, 2, 2) }}.
+          (Currently {{ isInverted ? "active" : "inactive" }}
+        </template><span
           v-if="negativeSlider !== 0 && !isInverted"
           :ach-tooltip="infoTooltip"
         >
@@ -89,8 +103,10 @@ export default {
         {{ reqLockText }}
       </div>
       <br>
-      Inverting the Black Hole only affects its own speedup, no other upgrades or effects, although
-      it will also indirectly affect the Effarig Game speed power effect.
+      {{ Localization.text(
+        "Inverting the Black Hole only affects its own speedup, no other upgrades or effects, although it will also indirectly affect the Effarig Game speed power effect.",
+        "Black Holeの反転はBlack Hole自身の加速効果だけに作用し、他のアップグレードや効果には直接影響しません。ただしEffarigのゲーム速度累乗効果には間接的に影響します。"
+      ) }}
     </div>
   </div>
 </template>

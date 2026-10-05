@@ -7,6 +7,7 @@ on:
       - japanese-v0.2
       - japanese-v0.3
       - japanese-v0.4
+      - japanese-v0.5
   pull_request:
     branches:
       - master
@@ -91,5 +92,15 @@ jobs:
           src/components/tabs/time-dilation/DilationUpgradeButton.vue
           src/components/tabs/time-dilation/DilationButton.vue
           src/components/tabs/time-dilation/TimeDilationTab.vue
+          src/components/tabs/reality-upgrades/RealityUpgradeButton.vue
+          src/components/tabs/reality-upgrades/RealityUpgradesTab.vue
+          src/components/tabs/perks/PerkPointLabel.vue
+          src/components/tabs/perks/PerksTab.vue
+          src/components/tabs/black-hole/BlackHoleUnlockButton.vue
+          src/components/tabs/black-hole/BlackHoleStateRow.vue
+          src/components/tabs/black-hole/BlackHoleUpgradeButton.vue
+          src/components/tabs/black-hole/BlackHoleUpgradeRow.vue
+          src/components/tabs/black-hole/BlackHoleChargingSliders.vue
+          src/components/tabs/black-hole/BlackHoleTab.vue
       - name: Build full game
         run: npm run build:master

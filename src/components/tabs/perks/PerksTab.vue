@@ -138,13 +138,18 @@ export const PerkNetwork = {
   minScale: 0.2,
   maxScale: 4,
   lastPerkNotation: "",
+  lastPerkLanguage: "",
   pulseTimer: 0,
   initialStabilization: false,
   currentLayout: {},
   initializeIfNeeded() {
     const notation = Notations.current.name;
-    if (this.container !== undefined && notation === this.lastPerkNotation) return;
+    const language = Localization.language;
+    if (this.container !== undefined &&
+        notation === this.lastPerkNotation &&
+        language === this.lastPerkLanguage) return;
     this.lastPerkNotation = notation;
+    this.lastPerkLanguage = language;
 
     this.makeNetwork();
 
@@ -200,23 +205,26 @@ export const PerkNetwork = {
     // Just for a bit of fun, tangle it up a bit unless the player specifically chooses not to
     const isDisabled = perk => Pelle.isDoomed && Pelle.uselessPerks.includes(perk.id);
     const selectPos = config => PerkLayouts[player.options.perkLayout].position(config);
-    this.nodes = new DataSet(Perks.all.map(perk => ({
-      id: perk.id,
-      label: perk.config.label,
-      shape: perk.config.automatorPoints ? "diamond" : "dot",
-      // As far as I am aware, vis.js doesn't support arbitrary CSS styling; nevertheless, we still want the original
-      // description to be visible instead of being hidden by disable/lock text
-      title: (isDisabled(perk)
-        ? htmlTitle(
-          `<span style='text-decoration: line-through;'>${perk.config.description}</span>`
-        )
-        : `${perk.config.description} ${perk.config.automatorPoints && !isDisabled(perk)
-          ? `(+${formatInt(perk.config.automatorPoints)} AP)`
-          : ""}`
-      ),
-      x: selectPos(perk.config).x,
-      y: selectPos(perk.config).y,
-    })));
+    this.nodes = new DataSet(Perks.all.map(perk => {
+      const description = Localization.perkDescription(perk.id, perk.config.description);
+      return {
+        id: perk.id,
+        label: perk.config.label,
+        shape: perk.config.automatorPoints ? "diamond" : "dot",
+        // As far as I am aware, vis.js doesn't support arbitrary CSS styling; nevertheless, we still want the original
+        // description to be visible instead of being hidden by disable/lock text
+        title: (isDisabled(perk)
+          ? htmlTitle(
+            `<span style='text-decoration: line-through;'>${description}</span>`
+          )
+          : `${description} ${perk.config.automatorPoints && !isDisabled(perk)
+            ? `(+${formatInt(perk.config.automatorPoints)} AP)`
+            : ""}`
+        ),
+        x: selectPos(perk.config).x,
+        y: selectPos(perk.config).y,
+      };
+    }));
 
     const edges = [];
     for (const perk of Perks.all) {
