@@ -4,6 +4,7 @@ import VueGtag from "vue-gtag";
 import { DEV } from "@/env";
 
 import { useLongPress, useRepeatingClick } from "./longpress";
+import { Localization } from "./localization";
 import { notify } from "./notify";
 import { state } from "./ui.init";
 
@@ -13,6 +14,9 @@ Vue.mixin({
   computed: {
     $viewModel() {
       return state.view;
+    },
+    Localization() {
+      return Localization;
     }
   },
   created() {
