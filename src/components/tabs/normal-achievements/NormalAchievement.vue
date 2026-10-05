@@ -102,11 +102,11 @@ export default {
     achievedTime() {
       if (!player.speedrun.isActive) return null;
       if (this.achievementTime === undefined) return Localization.text("Not Achieved yet", "未達成");
-      return this.achievementTime === 0
-        ? Localization.text("Given at Speedrun start", "スピードラン開始時に付与")
-        : Localization.isJapanese
-          ? `達成まで ${TimeSpan.fromMilliseconds(this.achievementTime).toStringShort()}`
-          : `Achieved after ${TimeSpan.fromMilliseconds(this.achievementTime).toStringShort()}`;
+      if (this.achievementTime === 0) {
+        return Localization.text("Given at Speedrun start", "スピードラン開始時に付与");
+      }
+      const time = TimeSpan.fromMilliseconds(this.achievementTime).toStringShort();
+      return Localization.isJapanese ? `達成まで ${time}` : `Achieved after ${time}`;
     }
   },
   beforeDestroy() {
