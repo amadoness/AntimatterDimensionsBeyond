@@ -16,7 +16,10 @@ export default {
   <div class="l-achievements-tab">
     <div class="c-achievements-tab__header">
       <span>
-        Secret Achievements are optional and give no bonuses.
+        {{ Localization.text(
+          "Secret Achievements are optional and give no bonuses.",
+          "隠し実績は任意要素で、ゲーム上のボーナスはありません。"
+        ) }}
       </span>
     </div>
     <div class="l-achievement-grid">
