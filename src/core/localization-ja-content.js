@@ -571,3 +571,73 @@ export const jaBreakInfinityUpgradeDescriptions = {
   1: "Infinity後の反物質次元コスト倍率増加を弱める。",
   2: "直近10回のInfinityでの最高IP/分に応じて、Infinity Pointを自動生成する。"
 };
+
+
+export const jaEternityUpgradeDescriptions = {
+  1: "未使用のEternity Pointに応じてInfinity Dimensionに倍率がかかる。",
+  2: "Eternity回数に応じてInfinity Dimensionに倍率がかかる。10万Eternity以降は伸びが緩やかになる。",
+  3: "Infinity Challengeの合計タイムに応じてInfinity Dimensionに倍率がかかる。",
+  4: "実績ボーナスがTime Dimensionにも適用される。",
+  5: "未使用のTime Theorem数に応じてTime Dimensionに倍率がかかる。",
+  6: "総プレイ日数に応じてTime Dimensionに倍率がかかる。"
+};
+
+export const jaEternityMilestoneRewards = {
+  1: "Infinity Point倍率アップグレードの自動購入器を解放する。",
+  2: "Eternity開始時に通常チャレンジをすべてクリア済み、通常自動購入器をすべて所持、Infinity Break済みになる。",
+  3: "Replicanti Galaxy自動購入器を解放する。",
+  4: "Eternity開始時にすべてのInfinity Upgradeを所持する。",
+  5: "Big Crunch自動購入器の追加モードを解放する。",
+  6: "オフライン中、過去の最高Eternity Point/分の25%を自動獲得する。",
+  7: "Infinity Challengeを解放した瞬間に自動クリアし、次元の生贄自動購入器も維持する。",
+  8: "Eternity開始時にすべてのBreak Infinity Upgradeを所持する。",
+  9: "反物質銀河自動購入器の最大購入モードを解放する。",
+  10: "Eternity開始時からReplicantiを解放済みにする。",
+  11: "第1 Infinity Dimension自動購入器を解放する。",
+  12: "第2 Infinity Dimension自動購入器を解放する。",
+  13: "第3 Infinity Dimension自動購入器を解放する。",
+  14: "第4 Infinity Dimension自動購入器を解放する。",
+  15: "第5 Infinity Dimension自動購入器を解放する。",
+  16: "第6 Infinity Dimension自動購入器を解放する。",
+  17: "第7 Infinity Dimension自動購入器を解放する。",
+  18: "第8 Infinity Dimension自動購入器を解放する。",
+  25: "到達したInfinity Dimensionを自動的に解放する。",
+  30: "すべての反物質次元を最初から購入可能にする。",
+  40: "Replicanti Galaxyで反物質、反物質次元、ティックスピード、次元の生贄、次元ブーストがリセットされなくなる。",
+  50: "Replicanti Chance Upgrade自動購入器を解放する。",
+  60: "Replicanti Interval Upgrade自動購入器を解放する。",
+  80: "最大Replicanti Galaxy Upgrade自動購入器を解放する。",
+  100: "Eternity自動購入器を解放する。",
+  200: "オフライン中、最速Eternityの50%の速度でEternity回数を自動獲得する。",
+  1000: "オフライン中、現在のEternityでの最高Infinity/時の50%に相当するInfinity回数を自動獲得する。"
+};
+
+export const jaEternityChallengeDescriptions = {
+  1: "Time Dimensionが無効になる。",
+  2: "Infinity Dimensionが無効になる。",
+  3: "第5〜第8反物質次元が何も生産しなくなり、次元の生贄も無効になる。",
+  4: "Infinity由来の倍率と生成効果がすべて無効になる。指定されたInfinity回数以内に目標へ到達できないと失敗する。",
+  5: "反物質銀河のコスト増加スケーリングが最初から始まり、次元ブーストのコスト増加も大幅に強くなる。",
+  6: "通常の方法では反物質銀河を獲得できない。最大Replicanti Galaxy Upgradeのコストが大幅に下がる。",
+  7: "第1 Time Dimensionが第8 Infinity Dimensionを生成し、第1 Infinity Dimensionが第7反物質次元を生成する。ティックスピードはInfinity/Time Dimensionにも直接作用する。",
+  8: "Infinity Dimensionは合計50回まで、Replicanti Upgradeは合計40回までしか強化できず、それらの自動購入器も無効になる。",
+  9: "ティックスピードアップグレードを購入できない。代わりにInfinity Powerが弱い効果でTime Dimensionを強化する。",
+  10: "Time DimensionとInfinity Dimensionが無効になる。Infinity回数に応じて反物質次元へ非常に大きな倍率がかかる。",
+  11: "Infinity Powerと次元ブーストによる倍率を除き、すべての次元倍率・累乗効果が無効になる。",
+  12: "ゲーム速度が1000倍遅くなり、他のゲーム速度効果も無効になる。制限時間以内に目標へ到達できないと失敗する。"
+};
+
+export const jaEternityChallengeRewards = {
+  1: "現在のEternity経過時間に応じてTime Dimensionに倍率がかかる。",
+  2: "Infinity Powerに応じて第1 Infinity Dimensionに倍率がかかる。",
+  3: "反物質次元を10個購入したときの倍率を強化する。",
+  4: "未使用のInfinity Pointに応じてInfinity Dimensionに倍率がかかる。",
+  5: "Distant Galaxyのコスト増加開始が遅くなる。",
+  6: "反物質次元のコスト倍率増加をさらに弱める。",
+  7: "第1 Time Dimensionが第8 Infinity Dimensionを追加生成する。",
+  8: "Infinity Powerに応じてReplicanti Galaxyを強化する。",
+  9: "Time Shardに応じてInfinity Dimensionに倍率がかかる。",
+  10: "Infinity回数に応じてTime Dimensionに倍率がかかる。",
+  11: "ティックスピードのコスト倍率増加をさらに弱める。",
+  12: "Infinity Dimensionのコスト倍率を低下させる。"
+};
