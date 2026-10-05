@@ -42,6 +42,8 @@ export default {
     :class="enabledClass"
     @click="action"
   >
-    {{ isLocked ? "Requires an Eternity to unlock" : formatCost(cost) }}
+    {{ isLocked
+      ? Localization.text("Requires an Eternity to unlock", "Eternity後に解放")
+      : formatCost(cost) }}
   </button>
 </template>

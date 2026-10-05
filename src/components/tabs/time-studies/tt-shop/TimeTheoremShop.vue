@@ -52,13 +52,16 @@ export default {
     },
     TTgenRateText() {
       if (this.theoremGeneration.lt(1 / 3600)) {
-        return `one TT every ${TimeSpan.fromSeconds(
-          this.theoremGeneration.reciprocal().toNumber()).toStringShort(false)}`;
+        const duration = TimeSpan.fromSeconds(
+          this.theoremGeneration.reciprocal().toNumber()).toStringShort(false);
+        return Localization.isJapanese ? `${duration}ごとに1 TT` : `one TT every ${duration}`;
       }
       if (this.theoremGeneration.lt(0.1)) {
-        return `${format(this.theoremGeneration.times(3600), 2, 2)} TT/hour`;
+        const amount = format(this.theoremGeneration.times(3600), 2, 2);
+        return Localization.isJapanese ? `${amount} TT/時` : `${amount} TT/hour`;
       }
-      return `${format(this.theoremGeneration, 2, 2)} TT/sec`;
+      const amount = format(this.theoremGeneration, 2, 2);
+      return Localization.isJapanese ? `${amount} TT/秒` : `${amount} TT/sec`;
     },
     totalTimeTheoremText() {
       return `${quantify("total Time Theorem", this.totalTimeTheorems, 2, 2, this.formatTimeTheoremType)}`;
@@ -70,7 +73,8 @@ export default {
       };
     },
     saveLoadText() {
-      return this.$viewModel.shiftDown ? "Save:" : "Load:";
+      if (this.$viewModel.shiftDown) return Localization.text("Save:", "保存:");
+      return Localization.text("Load:", "読込:");
     },
     shopBottomRowHeightStyle() {
       return {
@@ -187,10 +191,10 @@ export default {
               >
             </span>
             <span v-if="showTTGen">
-              You are gaining {{ TTgenRateText }}.
+              {{ Localization.text("You are gaining", "生成速度:") }} {{ TTgenRateText }}<span v-if="!Localization.isJapanese">.</span>
             </span>
             <span v-else>
-              You have {{ totalTimeTheoremText }}.
+              {{ Localization.text("You have", "累計:") }} {{ totalTimeTheoremText }}<span v-if="!Localization.isJapanese">.</span>
             </span>
           </div>
         </div>
@@ -224,13 +228,13 @@ export default {
             class="o-tt-top-row-button c-tt-buy-button c-tt-buy-button--unlocked"
             @click="buyMaxTheorems"
           >
-            Buy max
+            {{ Localization.text("Buy max", "最大購入") }}
           </button>
           <PrimaryToggleButton
             v-if="!minimized && hasTTAutobuyer"
             v-model="isAutobuyerOn"
             class="o-tt-autobuyer-button c-tt-buy-button c-tt-buy-button--unlocked"
-            label="Auto:"
+            :label="Localization.text('Auto:', '自動:')"
           />
         </div>
       </div>

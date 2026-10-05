@@ -30,7 +30,28 @@ export default {
       const id = this.study.id;
       if (!this.setup.path) return id;
       const pathEntry = NormalTimeStudies.pathList.find(p => p.path === this.setup.path);
-      return `${id} ${pathEntry.name}`;
+      if (!Localization.isJapanese) return `${id} ${pathEntry.name}`;
+      const pathNames = {
+        Antimatter: "反物質",
+        Infinity: "Infinity",
+        Time: "Time",
+        Active: "アクティブ",
+        Passive: "パッシブ",
+        Idle: "アイドル",
+        Light: "光",
+        Dark: "闇"
+      };
+      return `${id} ${pathNames[pathEntry.name] ?? pathEntry.name}`;
+    },
+    localizedConfig() {
+      const config = this.study.config;
+      const sourceDescription = typeof config.description === "function"
+        ? config.description()
+        : config.description;
+      return {
+        ...config,
+        description: Localization.timeStudyDescription(this.study.id, sourceDescription)
+      };
     },
     isUseless() {
       return Pelle.uselessTimeStudies.includes(this.study.id) && Pelle.isDoomed;
@@ -64,11 +85,11 @@ export default {
     </HintText>
     <span :class="{ 'o-pelle-disabled': isUseless }">
       <DescriptionDisplay
-        :config="study.config"
+        :config="localizedConfig"
       />
       <EffectDisplay
         br
-        :config="study.config"
+        :config="localizedConfig"
       />
     </span>
   </TimeStudyButton>

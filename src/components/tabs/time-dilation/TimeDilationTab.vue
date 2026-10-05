@@ -69,7 +69,9 @@ export default {
       return DilationUpgrade.ttGenerator;
     },
     baseGalaxyText() {
-      return `${formatInt(this.baseGalaxies)} Base`;
+      return Localization.isJapanese
+        ? `基本: ${formatInt(this.baseGalaxies)}`
+        : `${formatInt(this.baseGalaxies)} Base`;
     },
     hasMaxText: () => PlayerProgress.realityUnlocked() && !Pelle.isDoomed,
     allRebuyables() {
@@ -116,8 +118,13 @@ export default {
       this.maxDT.copyFrom(player.records.thisReality.maxDT);
 
       const estimateText = getDilationTimeEstimate(this.maxDT);
-      if (this.dilatedTimeIncome.lte(0)) this.toMaxTooltip = "No DT gain";
-      else this.toMaxTooltip = estimateText.startsWith("<") ? "Currently Increasing" : estimateText;
+      if (this.dilatedTimeIncome.lte(0)) {
+        this.toMaxTooltip = Localization.text("No DT gain", "DT増加なし");
+      } else {
+        this.toMaxTooltip = estimateText.startsWith("<")
+          ? Localization.text("Currently Increasing", "現在増加中")
+          : estimateText;
+      }
     }
   }
 };
@@ -126,9 +133,15 @@ export default {
 <template>
   <div class="l-dilation-tab">
     <span>
-      You have
-      <span class="c-dilation-tab__tachyons">{{ format(tachyons, 2, 1) }}</span>
-      {{ pluralize("Tachyon Particle", tachyons) }}.
+      <template v-if="Localization.isJapanese">
+        Tachyon Particle:
+        <span class="c-dilation-tab__tachyons">{{ format(tachyons, 2, 1) }}</span>
+      </template>
+      <template v-else>
+        You have
+        <span class="c-dilation-tab__tachyons">{{ format(tachyons, 2, 1) }}</span>
+        {{ pluralize("Tachyon Particle", tachyons) }}.
+      </template>
     </span>
     <div
       @mouseover="isHovering = true"
@@ -137,28 +150,45 @@ export default {
       <DilationButton />
     </div>
     <span>
-      You have
-      <span class="c-dilation-tab__dilated-time">{{ format(dilatedTime, 2, 1) }}</span>
-      Dilated Time.
-      <span class="c-dilation-tab__dilated-time-income">{{ dilatedTimeGainText }}/s</span>
+      <template v-if="Localization.isJapanese">
+        Dilated Time:
+        <span class="c-dilation-tab__dilated-time">{{ format(dilatedTime, 2, 1) }}</span>
+        <span class="c-dilation-tab__dilated-time-income">{{ dilatedTimeGainText }}/秒</span>
+      </template>
+      <template v-else>
+        You have
+        <span class="c-dilation-tab__dilated-time">{{ format(dilatedTime, 2, 1) }}</span>
+        Dilated Time.
+        <span class="c-dilation-tab__dilated-time-income">{{ dilatedTimeGainText }}/s</span>
+      </template>
     </span>
     <span>
-      Next
-      <span v-if="tachyonGalaxyGain > 1">{{ formatInt(tachyonGalaxyGain) }}</span>
-      {{ pluralize("Tachyon Galaxy", tachyonGalaxyGain) }} at
+      <template v-if="Localization.isJapanese">
+        次の<span v-if="tachyonGalaxyGain > 1">{{ formatInt(tachyonGalaxyGain) }}個の</span>Tachyon Galaxy:
+      </template>
+      <template v-else>
+        Next
+        <span v-if="tachyonGalaxyGain > 1">{{ formatInt(tachyonGalaxyGain) }}</span>
+        {{ pluralize("Tachyon Galaxy", tachyonGalaxyGain) }} at
+      </template>
       <span
         class="c-dilation-tab__galaxy-threshold"
         :ach-tooltip="galaxyTimeEstimate"
       >{{ format(galaxyThreshold, 2, 1) }}</span>
-      Dilated Time, gained total of
+      <span v-if="Localization.isJapanese"> Dilated Time時点。合計獲得:</span>
+      <span v-else>Dilated Time, gained total of</span>
       <span
         class="c-dilation-tab__galaxies"
         :ach-tooltip="baseGalaxyText"
       >{{ formatInt(totalGalaxies) }}</span>
-      {{ pluralize("Tachyon Galaxy", totalGalaxies) }}
+      <template v-if="Localization.isJapanese"> Tachyon Galaxy</template>
+      <template v-else>{{ pluralize("Tachyon Galaxy", totalGalaxies) }}</template>
     </span>
     <span v-if="hasMaxText">
-      Your maximum Dilated Time reached this Reality is
+      {{ Localization.text(
+        "Your maximum Dilated Time reached this Reality is",
+        "このRealityで到達した最大Dilated Time:"
+      ) }}
       <span
         v-tooltip="toMaxTooltip"
         class="max-accent"

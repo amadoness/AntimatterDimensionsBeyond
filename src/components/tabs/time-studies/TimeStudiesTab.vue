@@ -124,10 +124,16 @@ export default {
     },
     exportStudyTree() {
       if (player.timestudy.studies.length === 0) {
-        GameUI.notify.error("You cannot export an empty Time Study Tree!");
+        GameUI.notify.error(Localization.text(
+          "You cannot export an empty Time Study Tree!",
+          "空のTime Study Treeはエクスポートできません！"
+        ));
       } else {
         copyToClipboard(GameCache.currentStudyTree.value.exportString);
-        GameUI.notify.info("Exported current Time Studies to your clipboard");
+        GameUI.notify.info(Localization.text(
+          "Exported current Time Studies to your clipboard",
+          "現在のTime Studyをクリップボードへエクスポートしました"
+        ));
       }
     }
   }
@@ -141,19 +147,19 @@ export default {
         class="o-primary-btn--subtab-option"
         @click="exportStudyTree"
       >
-        Export tree
+        {{ Localization.text("Export tree", "ツリーを書き出す") }}
       </PrimaryButton>
       <PrimaryButton
         :class="respecClassObject"
         @click="respec = !respec"
       >
-        Respec Time Studies on next Eternity
+        {{ Localization.text("Respec Time Studies on next Eternity", "次のEternityでTime Studyを振り直す") }}
       </PrimaryButton>
       <PrimaryButton
         class="o-primary-btn--subtab-option"
         onclick="Modal.studyString.show({ id: -1 })"
       >
-        Import tree
+        {{ Localization.text("Import tree", "ツリーを読み込む") }}
       </PrimaryButton>
     </div>
     <div
