@@ -21,28 +21,42 @@ export default {
     suggestions() {
       const arr = [];
       if (this.purchasableTS > 0) {
-        arr.push(`Purchase more Time Studies (${formatInt(this.purchasableTS)} available)`);
+        arr.push(Localization.isJapanese
+          ? `Time Studyを追加購入（購入可能: ${formatInt(this.purchasableTS)}）`
+          : `Purchase more Time Studies (${formatInt(this.purchasableTS)} available)`);
       }
       if (this.missingAchievements > 0) {
-        arr.push(`Complete the rest of your Achievements (${formatInt(this.missingAchievements)} left)`);
+        arr.push(Localization.isJapanese
+          ? `残りの実績を達成（残り: ${formatInt(this.missingAchievements)}）`
+          : `Complete the rest of your Achievements (${formatInt(this.missingAchievements)} left)`);
       }
       if (this.unpurchasedDilationUpgrades > 0) {
-        arr.push(`Purchase the remaining Dilation Upgrades (${formatInt(this.unpurchasedDilationUpgrades)} left)`);
+        arr.push(Localization.isJapanese
+          ? `残りのDilation Upgradeを購入（残り: ${formatInt(this.unpurchasedDilationUpgrades)}）`
+          : `Purchase the remaining Dilation Upgrades (${formatInt(this.unpurchasedDilationUpgrades)} left)`);
       }
       if (this.currLog10EP > 1.3 * this.cheapestLog10TD) {
-        arr.push(`Purchase more TDs (cheapest: ${format(Decimal.pow10(this.cheapestLog10TD))} EP)`);
+        arr.push(Localization.isJapanese
+          ? `Time Dimensionを追加購入（最安: ${format(Decimal.pow10(this.cheapestLog10TD))} EP）`
+          : `Purchase more TDs (cheapest: ${format(Decimal.pow10(this.cheapestLog10TD))} EP)`);
       }
       if (this.currLog10EP > 1.3 * this.multEPLog10Cost) {
-        arr.push(`Purchase more ${formatX(5)} EP (cost: ${format(Decimal.pow10(this.multEPLog10Cost))} EP)`);
+        arr.push(Localization.isJapanese
+          ? `${formatX(5)} EPアップグレードを追加購入（コスト: ${format(Decimal.pow10(this.multEPLog10Cost))} EP）`
+          : `Purchase more ${formatX(5)} EP (cost: ${format(Decimal.pow10(this.multEPLog10Cost))} EP)`);
       }
       if (this.ecCount < 60) {
-        arr.push(`Finish the rest of your ECs (Done: ${formatInt(this.ecCount)}/${formatInt(60)})`);
+        arr.push(Localization.isJapanese
+          ? `残りのEternity Challengeをクリア（${formatInt(this.ecCount)}/${formatInt(60)}）`
+          : `Finish the rest of your ECs (Done: ${formatInt(this.ecCount)}/${formatInt(60)})`);
       }
       if (!this.hasDilated) {
-        arr.push("Perform a Dilated Eternity");
+        arr.push(Localization.text("Perform a Dilated Eternity", "Dilated Eternityを行う"));
       }
       if (this.availableCharges > 0) {
-        arr.push(`Charge more Infinity Upgrades (${formatInt(this.availableCharges)} available)`);
+        arr.push(Localization.isJapanese
+          ? `Infinity UpgradeをさらにCharge（可能: ${formatInt(this.availableCharges)}）`
+          : `Charge more Infinity Upgrades (${formatInt(this.availableCharges)} available)`);
       }
       return arr;
     },
@@ -59,6 +73,7 @@ export default {
       };
     },
     clickText() {
+      if (Localization.isJapanese) return this.isExpanded ? "（クリックで閉じる）" : "（クリックで開く）";
       return `(click to ${this.isExpanded ? "collapse" : "expand"})`;
     },
     realityReminderClass() {
@@ -108,15 +123,26 @@ export default {
     @click="clicked"
   >
     <span v-if="!canReality">
-      You still need to unlock Reality in the Time Study Tree.
+      {{ Localization.text(
+        "You still need to unlock Reality in the Time Study Tree.",
+        "Time Study TreeでRealityを解放する必要があります。"
+      ) }}
     </span>
     <span v-else-if="suggestions.length === 0">
-      Ready to Reality! You have unlocked every available upgrade within this Reality.
+      {{ Localization.text(
+        "Ready to Reality! You have unlocked every available upgrade within this Reality.",
+        "Realityの準備完了！このReality内で利用可能なアップグレードをすべて解放済みです。"
+      ) }}
     </span>
     <span v-else>
       <i :class="dropDownIconClass" />
-      You have {{ quantifyInt("thing", suggestions.length) }}
-      you may want to do before Reality. {{ clickText }}
+      <template v-if="Localization.isJapanese">
+        Reality前にやっておきたいことが {{ formatInt(suggestions.length) }} 件あります。{{ clickText }}
+      </template>
+      <template v-else>
+        You have {{ quantifyInt("thing", suggestions.length) }}
+        you may want to do before Reality. {{ clickText }}
+      </template>
       <div
         v-if="isExpanded"
         class="l-suggestions"
