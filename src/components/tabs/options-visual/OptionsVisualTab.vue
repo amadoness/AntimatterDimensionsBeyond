@@ -31,16 +31,19 @@ export default {
   computed: {
     sidebarDB: () => GameDatabase.sidebarResources,
     themeLabel() {
-      return `Theme: ${Themes.find(this.theme).displayName()}`;
+      return `${Localization.text("Theme:", "テーマ:")} ${Themes.find(this.theme).displayName()}`;
     },
     notationLabel() {
-      return `Notation: ${this.notation}`;
+      return `${Localization.text("Notation:", "表記:")} ${this.notation}`;
     },
     sidebarLabel() {
-      return `Sidebar (Modern UI): ${this.sidebarResource}`;
+      return `${Localization.text("Sidebar (Modern UI):", "サイドバー（モダンUI）:")} ${this.sidebarResource}`;
     },
     UILabel() {
-      return `UI: ${this.$viewModel.newUI ? "Modern" : "Classic"}`;
+      const uiName = this.$viewModel.newUI
+        ? Localization.text("Modern", "モダン")
+        : Localization.text("Classic", "クラシック");
+      return `${Localization.text("UI:", "UI:")} ${uiName}`;
     }
   },
   watch: {
@@ -68,6 +71,14 @@ export default {
       <div class="l-options-grid__row">
         <OptionsButton
           class="o-primary-btn--option_font-large"
+          @click="Localization.toggleLanguage()"
+        >
+          {{ Localization.text("Language: English", "言語: 日本語") }}
+        </OptionsButton>
+      </div>
+      <div class="l-options-grid__row">
+        <OptionsButton
+          class="o-primary-btn--option_font-large"
           onclick="GameOptions.toggleUI()"
         >
           {{ UILabel }}
@@ -77,7 +88,7 @@ export default {
           class="o-primary-btn--option"
           onclick="Modal.newsOptions.show();"
         >
-          Open News Options
+          {{ Localization.text("Open News Options", "ニュース設定を開く") }}
         </OptionsButton>
       </div>
       <div class="l-options-grid__row">
@@ -103,7 +114,7 @@ export default {
           class="o-primary-btn--option"
           onclick="Modal.notation.show();"
         >
-          Open Exponent Notation Options
+          {{ Localization.text("Open Exponent Notation Options", "指数表記設定を開く") }}
         </OptionsButton>
       </div>
       <div class="l-options-grid__row">
@@ -111,19 +122,19 @@ export default {
           class="o-primary-btn--option"
           onclick="Modal.animationOptions.show();"
         >
-          Open Animation Options
+          {{ Localization.text("Open Animation Options", "アニメーション設定を開く") }}
         </OptionsButton>
         <OptionsButton
           class="o-primary-btn--option"
           onclick="Modal.infoDisplayOptions.show()"
         >
-          Open Info Display Options
+          {{ Localization.text("Open Info Display Options", "情報表示設定を開く") }}
         </OptionsButton>
         <OptionsButton
           class="o-primary-btn--option"
           onclick="Modal.awayProgressOptions.show()"
         >
-          Open Away Progress Options
+          {{ Localization.text("Open Away Progress Options", "離席進行設定を開く") }}
         </OptionsButton>
       </div>
       <div class="l-options-grid__row">
@@ -131,12 +142,12 @@ export default {
           class="o-primary-btn--option"
           onclick="Modal.hiddenTabs.show()"
         >
-          Modify Visible Tabs
+          {{ Localization.text("Modify Visible Tabs", "表示タブを変更") }}
         </OptionsButton>
         <PrimaryToggleButton
           v-model="headerTextColored"
           class="o-primary-btn--option l-options-grid__button"
-          label="Relative prestige gain text coloring:"
+          :label="Localization.text('Relative prestige gain text coloring:', '転生獲得量の文字色:')"
         />
         <ExpandingControlBox
           v-if="$viewModel.newUI"
