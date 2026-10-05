@@ -8,10 +8,10 @@ export default {
   },
   computed: {
     upgrades: () => RealityUpgrades.all,
-    costScalingTooltip: () => Localization.isJapanese
+    costScalingTooltip: () => (Localization.isJapanese
       ? `${format(1e30)} RMを超えると価格上昇が速くなり、${format(Decimal.NUMBER_MAX_VALUE, 1)} RMを超えるとさらに加速します。`
       : `Prices start increasing faster above ${format(1e30)} RM and then even faster
-        above ${format(Decimal.NUMBER_MAX_VALUE, 1)} RM`,
+        above ${format(Decimal.NUMBER_MAX_VALUE, 1)} RM`),
     possibleTooltip: () => Localization.text(
       "Checkered upgrades are impossible to unlock this Reality. Striped upgrades are still possible.",
       "格子柄のアップグレードはこのRealityでは解放不可能です。縞模様のものはまだ解放できます。"
