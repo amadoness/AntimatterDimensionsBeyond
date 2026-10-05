@@ -38,9 +38,13 @@ export default {
       this.currentSacrifice.copyFrom(Sacrifice.totalBoost);
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
       const sacText = this.isSacrificeUnlocked
-        ? ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`
+        ? (Localization.isJapanese
+          ? ` | 次元の生贄倍率: ${formatX(this.currentSacrifice, 2, 2)}`
+          : ` | Dimensional Sacrifice multiplier: ${formatX(this.currentSacrifice, 2, 2)}`)
         : "";
-      this.multiplierText = `Buy 10 Dimension purchase multiplier: ${formatX(this.buy10Mult, 2, 2)}${sacText}`;
+      this.multiplierText = Localization.isJapanese
+        ? `次元を10個購入した時の倍率: ${formatX(this.buy10Mult, 2, 2)}${sacText}`
+        : `Buy 10 Dimension purchase multiplier: ${formatX(this.buy10Mult, 2, 2)}${sacText}`;
     },
     quickReset() {
       softReset(-1, true, true);
@@ -68,9 +72,11 @@ export default {
       class="o-primary-btn--quick-reset"
       @click="quickReset"
     >
-      Perform a Dimension Boost reset
-      <span v-if="hasDimensionBoosts"> but lose a Dimension Boost</span>
-      <span v-else> for no gain</span>
+      {{ Localization.text("Perform a Dimension Boost reset", "次元ブーストのリセットを実行") }}
+      <span v-if="hasDimensionBoosts">
+        {{ Localization.text(" but lose a Dimension Boost", "（次元ブーストを1つ失う）") }}
+      </span>
+      <span v-else>{{ Localization.text(" for no gain", "（獲得なし）") }}</span>
     </PrimaryButton>
     <div class="l-flex" />
     <AntimatterDimensionProgressBar class="l-antimatter-dim-tab__progress_bar" />
