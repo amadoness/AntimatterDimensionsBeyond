@@ -13,24 +13,39 @@ export default {
   },
   computed: {
     removeString() {
-      if (this.isRefining) return "Refine";
-      if (this.glyphSacrificeUnlocked) return "Sacrifice";
-      return "Delete";
+      if (this.isRefining) return Localization.text("Refine", "Refine");
+      if (this.glyphSacrificeUnlocked) return Localization.text("Sacrifice", "Sacrifice");
+      return Localization.text("Delete", "削除");
     },
     autoCleanTooltip() {
+      if (Localization.isJapanese) {
+        return `十分な数の他Glyphより全項目で弱いGlyphを${this.removeString}します${this.hasPerkShop ? "（カスタムGlyphは除外）" : ""}`;
+      }
       return `${this.removeString} Glyphs that are worse in every way than
         enough other Glyphs${this.hasPerkShop ? " (ignores customized Glyphs)" : ""}`;
     },
     harshAutoCleanTooltip() {
+      if (Localization.isJapanese) {
+        return `他のいずれか1個より全項目で弱いGlyphを${this.removeString}します${this.hasPerkShop ? "（カスタムGlyphも対象）" : ""}`;
+      }
       return `${this.removeString} Glyphs that are worse in every way than
         ANY other Glyph${this.hasPerkShop ? " (includes customized Glyphs)" : ""}`;
     },
     deleteRejectedTooltip() {
       const negativeWarning = AutoGlyphProcessor.hasNegativeEffectScore()
-        ? " You also have some negative Effect Filter scores; this may remove some Glyphs you normally want to keep!"
+        ? Localization.text(
+          " You also have some negative Effect Filter scores; this may remove some Glyphs you normally want to keep!",
+          " Effect Filter Scoreが負の項目もあるため、残したいGlyphまで削除される可能性があります！"
+        )
         : "";
-      return this.removeCount === 0
-        ? `This will not remove any Glyphs, adjust your Filter settings to remove some.`
+      if (this.removeCount === 0) {
+        return Localization.text(
+          "This will not remove any Glyphs, adjust your Filter settings to remove some.",
+          "削除対象はありません。Filter設定を調整してください。"
+        );
+      }
+      return Localization.isJapanese
+        ? `${formatInt(this.removeCount)}個のGlyphを削除します！${negativeWarning}`
         : `This will remove ${quantifyInt("Glyph", this.removeCount)}!${negativeWarning}`;
     }
   },
@@ -87,13 +102,13 @@ export default {
     class="o-glyph-inventory-management-group"
   >
     <div class="l-glyph-sacrifice-options__header">
-      Remove weaker Glyphs:
+      {{ Localization.text("Remove weaker Glyphs:", "弱いGlyphを整理:") }}
     </div>
     <button
       class="c-glyph-inventory-option"
       @click="autoClean"
     >
-      Purge Glyphs
+      {{ Localization.text("Purge Glyphs", "Glyphを整理") }}
       <div class="c-glyph-inventory-option__tooltip">
         {{ autoCleanTooltip }}
       </div>
@@ -102,7 +117,7 @@ export default {
       class="c-glyph-inventory-option"
       @click="harshAutoClean"
     >
-      Harsh Purge Glyphs
+      {{ Localization.text("Harsh Purge Glyphs", "厳しくGlyphを整理") }}
       <div class="c-glyph-inventory-option__tooltip">
         {{ harshAutoCleanTooltip }}
       </div>
@@ -111,14 +126,16 @@ export default {
       class="c-glyph-inventory-option"
       @click="deleteAllUnprotected"
     >
-      {{ removeString }} all unprotected Glyphs
+      <template v-if="Localization.isJapanese">非保護Glyphをすべて{{ removeString }}</template>
+      <template v-else>{{ removeString }} all unprotected Glyphs</template>
     </button>
     <button
       v-if="hasFilter"
       class="c-glyph-inventory-option"
       @click="deleteAllRejected"
     >
-      {{ removeString }} all Glyphs rejected by filtering
+      <template v-if="Localization.isJapanese">Filterで不採用のGlyphをすべて{{ removeString }}</template>
+      <template v-else>{{ removeString }} all Glyphs rejected by filtering</template>
       <div
         class="c-glyph-inventory-option__tooltip l-rejected-tooltip"
       >
