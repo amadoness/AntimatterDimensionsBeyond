@@ -76,6 +76,12 @@ export default {
   beforeCreate() {
     this.updateFunction = () => { };
   },
+  computed: {
+    labelDisplay() {
+      if (!Localization.isJapanese) return this.label;
+      return this.label === "Cost:" ? "コスト:" : this.label;
+    }
+  },
   methods: {
     update() {
       this.updateFunction();
@@ -88,6 +94,6 @@ export default {
 <template>
   <span v-if="isVisible">
     <br v-if="br">
-    {{ label }} {{ quantify(name, cost, 0, 0, formatCost) }}
+    {{ labelDisplay }} {{ quantify(name, cost, 0, 0, formatCost) }}
   </span>
 </template>

@@ -40,5 +40,8 @@ jobs:
           name: runtime-smoke-screenshots
           path: |
             runtime-normal.png
+            runtime-achievements.png
+            runtime-challenges.png
+            runtime-infinity.png
             runtime-s12.png
           if-no-files-found: ignore

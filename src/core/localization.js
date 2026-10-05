@@ -1,3 +1,17 @@
+import {
+  jaAchievementDescriptions,
+  jaAchievementNames,
+  jaAchievementRewards,
+  jaBreakInfinityUpgradeDescriptions,
+  jaInfinityChallengeDescriptions,
+  jaInfinityChallengeRewards,
+  jaInfinityUpgradeDescriptions,
+  jaNormalChallengeDescriptions,
+  jaNormalChallengeRewards,
+  jaSecretAchievementDescriptions,
+  jaSecretAchievementNames
+} from "./localization-ja-content";
+
 const japaneseNames = {
   "Dimensions": "次元",
   "Antimatter Dimensions": "反物質次元",
@@ -59,6 +73,58 @@ export const Localization = {
 
   name(english) {
     return this.isJapanese ? (japaneseNames[english] ?? english) : english;
+  },
+
+  achievementName(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaAchievementNames[id] ?? fallback;
+  },
+
+  achievementDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaAchievementDescriptions[id] ?? fallback;
+  },
+
+  achievementReward(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaAchievementRewards[id] ?? fallback;
+  },
+
+  secretAchievementName(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaSecretAchievementNames[id] ?? fallback;
+  },
+
+  secretAchievementDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaSecretAchievementDescriptions[id] ?? fallback;
+  },
+
+  normalChallengeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaNormalChallengeDescriptions[id] ?? fallback;
+  },
+
+  normalChallengeReward(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaNormalChallengeRewards[id] ?? fallback;
+  },
+
+  infinityChallengeDescription(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaInfinityChallengeDescriptions[id] ?? fallback;
+  },
+
+  infinityChallengeReward(id, fallback) {
+    if (!this.isJapanese) return fallback;
+    return jaInfinityChallengeRewards[id] ?? fallback;
+  },
+
+  infinityUpgradeDescription(id, fallback, charged = false) {
+    if (!this.isJapanese) return fallback;
+    const entry = jaInfinityUpgradeDescriptions[id];
+    if (entry === undefined) return jaBreakInfinityUpgradeDescriptions[id] ?? fallback;
+    return charged ? (entry.charged ?? entry.normal ?? fallback) : (entry.normal ?? fallback);
   },
 
   setLanguage(language) {

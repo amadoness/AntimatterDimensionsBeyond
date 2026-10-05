@@ -134,43 +134,51 @@ export default {
       <PrimaryToggleButton
         v-model="hideCompletedRows"
         class="o-primary-btn--subtab-option"
-        label="Hide completed rows:"
+        :label="Localization.text('Hide completed rows:', '完了した行を隠す:')"
       />
       <PrimaryToggleButton
         v-if="showAutoAchieve"
         v-model="isAutoAchieveActive"
         class="o-primary-btn--subtab-option"
-        label="Auto Achievements:"
+        :label="Localization.text('Auto Achievements:', '実績の自動取得:')"
       />
     </div>
     <div class="c-achievements-tab__header c-achievements-tab__header--multipliers">
       <span v-if="isDoomed">
-        All Achievement multipliers have been disabled<SwapAchievementImagesButton />
+        {{ Localization.text("All Achievement multipliers have been disabled", "すべての実績倍率が無効化されています") }}<SwapAchievementImagesButton />
       </span>
       <span v-else>
-        Achievements provide a multiplier to<SwapAchievementImagesButton />
+        {{ Localization.text("Achievements provide a multiplier to", "実績は以下に倍率を与えます") }}<SwapAchievementImagesButton />
         <div v-html="boostText" />
       </span>
     </div>
     <div class="c-achievements-tab__header">
-      Achievements with a <i class="fas fa-star" /> icon also give an additional reward.
+      {{ Localization.text("Achievements with a", "星") }} <i class="fas fa-star" />
+      {{ Localization.text("icon also give an additional reward.", "アイコン付きの実績には追加報酬があります。") }}
     </div>
     <div
       v-if="showAutoAchieve"
       class="c-achievements-tab__header"
     >
       <div v-if="achCountdown > 0">
-        Automatically gain the next missing Achievement in
-        {{ timeDisplayNoDecimals(achCountdown) }}<span v-if="!isAutoAchieveActive"> once Auto is turned on</span>.
-        (left-to-right, top-to-bottom)
+        {{ Localization.text("Automatically gain the next missing Achievement in", "次の未達成実績を自動取得するまで") }}
+        {{ timeDisplayNoDecimals(achCountdown) }}<span v-if="!isAutoAchieveActive">
+          {{ Localization.text(" once Auto is turned on", "（自動取得をオンにすると開始）") }}
+        </span>.
+        {{ Localization.text("(left-to-right, top-to-bottom)", "（左から右、上から下の順）") }}
       </div>
       <div v-else-if="missingAchievements !== 0">
-        Automatically gain the next missing Achievement as soon as you enable Auto Achievements.
-        (left-to-right, top-to-bottom)
+        {{ Localization.text(
+          "Automatically gain the next missing Achievement as soon as you enable Auto Achievements.",
+          "実績の自動取得を有効にすると、次の未達成実績をすぐ取得します。"
+        ) }}
+        {{ Localization.text("(left-to-right, top-to-bottom)", "（左から右、上から下の順）") }}
       </div>
       <div v-if="totalCountdown > 0">
-        You will regain all remaining achievements after {{ timeDisplayNoDecimals(totalCountdown) }} if Auto
-        Achievement <span v-if="isAutoAchieveActive">stays enabled</span><span v-else>is turned on</span>.
+        {{ Localization.text("You will regain all remaining achievements after", "残りすべての実績を取り戻すまで") }}
+        {{ timeDisplayNoDecimals(totalCountdown) }}
+        <span v-if="isAutoAchieveActive">{{ Localization.text("if Auto Achievement stays enabled", "（自動取得を有効のまま維持）") }}</span>
+        <span v-else>{{ Localization.text("if Auto Achievement is turned on", "（自動取得をオンにした場合）") }}</span>.
       </div>
       <br>
     </div>

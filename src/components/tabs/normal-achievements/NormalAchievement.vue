@@ -31,6 +31,7 @@ export default {
       garbleTimer: 0,
       garbleKey: 0,
       achievementTime: 0,
+      rewardText: "",
     };
   },
   computed: {
@@ -90,20 +91,22 @@ export default {
     },
     // The garble templates themselves can be static, and shouldn't be recreated every render tick
     garbledNameTemplate() {
-      return this.makeGarbledTemplate(this.config.name);
+      return this.makeGarbledTemplate(Localization.achievementName(this.id, this.config.name));
     },
     garbledIDTemplate() {
       return this.makeGarbledTemplate(this.displayId);
     },
     garbledDescriptionTemplate() {
-      return this.makeGarbledTemplate(this.config.description);
+      return this.makeGarbledTemplate(Localization.achievementDescription(this.id, this.config.description));
     },
     achievedTime() {
       if (!player.speedrun.isActive) return null;
-      if (this.achievementTime === undefined) return "Not Achieved yet";
-      return this.achievementTime === 0
-        ? "Given at Speedrun start"
-        : `Achieved after ${TimeSpan.fromMilliseconds(this.achievementTime).toStringShort()}`;
+      if (this.achievementTime === undefined) return Localization.text("Not Achieved yet", "未達成");
+      if (this.achievementTime === 0) {
+        return Localization.text("Given at Speedrun start", "スピードラン開始時に付与");
+      }
+      const time = TimeSpan.fromMilliseconds(this.achievementTime).toStringShort();
+      return Localization.isJapanese ? `達成まで ${time}` : `Achieved after ${time}`;
     }
   },
   beforeDestroy() {
@@ -117,9 +120,12 @@ export default {
       this.showUnlockState = player.options.showHintText.achievementUnlockStates;
       this.realityUnlocked = PlayerProgress.realityUnlocked();
 
-      this.processedName = this.processText(this.config.name, this.garbledNameTemplate);
+      const localizedName = Localization.achievementName(this.id, this.config.name);
+      const localizedDescription = Localization.achievementDescription(this.id, this.config.description);
+      this.processedName = this.processText(localizedName, this.garbledNameTemplate);
       this.processedId = this.processText(this.displayId, this.garbledIDTemplate);
-      this.processedDescription = this.processText(this.config.description, this.garbledDescriptionTemplate);
+      this.processedDescription = this.processText(localizedDescription, this.garbledDescriptionTemplate);
+      this.rewardText = Localization.achievementReward(this.id, this.config.reward);
 
       // This uses key-swapping to force the garbled achievements to re-render their text, because otherwise they
       // would remain static. Keys for non-garbled achievements won't change, and all keys remain unique.
@@ -203,7 +209,7 @@ export default {
             v-if="!isObscured"
             :class="{ 'o-pelle-disabled': isDisabled }"
           >
-            Reward: {{ config.reward }}
+            {{ Localization.text("Reward:", "報酬:") }} {{ rewardText }}
             <EffectDisplay
               v-if="config.formatEffect"
               br

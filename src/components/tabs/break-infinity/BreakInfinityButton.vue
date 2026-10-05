@@ -24,8 +24,10 @@ export default {
       return undefined;
     },
     text() {
-      if (this.isEnslaved) return "FEEL ETERNITY";
-      return this.isBroken ? "INFINITY IS BROKEN" : "BREAK INFINITY";
+      if (this.isEnslaved) return Localization.text("FEEL ETERNITY", "永遠を感じろ");
+      return this.isBroken
+        ? Localization.text("INFINITY IS BROKEN", "INFINITYは突破済み")
+        : Localization.text("BREAK INFINITY", "INFINITYを突破");
     }
   },
   methods: {

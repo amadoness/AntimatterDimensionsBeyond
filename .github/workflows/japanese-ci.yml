@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - japanese-v0.1
+      - japanese-v0.2
   pull_request:
     branches:
       - master
@@ -26,6 +27,7 @@ jobs:
         run: >
           npx eslint
           src/core/localization.js
+          src/core/localization-ja-content.js
           src/core/globals.js
           src/core/tabs.js
           src/components/PrimaryToggleButton.vue
@@ -52,5 +54,22 @@ jobs:
           src/components/ui-modes/BigCrunchButton.vue
           src/components/ui-modes/classic/ClassicSubtabBar.vue
           src/components/ui-modes/prestige-header/HeaderCenterContainer.vue
+          src/components/ChallengeBox.vue
+          src/components/ChallengeTabHeader.vue
+          src/components/CostDisplay.vue
+          src/components/EffectDisplay.vue
+          src/components/InfinityUpgradeButton.vue
+          src/components/tabs/normal-achievements/NormalAchievement.vue
+          src/components/tabs/normal-achievements/NormalAchievementsTab.vue
+          src/components/tabs/secret-achievements/SecretAchievement.vue
+          src/components/tabs/secret-achievements/SecretAchievementTab.vue
+          src/components/tabs/normal-challenges/NormalChallengeBox.vue
+          src/components/tabs/normal-challenges/NormalChallengesTab.vue
+          src/components/tabs/infinity-challenges/InfinityChallengeBox.vue
+          src/components/tabs/infinity-challenges/InfinityChallengesTab.vue
+          src/components/tabs/infinity-upgrades/InfinityUpgradesTab.vue
+          src/components/tabs/infinity-upgrades/IpMultiplierButton.vue
+          src/components/tabs/break-infinity/BreakInfinityButton.vue
+          src/components/tabs/break-infinity/BreakInfinityTab.vue
       - name: Build full game
         run: npm run build:master

@@ -127,20 +127,36 @@ export default {
         :class="disChargeClassObject"
         @click="disCharge = !disCharge"
       >
-        Respec Charged Infinity Upgrades on next Reality
+        {{ Localization.text(
+          "Respec Charged Infinity Upgrades on next Reality",
+          "次のRealityでCharged Infinity Upgradeを振り直す"
+        ) }}
       </PrimaryButton>
     </div>
     <div v-if="chargeUnlocked">
-      You have charged {{ formatInt(chargesUsed) }}/{{ formatInt(totalCharges) }} Infinity Upgrades.
-      Charged Infinity Upgrades have their effect altered.
+      {{ Localization.text("You have charged", "Charged化済み:") }}
+      {{ formatInt(chargesUsed) }}/{{ formatInt(totalCharges) }} Infinity Upgrade。
+      {{ Localization.text(
+        "Charged Infinity Upgrades have their effect altered.",
+        "Charged Infinity Upgradeは効果内容が変化します。"
+      ) }}
       <br>
-      Hold shift to show Charged Infinity Upgrades. You can freely respec your choices on Reality.
+      {{ Localization.text(
+        "Hold shift to show Charged Infinity Upgrades. You can freely respec your choices on Reality.",
+        "Shiftを押すとCharged版を確認できます。Reality時に自由に振り直せます。"
+      ) }}
     </div>
     <div v-if="isUseless">
-      You cannot Charge Infinity Upgrades while Doomed.
+      {{ Localization.text(
+        "You cannot Charge Infinity Upgrades while Doomed.",
+        "Doomed中はInfinity UpgradeをChargeできません。"
+      ) }}
     </div>
     <br>
-    Within each column, the upgrades must be purchased from top to bottom.
+    {{ Localization.text(
+      "Within each column, the upgrades must be purchased from top to bottom.",
+      "各列のアップグレードは上から順番に購入する必要があります。"
+    ) }}
     <br>
     <div class="l-infinity-upgrade-grid l-infinity-upgrades-tab__grid">
       <div
@@ -171,10 +187,11 @@ export default {
       />
     </div>
     <div v-if="eternityUnlocked && bottomRowUnlocked">
-      The Infinity Point multiplier becomes more expensive
-      <br>
-      above {{ formatPostBreak(ipMultSoftCap) }} Infinity Points, and cannot be purchased past
-      {{ formatPostBreak(ipMultHardCap) }} Infinity Points.
+      {{ Localization.text("The Infinity Point multiplier becomes more expensive above", "Infinity Point倍率アップグレードは") }}
+      {{ formatPostBreak(ipMultSoftCap) }} Infinity Point
+      {{ Localization.text("and cannot be purchased past", "を超えると高額になり、") }}
+      {{ formatPostBreak(ipMultHardCap) }} Infinity Point
+      {{ Localization.text("Infinity Points.", "を超えると購入できません。") }}
     </div>
   </div>
 </template>

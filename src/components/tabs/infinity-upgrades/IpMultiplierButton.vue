@@ -48,19 +48,19 @@ export default {
     >
       <template v-if="isCapped">
         <br>
-        <span>(Capped at {{ quantify("Infinity Point", upgrade.config.costCap) }})</span>
+        <span>({{ Localization.text("Capped at", "上限") }} {{ quantify("Infinity Point", upgrade.config.costCap) }})</span>
       </template>
     </InfinityUpgradeButton>
     <PrimaryButton
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
       @click="buyMaxIPMult()"
     >
-      Max Infinity Point mult
+      {{ Localization.text("Max Infinity Point mult", "Infinity Point倍率を最大購入") }}
     </PrimaryButton>
     <PrimaryToggleButton
       v-if="isAutoUnlocked"
       v-model="isAutobuyerActive"
-      label="Autobuy IP mult"
+      :label="Localization.text('Autobuy IP mult', 'IP倍率を自動購入')"
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
     />
   </div>
