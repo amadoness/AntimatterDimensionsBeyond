@@ -30,20 +30,37 @@ export default {
     },
     respecTooltip() {
       const reset = Pelle.isDoomed ? "Armageddon" : "Reality";
+      if (Localization.isJapanese) {
+        return this.respec
+          ? `${reset}後、現在装備中のGlyphをインベントリへ戻します。`
+          : `${reset}後も現在のGlyphを装備したままにします。`;
+      }
       return this.respec
-        ? `Respec is active and will place your currently - equipped Glyphs into your inventory after ${reset}.`
+        ? `Respec is active and will place your currently-equipped Glyphs into your inventory after ${reset}.`
         : `Your currently-equipped Glyphs will stay equipped on ${reset}.`;
     },
     undoTooltip() {
-      if (!this.undoSlotsAvailable) return "You do not have available inventory space to unequip Glyphs to";
+      if (!this.undoSlotsAvailable) {
+        return Localization.text(
+          "You do not have available inventory space to unequip Glyphs to",
+          "Glyphを戻す空きインベントリがありません"
+        );
+      }
       return this.undoAvailable
-        ? ("Unequip the last equipped Glyph and rewind Reality to when you equipped it." +
-          " (Most resources will be fully reset)")
-        : "Undo is only available for Glyphs equipped during this Reality";
+        ? Localization.text(
+          "Unequip the last equipped Glyph and rewind Reality to when you equipped it. (Most resources will be fully reset)",
+          "最後に装備したGlyphを外し、装備した時点までRealityを巻き戻します（多くの資源はリセットされます）"
+        )
+        : Localization.text(
+          "Undo is only available for Glyphs equipped during this Reality",
+          "UndoはこのReality中に装備したGlyphにのみ使えます"
+        );
     },
     unequipText() {
-      if (Pelle.isDoomed) return "Unequip Glyphs on Armageddon";
-      return "Unequip Glyphs on Reality";
+      if (Pelle.isDoomed) {
+        return Localization.text("Unequip Glyphs on Armageddon", "Armageddon時にGlyphを外す");
+      }
+      return Localization.text("Unequip Glyphs on Reality", "Reality時にGlyphを外す");
     },
     isDoomed() {
       return Pelle.isDoomed;
@@ -137,7 +154,7 @@ export default {
       // If there aren't any glyphs equipped, the array is full of nulls which get filtered out by x => x
       if (this.glyphs.filter(x => x).length === 0) return;
       Modal.glyphShowcasePanel.show({
-        name: "Equipped Glyphs",
+        name: Localization.text("Equipped Glyphs", "装備中のGlyph"),
         glyphSet: this.glyphs,
         closeEvent: GAME_EVENT.GLYPHS_EQUIPPED_CHANGED,
       });
@@ -204,23 +221,25 @@ export default {
         :ach-tooltip="undoTooltip"
         @click="undo"
       >
-        <span>Rewind to <b>undo</b> the last equipped Glyph</span>
+        <span>{{ Localization.text("Rewind to undo the last equipped Glyph", "最後に装備したGlyphをUndoで巻き戻す") }}</span>
       </button>
       <button
         class="l-glyph-equip-button c-reality-upgrade-btn"
         @click="toggleRespecIntoProtected"
       >
-        Unequip Glyphs to:
+        {{ Localization.text("Unequip Glyphs to:", "Glyphの戻し先:") }}
         <br>
-        <span v-if="respecIntoProtected">Protected slots</span>
-        <span v-else>Main inventory</span>
+        <span v-if="respecIntoProtected">
+          {{ Localization.text("Protected slots", "保護スロット") }}
+        </span>
+        <span v-else>{{ Localization.text("Main inventory", "通常インベントリ") }}</span>
       </button>
       <button
         class="l-glyph-equip-button-short c-reality-upgrade-btn"
         :class="{'tutorial--glow': cosmeticGlow}"
         @click="showOptionModal"
       >
-        Open Glyph Visual Options
+        {{ Localization.text("Open Glyph Visual Options", "Glyph表示設定を開く") }}
       </button>
     </div>
   </div>
