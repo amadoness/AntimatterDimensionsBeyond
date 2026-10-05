@@ -24,8 +24,8 @@ export default {
       this.hasMoreCosmetics = GlyphAppearanceHandler.lockedSets.length > 0;
       this.selectedSetName = GlyphAppearanceHandler.chosenFromModal?.name ?? "None (will choose randomly)";
     },
-    startNewGame() {
-      NG.startNewGame();
+    continueBeyond() {
+      NG.continueBeyond();
     },
     openSelectionModal() {
       Modal.cosmeticSetChoice.show();
@@ -40,16 +40,19 @@ export default {
     :style="style"
   >
     <h2>
-      Reset the entire game, but keep Automator Scripts, Study Presets, Secret Themes, Secret Achievements, Options,
-      and Companion Glyph.
+      You have reached the end of Antimatter Dimensions.
     </h2>
-    <h3>You can use the button in the top-right to view the game as it is right now.</h3>
+    <h3>
+      Continue beyond the ending without resetting. Your completed Pelle state, resources, upgrades, and progress
+      will be preserved.
+    </h3>
+    <h3>You can use the button in the top-right to view the completed game before continuing.</h3>
     <div class="c-new-game-button-container">
       <button
         class="c-new-game-button"
-        @click="startNewGame"
+        @click="continueBeyond"
       >
-        Start over?
+        Continue Beyond
       </button>
     </div>
     <br>
@@ -72,7 +75,7 @@ export default {
     </h3>
     <br>
     <h3>
-      You can also import "speedrun" to start the game again with additional tracking for speedrunning purposes.
+      Beyond v0.1 preserves the original completed game state. New postgame progression will begin after this point.
     </h3>
   </div>
 </template>
