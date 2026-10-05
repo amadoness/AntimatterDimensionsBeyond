@@ -1,0 +1,33 @@
+name: Japanese Localization CI
+
+on:
+  push:
+    branches:
+      - japanese-v0.1
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  verify:
+    name: Verify Japanese localization
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "14"
+          cache: "npm"
+      - run: npm ci
+      - name: Lint changed JavaScript and Vue files
+        shell: bash
+        run: |
+          FILES=$(git diff --name-only origin/master...HEAD -- '*.js' '*.vue' | tr '\n' ' ')
+          if [ -n "$FILES" ]; then
+            npx eslint $FILES
+          fi
+      - name: Build full game
+        run: npm run build:master
