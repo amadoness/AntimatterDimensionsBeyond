@@ -16,6 +16,8 @@ export const END_STATE_MARKERS = {
 
 export const GameEnd = {
   get endState() {
+    // Beyond continues from the completed Pelle state instead of starting the ending loop again.
+    if (player.beyond?.unlocked) return 0;
     if (this.removeAdditionalEnd) return this.additionalEnd;
     return Math.max((Math.log10(player.celestials.pelle.records.totalAntimatter.plus(1).log10() + 1) - 8.7) /
       (Math.log10(9e15) - 8.7) + this.additionalEnd, 0);
